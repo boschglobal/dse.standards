@@ -19,7 +19,7 @@ __Contents__
 
 ## 1. Introduction
 
-> **Note:** This layered standard applies on the Modelica FMI 2 Standard _only_.
+> **Note:** This layered standard proposal applies on the Modelica FMI 2 Standard _only_.
 
 
 ### 1.1 Intent of this Document
