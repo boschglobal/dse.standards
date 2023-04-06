@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2023 Robert Bosch GmbH
 SPDX-License-Identifier: Apache-2.0
 -->
 
-# FMI Layered Standard Binary Codec Selection
+# Proposal for FMI Layered Standard Binary Codec Selection
 
 
 __Contents__
