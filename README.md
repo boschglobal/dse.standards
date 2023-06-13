@@ -9,24 +9,22 @@ SPDX-License-Identifier: Apache-2.0
 
 ## Introduction
 
-Standards contributions supporting the Dynamic Simulation Environment (DSE) Core Platform.
+Standards extensions (adaptations) supporting the Dynamic Simulation Environment (DSE) Core Platform.
 
 ```
-L- modelica     Contributions relating to the [Modelica Association Standards](https://github.com/modelica).
+L- modelica     Adaptations relating to the [Modelica Association Standards](https://github.com/modelica).
 L- doc          Documentation and image source.
 ```
 
 
 ## Standards
 
-### Proposal for Modelica FMI Layered Standards
+### Modelica FMI Layered Standards
 
-The following tentative FMI Layered Standards are in the "proposal" stage.
+* **FMI Layered Standard for Binary Strings** (**[fmi-ls-binary-string](modelica/fmi-ls-binary-string/README.md)**)\
+  Mechanism for supporting Binary Strings (with embedded NULL characters) in an FMI 2 String. Additional optional support for sharing the buffer which contains the Binary String between the Importer (Master) and Exporter (FMU).
 
-* proposed **FMI Layered Standard for Binary Strings** (**[fmi-ls-binary-string](modelica/fmi-ls-binary-string/README.md)**)\
-  Mechanism for supporting Binary Strings (with embedded NULL characters) in an FMI 2 String.
-
-* proposed **FMI Layered Standard for Binary Codecs** (**[fmi-ls-binary-codec](modelica/fmi-ls-binary-codec/README.md)**)\
+* **FMI Layered Standard for Binary Codecs** (**[fmi-ls-binary-codec](modelica/fmi-ls-binary-codec/README.md)**)\
   Method for the selection of an FMI Binary Variable Codec at runtime using either; the Binary Variable `mimeType` field (immutable), or an associated FMI String Variable which contains the MIME Type specifier of that FMI Binary Variable (mutable).
 
 ## Contribute
