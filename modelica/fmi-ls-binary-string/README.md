@@ -40,15 +40,17 @@ The general approach is as follows:
 2. Both the FMU Importer and Exporter consider the value assigned to an `fmi2String` variable, which represents a binary string, as a void pointer (i.e. casting to a void pointer from the char pointer type of `fmi2String`). The _length_ of the binary string is maintained in the associated `fmi2Integer` variable.
 
 3. Both the FMU Importer and Exporter may optionally share the buffer assigned to an `fmi2String` variable by exchanging the _size_ of the binary string in an associated `fmi2Integer` variable. In such a usage pattern, calling `fmi2SetString` implicitly gives ownership of the shared buffer to the Exporter (FMU), and calling `fmi2GetString` implicitly returns ownership of the shared buffer to the Importer (Master). Important behavioral aspects are as follows:
+    * The variable exchanged via `fmi2GetString` and `fmi2SetString` **represents a pointer to the buffer being shared** (i.e. it should be cast as `void**`).
     * When either the Importer or Exporter has implicit ownership of the shared buffer they may reallocate or resize the buffer. The new address and size of the buffer should be reflected in the relevant variables.
     * When either the Importer or Exporter __does not have__ implicit ownership of the shared buffer, they __may not__ read, write or modify __any__ of the variables associated with a binary string - these should be considered as volatile and may change at anytime (especially in the case of buffer reallocation).
+    * The Exporter (FMU) is responsible for the lifecycle of the variable. This means that it first allocates the variable (if necessary), which represents a pointer to the shared buffer (i.e. `value = calloc(1, sizeof(void*))`), and sets this variable to `NULL`. The buffer itself may be subsequently allocated based on the related size variable, in which case this variable would be set to the address of that allocated buffer. Then, as the FMU terminates, it (the FMU) frees the buffer (the memory location pointed to by this variable) as well as the variable itself (if necessary).
 
 
 ### 1.3 Remarks regarding this Approach
 
 This layered standard applies on the Modelica FMI 2 Standard _only_.
 
-The Modelica FMI 3 Standard introduces support for binary strings via the `fmi3Binary` type (and an associated variable holding the length of the `fmi3Binary` variable). There is no support for shared buffers in the FMI 3 Standard.
+The Modelica FMI 3 Standard introduces support for binary strings via the `fmi3Binary` type. There is no support for shared buffers in the FMI 3 Standard.
 
 
 
@@ -63,10 +65,8 @@ This layered standard defines additional capability flags:
 | Attribute   | Description |
 | ----------- | ----------- |
 | version | Version of this layered standard which the FMU implements. |
-| supportsBinaryStringLengthValueReference | Indicates that a Binary String may be created by annotating a String variable with the _Value Reference (VR)_ of an associated Integer variable. |
-| supportsBinaryStringLengthNamedReference | Indicates that a Binary String may be created by annotating a String variable with the _Name_ of an associated Integer variable. |
-| supportsBinaryStringSizeValueReference | Indicates that the buffer containing a Binary String may be shared between the Importer and Exporter by annotating a String variable with the _Value Reference (VR)_ of an associated Integer variable. |
-| supportsBinaryStringSizeNamedReference | Indicates that the buffer containing a Binary String may be shared between the Importer and Exporter by annotating a String variable with the _Name_ of an associated Integer variable. |
+| supportsBinaryString | Indicates that a Binary String may be created by annotating a String variable with either the _length.vref_ or _length.vname_ of an associated Integer variable. That referenced variable should hold the length of the binary string. |
+| supportsSharedBinaryString | Indicates that a Binary String may be shared between the Importer and Exporter. The variable itself will contain a pointer to the shared buffer being used for the binary string. The size of the buffer is maintained in the Integer variable referenced by either _size.vref_ or _size.vname_ annotations. |
 
 
 The manifest schema may be found here: [schema/fmi-ls-binary-string.xsd](schema/fmi-ls-binary-string.xsd)
@@ -84,16 +84,16 @@ A binary string is created by adding one of these annotations to a String variab
 
 | Annotation   | Description |
 | ----------- | ----------- |
-| dse.standards.fmi-ls-binary-string-length.vref | The length of the binary string contained in this String variable is maintained in the Integer variable specified by the variable reference (vref). |
-| dse.standards.fmi-ls-binary-string-length.vname | The length of the binary string contained in this String variable is maintained in the Integer variable specified by the variable name (vname). |
+| length.vref | The length of the binary string contained in this String variable is maintained in the Integer variable specified by the variable reference (vref). |
+| length.vname | The length of the binary string contained in this String variable is maintained in the Integer variable specified by the variable name (vname). |
 
 
 Additionally, the buffer (or allocated memory) containing a binary string may be shared between the Importer and Exporter by adding one of the following annotations to a String variable. The annotation should reference a Integer variable.
 
 | Annotation   | Description |
 | ----------- | ----------- |
-| dse.standards.fmi-ls-binary-string-size.vref | The size of the buffer holding the binary string contained in this String variable is maintained in the Integer variable specified by the variable reference (vref). |
-| dse.standards.fmi-ls-binary-string-size.vname | The size of the buffer holding the binary string contained in this String variable is maintained in the Integer variable specified by the variable name (vname). |
+| size.vref | The size of the buffer holding the binary string contained in this String variable is maintained in the Integer variable specified by the variable reference (vref). |
+| size.vname | The size of the buffer holding the binary string contained in this String variable is maintained in the Integer variable specified by the variable name (vname). |
 
 
 ### 3.2 Examples
@@ -102,15 +102,17 @@ __Example Variable Annotations__
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
-<fmiModelDescription fmiVersion="3.0" modelName="Example">
+<fmiModelDescription fmiVersion="2.0" modelName="Example">
   <ModelVariables>
     <String name="binary-object" valueReference="1" causality="input"/>
-        <Annotations>
-            <Annotation type="dse.standards.fmi-ls-binary-string-length.vref">2<Annotation>
-            <Annotation type="dse.standards.fmi-ls-binary-string-length.vname">binary-length<Annotation>
-            <Annotation type="dse.standards.fmi-ls-binary-string-size.vref">3<Annotation>
-            <Annotation type="dse.standards.fmi-ls-binary-string-size.vname">binary-size<Annotation>
-        <Annotations>
+      <Annotations>
+        <Tool name="dse.standards.fmi-ls-binary-string">
+          <Annotation name="length.vref">2<Annotation>
+          <Annotation name="length.vname">binary-length<Annotation>
+          <Annotation name="size.vref">3<Annotation>
+          <Annotation name="size.vname">binary-size<Annotation>
+        </Tool>
+      <Annotations>
     </String>
     <Integer name="binary-length" valueReference="2" causality="input">
         <Start value="0" />

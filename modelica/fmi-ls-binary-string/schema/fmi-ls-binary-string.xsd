@@ -27,10 +27,8 @@ limitations under the License.
 	<xs:element name="fmi-ls-binary-string">
 		<xs:complexType>
 			<xs:attribute name="version" type="xs:normalizedString" use="required"/>
-			<xs:attribute name="supportsBinaryStringLengthValueReference" type="xs:boolean" default="true"/>
-			<xs:attribute name="supportsBinaryStringLengthNamedReference" type="xs:boolean" default="false"/>
-			<xs:attribute name="supportsBinaryStringSizeValueReference" type="xs:boolean" default="true"/>
-			<xs:attribute name="supportsBinaryStringSizeNamedReference" type="xs:boolean" default="false"/>
+			<xs:attribute name="supportsBinaryString" type="xs:boolean" default="true"/>
+			<xs:attribute name="supportsSharedBinaryString" type="xs:boolean" default="false"/>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>
