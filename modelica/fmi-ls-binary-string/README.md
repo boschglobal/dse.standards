@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2023 Robert Bosch GmbH
 SPDX-License-Identifier: Apache-2.0
 -->
 
-# FMI Layered Standard Binary String
+# FMI Layered Standard Binary String Backport
 
 
 __Contents__
@@ -24,37 +24,31 @@ __Contents__
 
 ### 1.1 Intent of this Document
 
-FMUs may exchange binary data which represents serialized data objects. These data objects may contain embedded null characters ('\0') which prevents them from being handled as a null-terminated string, where the length of the string is inferred by the position of the null character (at the end of the string). Therefore, a serialized data object needs to be represented by a binary string where the length of the binary string is stored in a separate variable. Additionally, to support reuse of the buffer containing binary data, a second variable may be used to store the size of the buffer which contains the binary data.
+FMUs may exchange binary data which represents serialized data objects. These data objects may contain embedded null characters ('\0') which prevents them from being handled as a null-terminated string; where the length of the string is inferred by the position of the null character (at the end of the string). Therefore, a serialized data object needs to be represented by a binary string where the length of the binary string is stored in a separate variable.
 
-This layered standard describes how a binary string may be realised with an `fmi2String` variable and associated `fmi2Integer` variables. The FMU Importer is thus able to represent serialized data objects with these combined variables.
+This layered standard backports the Modelica FMI 3 Binary API functions into the FMI 2 header collection. All behaviour of the backported Binary API functions follow the existing definition provided by the Modelica FMI 3 Standard (for Binary variables).
+
+Additionally, the mechanism for annotating an `fmi2String` variable, to indicate that the Binary API should be used to access that variable, is described.
 
 
 ### 1.2 Overview of the Approach
 
 The general approach is as follows:
 
-1. The FMU Exporter creates a binary string variable by associating an `fmi2String` variable with:
-    * A variable holding the _length_ of the binary string. Represented by an `fmi2Integer` variable, and associated by using an annotation on the `fmi2String` variable.
-    * (optional) A variable holding the _size_ of the buffer containing the binary string. Represented by an `fmi2Integer` variable, and associated by using an annotation on the `fmi2String` variable.
+1. The FMU Exporter implements the [Binary API](headers/fmi2Binary.h) (`fmi2GetBinary` and `fmi2SetBinary`).
 
-2. Both the FMU Importer and Exporter consider the value assigned to an `fmi2String` variable, which represents a binary string, as a void pointer (i.e. casting to a void pointer from the char pointer type of `fmi2String`). The _length_ of the binary string is maintained in the associated `fmi2Integer` variable.
+2. The FMU Exporter creates a binary string variable by annotating an `fmi2String` variable with the required annotation (see below).
 
-3. Both the FMU Importer and Exporter may optionally share the buffer assigned to an `fmi2String` variable by exchanging the _size_ of the binary string in an associated `fmi2Integer` variable. In such a usage pattern, calling `fmi2SetString` implicitly gives ownership of the shared buffer to the Exporter (FMU), and calling `fmi2GetString` implicitly returns ownership of the shared buffer to the Importer (Master). Important behavioral aspects are as follows:
-    * The variable exchanged via `fmi2GetString` and `fmi2SetString` **represents a pointer to the buffer being shared** (i.e. it should be cast as `void**`).
-    * When either the Importer or Exporter has implicit ownership of the shared buffer they may reallocate or resize the buffer. The new address and size of the buffer should be reflected in the relevant variables.
-    * When either the Importer or Exporter __does not have__ implicit ownership of the shared buffer, they __may not__ read, write or modify __any__ of the variables associated with a binary string - these should be considered as volatile and may change at anytime (especially in the case of buffer reallocation).
-    * The Exporter (FMU) is responsible for the lifecycle of the variable. This means that it first allocates the variable (if necessary), which represents a pointer to the shared buffer (i.e. `value = calloc(1, sizeof(void*))`), and sets this variable to `NULL`. The buffer itself may be subsequently allocated based on the related size variable, in which case this variable would be set to the address of that allocated buffer. Then, as the FMU terminates, it (the FMU) frees the buffer (the memory location pointed to by this variable) as well as the variable itself (if necessary).
+3. The FMU Importer, when identifying the specified annotation, uses the [Binary API](headers/fmi2Binary.h) to access the binary string.
 
 
 ### 1.3 Remarks regarding this Approach
 
 This layered standard applies on the Modelica FMI 2 Standard _only_.
 
-The Modelica FMI 3 Standard introduces support for binary strings via the `fmi3Binary` type. There is no support for shared buffers in the FMI 3 Standard.
-
-
 
 ---
+
 <a name="manifest"></a>
 
 ## 2. Layered Standard Manifest File
@@ -65,38 +59,33 @@ This layered standard defines additional capability flags:
 | Attribute   | Description |
 | ----------- | ----------- |
 | version | Version of this layered standard which the FMU implements. |
-| supportsBinaryString | Indicates that a Binary String may be created by annotating a String variable with either the _length.vref_ or _length.vname_ of an associated Integer variable. That referenced variable should hold the length of the binary string. |
-| supportsSharedBinaryString | Indicates that a Binary String may be shared between the Importer and Exporter. The variable itself will contain a pointer to the shared buffer being used for the binary string. The size of the buffer is maintained in the Integer variable referenced by either _size.vref_ or _size.vname_ annotations. |
+| supportsBinaryString | Indicates that the headers/fmi2Binary.h (`fmi2GetBinary` and `fmi2SetBinary`) is supported and should be used for annotated String variables. |
 
 
 The manifest schema may be found here: [schema/fmi-ls-binary-string.xsd](schema/fmi-ls-binary-string.xsd)
 
 
-
 ---
+
 <a name="binary_string"></a>
 
 ## 3. FMU with Binary Strings
 
-### 3.1 Configuration
+### 3.1 Binary API
 
-A binary string is created by adding one of these annotations to a String variable. The annotation should reference a Integer variable.
-
-| Annotation   | Description |
-| ----------- | ----------- |
-| length.vref | The length of the binary string contained in this String variable is maintained in the Integer variable specified by the variable reference (vref). |
-| length.vname | The length of the binary string contained in this String variable is maintained in the Integer variable specified by the variable name (vname). |
+The Binary API is defined in this header file: [headers/fmi2Binary.h](headers/fmi2Binary.h). It can be placed alongside the existing FMI 2 header files. The API is derived from the FMI 3 header files where the Binary API was originally defined.
 
 
-Additionally, the buffer (or allocated memory) containing a binary string may be shared between the Importer and Exporter by adding one of the following annotations to a String variable. The annotation should reference a Integer variable.
+### 3.2 Configuration
+
+A binary string is created by adding the following annotation to an existing String variable (under the tool `dse.standards.fmi-ls-binary-string`).
 
 | Annotation   | Description |
 | ----------- | ----------- |
-| size.vref | The size of the buffer holding the binary string contained in this String variable is maintained in the Integer variable specified by the variable reference (vref). |
-| size.vname | The size of the buffer holding the binary string contained in this String variable is maintained in the Integer variable specified by the variable name (vname). |
+| `binary` | The presence of this annotation on a String variable indicated that the [Binary API](headers/fmi2Binary.h) should be used. |
 
 
-### 3.2 Examples
+### 3.3 Examples
 
 __Example Variable Annotations__
 
@@ -107,26 +96,23 @@ __Example Variable Annotations__
     <String name="binary-object" valueReference="1" causality="input"/>
       <Annotations>
         <Tool name="dse.standards.fmi-ls-binary-string">
-          <Annotation name="length.vref">2<Annotation>
-          <Annotation name="length.vname">binary-length<Annotation>
-          <Annotation name="size.vref">3<Annotation>
-          <Annotation name="size.vname">binary-size<Annotation>
+          <Annotation name="binary"><Annotation>
         </Tool>
       <Annotations>
     </String>
-    <Integer name="binary-length" valueReference="2" causality="input">
-        <Start value="0" />
-    </Integer>
-    <Integer name="binary-size" valueReference="3" causality="input">
-        <Start value="0" />
-    </Integer>
+    <String name="binary-object" valueReference="2" causality="output"/>
+      <Annotations>
+        <Tool name="dse.standards.fmi-ls-binary-string">
+          <Annotation name="binary"><Annotation>
+        </Tool>
+      <Annotations>
+    </String>
   </ModelVariables>
 ```
 
-> Note: In the above example a causality of `input` is selected even though the data exchange is bidirectional. There is no appropriate causality in the FMI Standards for the usage pattern shown in this example (i.e. using a shared buffer between the Importer and Exporter for binary data).
+> Note: In the above example a single binary object is presented by two String variables, one with causality of `input` and the other with causality of `output`. This enables a bidirectional buffer.
 
 
----
 <a name="limitations"></a>
 
 ## 4. Known Limitations of this Standard
@@ -134,8 +120,3 @@ __Example Variable Annotations__
 ### 4.1 Compatibility with FMI 2 Standard Only
 
 This layered standard applies on the Modelica FMI 2 Standard _only_.
-
-
-### 4.2 Indication of causality when sharing a buffer between Importer and Exporter
-
-Causality cannot be defined for this case, where a variable is both input and output. The selection of `input` is seen as the best choice. Implementers of this layered standard can ignore the causality when sharing a buffer as the operation as described in this layered standard is already sufficiently specialized.
