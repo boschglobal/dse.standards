@@ -78,11 +78,12 @@ The Binary API is defined in this header file: [headers/fmi2Binary.h](headers/fm
 
 ### 3.2 Configuration
 
-A binary string is created by adding the following annotation to an existing String variable (under the tool `dse.standards.fmi-ls-binary-string`).
+A binary string is created by adding the following annotations to an existing String variable (under the tool `dse.standards.fmi-ls-binary-string`).
 
 | Annotation   | Description |
 | ----------- | ----------- |
 | `binary` | The presence of this annotation on a String variable indicated that the [Binary API](headers/fmi2Binary.h) should be used. |
+| `mimetype` | The MIMEtype which describes the content of this binary string. |
 
 
 ### 3.3 Examples
@@ -97,6 +98,7 @@ __Example Variable Annotations__
       <Annotations>
         <Tool name="dse.standards.fmi-ls-binary-string">
           <Annotation name="binary"><Annotation>
+          <Annotation name="mimetype">text/plain<Annotation>
         </Tool>
       <Annotations>
     </String>
@@ -104,6 +106,7 @@ __Example Variable Annotations__
       <Annotations>
         <Tool name="dse.standards.fmi-ls-binary-string">
           <Annotation name="binary"><Annotation>
+          <Annotation name="mimetype">text/plain<Annotation>
         </Tool>
       <Annotations>
     </String>
