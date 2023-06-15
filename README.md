@@ -22,7 +22,7 @@ L- doc          Documentation and image source.
 ### Modelica FMI Layered Standards
 
 * **FMI Layered Standard for Binary Strings** (**[fmi-ls-binary-string](modelica/fmi-ls-binary-string/README.md)**)\
-  Mechanism for supporting Binary Strings (with embedded NULL characters) in an FMI 2 String. Additional optional support for sharing the buffer which contains the Binary String between the Importer (Master) and Exporter (FMU).
+  Backport of FMI 3 Binary API to FMI 2. Annotation method for FMI 2 Strings to indicate that the Binary API should be used. 
 
 * **FMI Layered Standard for Binary Codecs** (**[fmi-ls-binary-codec](modelica/fmi-ls-binary-codec/README.md)**)\
   Method for the selection of an FMI Binary Variable Codec at runtime using either; the Binary Variable `mimeType` field (immutable), or an associated FMI String Variable which contains the MIME Type specifier of that FMI Binary Variable (mutable).
