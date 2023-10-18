@@ -7,8 +7,6 @@
 DSE_CDOCGEN_IMAGE ?= dse-cdocgen:latest
 DSE_PLANTUML_IMAGE ?= dse-plantuml:latest
 
-PLANTUML_JAR := /usr/local/bin/plantuml-asl.jar
-
 
 ###############
 ## Document Modules
@@ -42,10 +40,10 @@ $(DOC_C_MODULES):
 			--cdir $$(dirname $(DOC_INPUT_$@)) \
 			--title $(DOC_TITLE_$@) \
 			--linktitle $(DOC_LINKTITLE_$@)
-	@cd ..; docker run -it --rm \
+	@cd ../$$(dirname $(DOC_OUTPUT_$@)); docker run -it --rm \
 		--volume $$(pwd):/tmp/repo \
 		--workdir /tmp/repo \
 		$(DSE_PLANTUML_IMAGE) \
-		cd $$(dirname $(DOC_OUTPUT_$@)); java -jar $(PLANTUML_JAR) -tpng  $$(basename $(DOC_OUTPUT_$@))
+			-tpng  $$(basename $(DOC_OUTPUT_$@))
 .PHONY: generate
 generate: examples $(DOC_C_MODULES)
