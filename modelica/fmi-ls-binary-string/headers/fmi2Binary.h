@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-#ifndef fmi2Binary_h
-#define fmi2Binary_h
+#ifndef MODELICA_FMI_LS_BINARY_STRING_HEADERS_FMI2BINARY_H_
+#define MODELICA_FMI_LS_BINARY_STRING_HEADERS_FMI2BINARY_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,4 +32,4 @@ typedef fmi2Status fmi2SetBinaryTYPE(fmi2Component c,
 } /* end of extern "C" { */
 #endif
 
-#endif /* fmi2Binary_h */
+#endif // MODELICA_FMI_LS_BINARY_STRING_HEADERS_FMI2BINARY_H_

@@ -24,14 +24,14 @@ __Contents__
 
 FMUs may contain models (and functions) which exchange data and state as serialized binary objects. Those binary objects may be represented, and communicated, by an FMU using a Binary variable with an associated MIME type. The MIME type will be implemented by a coder/decoder (codec) and encapsulated in to a driver. The driver makes it possible for a model function to interact with its internal representation of a binary object _without_ prior knowledge of the codec (or MIME type) being used to exchange those binary objects with other models in a simulation.
 
-This layered standard describes how that codec (driver) can be selected at run-time, as well as outlining how an FMU Exporter may enable an FMU Importer (or another 3rd party) to implement their own codec. The FMU Importer is thus able to affect the MIME type used by an FMU for exchanging binary objects by selecting a particular codec, using the technique of dependency injection.
+This layered standard describes how that codec (driver) can be selected at runtime, as well as outlining how an FMU Exporter may enable an FMU Importer (or another third-party) to implement their own codec. The FMU Importer is thus able to affect the MIME type used by an FMU for exchanging binary objects by selecting a particular codec, using the technique of dependency injection.
 
 
 ### 1.2 Overview of the Approach
 
 The general approach is as follows:
 
-1. The FMU Exporter produces an API which allows a 3rd party to implement a driver containing a particular codec (or several codecs). That API may include a subset of FMI functions (e.g. `fmi3GetBinary()`).
+1. The FMU Exporter produces an API which allows a third-party to implement a driver containing a particular codec (or several codecs). That API may include a subset of FMI functions (e.g. `fmi3GetBinary()`).
 
 2. An Integrator implements a driver, containing a specific codec (or several codecs), using the API provided by the FMU Exporter. The codec driver is packaged into the FMU at the appropriate location.
 
@@ -130,9 +130,9 @@ If an FMU is delivered with source code then it is suggested to also deliver the
 
 ## 4. FMU with Binary Codec Selection
 
-An FMU may use parameters encoded in the MIME type to select and load a particular codec to be used for a binary object variable of that FMU. The codec may be provided by the FMU Importer or some other 3rd party.
+An FMU may use parameters encoded in the MIME type to select and load a particular codec to be used for a binary object variable of that FMU. The codec may be provided by the FMU Importer or some other third-party.
 
-This method allows the codec/schema of a binary object to be selected at run-time.
+This method allows the codec/schema of a binary object to be selected at runtime.
 
 _Figure 1 shows the principle of Binary Codec Selection._
 
@@ -148,7 +148,7 @@ A codec is selected by configuring the related MIME type parameters of the binar
 
 | Parameter   | Description |
 | ----------- | ----------- |
-| codec | The file name of the codec driver to be used by the FMU, without extension or lib prefix. |
+| codec | The filename of the codec driver to be used by the FMU, without extension or lib prefix. |
 | codec[-param] | Additional parameters required by the codec (optional). |
 
 
