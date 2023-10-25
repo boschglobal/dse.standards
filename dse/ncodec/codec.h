@@ -179,17 +179,17 @@ typedef struct NCodecInstance {
 DLL_PUBLIC NCodecCreate ncodec_create;
 
 /* Implemented by integrator. */
-DLL_PRIVATE int     ncodec_load(const char* filename, const char* hint);
-DLL_PRIVATE NCODEC* ncodec_open(
+DLL_PUBLIC int     ncodec_load(const char* filename, const char* hint);
+DLL_PUBLIC NCODEC* ncodec_open(
     const char* mime_type, NCodecStreamVTable* stream);
 
 /* Provided by codec.c (in this package). */
-DLL_PRIVATE void             ncodec_config(NCODEC* nc, NCodecConfigItem item);
-DLL_PRIVATE NCodecConfigItem ncodec_stat(NCODEC* nc, int* index);
-DLL_PRIVATE int              ncodec_write(NCODEC* nc, NCodecMessage* msg);
-DLL_PRIVATE int              ncodec_read(NCODEC* nc, NCodecMessage* msg);
-DLL_PRIVATE int              ncodec_flush(NCODEC* nc);
-DLL_PRIVATE void             ncodec_close(NCODEC* nc);
+DLL_PUBLIC void             ncodec_config(NCODEC* nc, NCodecConfigItem item);
+DLL_PUBLIC NCodecConfigItem ncodec_stat(NCODEC* nc, int* index);
+DLL_PUBLIC int              ncodec_write(NCODEC* nc, NCodecMessage* msg);
+DLL_PUBLIC int              ncodec_read(NCODEC* nc, NCodecMessage* msg);
+DLL_PUBLIC int              ncodec_flush(NCODEC* nc);
+DLL_PUBLIC void             ncodec_close(NCODEC* nc);
 
 
 #endif  // DSE_NCODEC_CODEC_H_

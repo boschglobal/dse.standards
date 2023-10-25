@@ -43,7 +43,7 @@ set(FLATCC_SOURCE_FILES
 # Targets
 # =======
 add_library(automotive-bus-codec
-    SHARED
+    STATIC
         codec.c
         frame_can_fbs.c
         ${FLATCC_SOURCE_FILES}

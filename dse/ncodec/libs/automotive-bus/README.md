@@ -54,8 +54,8 @@ $ git clone https://github.com/boschglobal/dse.standards.git
 $ cd dse.standards/dse/ncodec/libs/automotive-bus
 $ make
 ...
-$ ls build/*.so
-build/libautomotive-bus-codec.so*
+$ ls build/*.a
+build/libautomotive-bus-codec.a*
 
 # Testing
 $ make test
