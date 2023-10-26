@@ -117,6 +117,9 @@ static void get_vector_from_message(NCODEC* nc)
     _nc->vector_idx = 0;
     _nc->vector_len = 0;
 
+    /* Guard conditions. */
+    if (_nc->msg_ptr == NULL) return;
+
     /* Decode the vector of frames. */
     ns(Stream_table_t) stream = ns(Stream_as_root(_nc->msg_ptr));
     _nc->vector = ns(Stream_frames(stream));
@@ -130,6 +133,10 @@ int can_read(NCODEC* nc, NCodecMessage* msg)
     if (_nc == NULL) return -ENOSTR;
     if (msg == NULL) return -EINVAL;
     if (_nc->c.stream == NULL) return -ENOSR;
+
+    /* Reset the message, in case caller ignores the return value. */
+    msg->len = 0;
+    msg->buffer = NULL;
 
     /* Process the stream/frames. */
     if (_nc->msg_ptr == NULL) get_msg_from_stream(nc);

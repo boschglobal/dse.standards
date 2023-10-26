@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #include <automotive-bus/tests/testing.h>
+#include <errno.h>
 #include <stdio.h>
 #include <dse/ncodec/codec.h>
 #include <automotive-bus/codec.h>
@@ -124,6 +125,21 @@ void test_can_fbs_flush(void** state)
 
     rc = ncodec_flush(nc);
     assert_int_equal(rc, 0);
+}
+
+
+void test_can_fbs_read_nomsg(void** state)
+{
+    Mock*   mock = *state;
+    NCODEC* nc = mock->nc;
+    int     rc;
+
+    stream_seek(nc, 0, NCODEC_SEEK_RESET);
+    NCodecMessage msg = {};
+    size_t len = ncodec_read(nc, &msg);
+    assert_int_equal(len, -ENOMSG);
+    assert_int_equal(msg.len, 0);
+    assert_null(msg.buffer);
 }
 
 
@@ -302,6 +318,7 @@ int run_can_fbs_tests(void)
         cmocka_unit_test_setup_teardown(test_can_fbs_no_stream, s, t),
         cmocka_unit_test_setup_teardown(test_can_fbs_no_buffer, s, t),
         cmocka_unit_test_setup_teardown(test_can_fbs_flush, s, t),
+        cmocka_unit_test_setup_teardown(test_can_fbs_read_nomsg, s, t),
         cmocka_unit_test_setup_teardown(test_can_fbs_write, s, t),
         cmocka_unit_test_setup_teardown(test_can_fbs_readwrite, s, t),
         cmocka_unit_test_setup_teardown(test_can_fbs_readwrite_frames, s, t),
