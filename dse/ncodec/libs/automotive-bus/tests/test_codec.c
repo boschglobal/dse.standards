@@ -2,9 +2,9 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
+#include <testing.h>
 #include <stddef.h>
 #include <dse/ncodec/codec.h>
-#include <automotive-bus/tests/testing.h>
 #include <automotive-bus/codec.h>
 
 

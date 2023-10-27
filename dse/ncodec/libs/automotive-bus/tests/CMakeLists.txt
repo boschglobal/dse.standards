@@ -77,10 +77,6 @@ target_include_directories(test_codec
         ${SCHEMAS_SOURCE_DIR}
         ./
 )
-target_compile_definitions(test_codec
-    PUBLIC
-#        UNIT_TESTING   # Using valgrind instead.
-)
 target_link_libraries(test_codec
     PRIVATE
         cmocka
