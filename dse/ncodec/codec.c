@@ -168,7 +168,7 @@ nc (NCODEC*)
 
 msg (NCodecMessage*)
 : The message representation to write to the Network Codec. Caller owns the
-  message buffer/memory.
+  message buffer/memory. Message type is defined by the codec implementation.
 
 Returns
 -------
@@ -211,7 +211,8 @@ nc (NCODEC*)
 
 msg (NCodecMessage*)
 : (out) The message representation to write to the Network Codec. Caller owns
-  the message buffer/memory.
+  the message buffer/memory. Message type is defined by the codec
+implementation.
 
 Returns
 -------

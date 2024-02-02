@@ -50,9 +50,10 @@ static void finalize_stream(
 
 int can_write(NCODEC* nc, NCodecMessage* msg)
 {
-    ABCodecInstance* _nc = (ABCodecInstance*)nc;
+    ABCodecInstance*  _nc = (ABCodecInstance*)nc;
+    NCodecCanMessage* _msg = (NCodecCanMessage*)msg;
     if (_nc == NULL) return -ENOSTR;
-    if (msg == NULL) return -EINVAL;
+    if (_msg == NULL) return -EINVAL;
     if (_nc->c.stream == NULL) return -ENOSR;
 
     flatcc_builder_t* B = &_nc->fbs_builder;
@@ -61,10 +62,10 @@ int can_write(NCODEC* nc, NCodecMessage* msg)
     ns(Stream_frames_push_start(B));
     ns(CanFrame_start(B));
     /* Encode the message. */
-    ns(CanFrame_frame_id_add(B, msg->frame_id));
+    ns(CanFrame_frame_id_add(B, _msg->frame_id));
+    ns(CanFrame_frame_type_add(B, _msg->frame_type));
     ns(CanFrame_payload_add(
-        B, flatbuffers_uint8_vec_create(B, msg->buffer, msg->len)));
-    ns(CanFrame_frame_type_add(B, ns(FrameTypes_CanFrame)));
+        B, flatbuffers_uint8_vec_create(B, _msg->buffer, _msg->len)));
     /* Add additional metadata. */
     ns(CanFrame_bus_id_add(B, _nc->bus_id));
     ns(CanFrame_node_id_add(B, _nc->node_id));
@@ -73,7 +74,7 @@ int can_write(NCODEC* nc, NCodecMessage* msg)
     ns(Frame_f_CanFrame_add(B, ns(CanFrame_end(B))));
     ns(Stream_frames_push_end(B));
 
-    return msg->len;
+    return _msg->len;
 }
 
 
@@ -137,14 +138,16 @@ static void get_vector_from_message(NCODEC* nc)
 
 int can_read(NCODEC* nc, NCodecMessage* msg)
 {
-    ABCodecInstance* _nc = (ABCodecInstance*)nc;
+    ABCodecInstance*  _nc = (ABCodecInstance*)nc;
+    NCodecCanMessage* _msg = (NCodecCanMessage*)msg;
     if (_nc == NULL) return -ENOSTR;
-    if (msg == NULL) return -EINVAL;
+    if (_msg == NULL) return -EINVAL;
     if (_nc->c.stream == NULL) return -ENOSR;
 
     /* Reset the message, in case caller ignores the return value. */
-    msg->len = 0;
-    msg->buffer = NULL;
+    _msg->len = 0;
+    _msg->frame_type = CAN_BASE_FRAME;
+    _msg->buffer = NULL;
 
     /* Process the stream/frames. */
     if (_nc->msg_ptr == NULL) get_msg_from_stream(nc);
@@ -164,15 +167,16 @@ int can_read(NCODEC* nc, NCodecMessage* msg)
                 continue;
 
             /* Return the message. */
-            msg->frame_id = ns(CanFrame_frame_id(can_frame));
+            _msg->frame_id = ns(CanFrame_frame_id(can_frame));
+            _msg->frame_type = ns(CanFrame_frame_type(can_frame));
             flatbuffers_uint8_vec_t payload = ns(CanFrame_payload(can_frame));
-            msg->buffer =
+            _msg->buffer =
                 (uint8_t*)payload;  // TODO think about this cast ... caller
                                     // should not modify ... restrict?
-            msg->len = flatbuffers_uint8_vec_len(payload);
+            _msg->len = flatbuffers_uint8_vec_len(payload);
             /* ... but don't forget to save the vector index either. */
             _nc->vector_idx = _vi + 1;
-            return msg->len;
+            return _msg->len;
         }
 
         /* Next msg/vector? */

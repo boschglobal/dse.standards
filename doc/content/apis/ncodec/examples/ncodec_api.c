@@ -38,7 +38,8 @@ int main(int argc, char* argv[])
                           .name = "name", .value = "simple network codec" });
 
     /* Write a message to the Network Codec. */
-    ncodec_write(nc, &(struct NCodecMessage){ .frame_id = 42,
+    ncodec_write(nc, &(struct NCodecCanMessage){ .frame_id = 42,
+                         .frame_type = CAN_EXTENDED_FRAME,
                          .buffer = (uint8_t*)greeting,
                          .len = strlen(greeting) });
     ncodec_flush(nc);
@@ -47,7 +48,7 @@ int main(int argc, char* argv[])
     stream_seek(nc, 0, NCODEC_SEEK_SET);
 
     /* Read the response from the Network Codec. */
-    NCodecMessage msg = {};
+    NCodecCanMessage msg = {};
     rc = ncodec_read(nc, &msg);
     if (rc > 0) {
         printf("Message is: %s\n", (char*)msg.buffer);

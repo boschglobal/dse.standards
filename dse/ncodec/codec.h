@@ -56,9 +56,9 @@ title Network Codec
 package "Model Environment" {
     interface "Signal Interface" as Sif
     component "Model" as foo {
-    		component "Model" as Model
-    		interface "CodecVTable" as Cvt
-    		component "Codec" as Codec
+                component "Model" as Model
+                interface "CodecVTable" as Cvt
+                component "Codec" as Codec
         interface "StreamVTable" as Svt
     }
     component "Stream" as Stream
@@ -139,11 +139,7 @@ typedef struct NCodecConfigItem {
     const char* value;
 } NCodecConfigItem;
 
-typedef struct NCodecMessage {
-    uint32_t frame_id;
-    uint8_t* buffer;
-    size_t   len;
-} NCodecMessage;
+typedef void NCodecMessage; /* Generic message container. */
 
 
 typedef int     NCodecLoad(const char* filename, const char* hint);
@@ -177,6 +173,21 @@ typedef struct NCodecInstance {
 
 
 /** NCODEC API */
+
+typedef enum NCodecCanFrameType {
+    CAN_BASE_FRAME = 0,
+    CAN_EXTENDED_FRAME = 1,
+    CAN_FD_BASE_FRAME = 2,
+    CAN_FD_EXTENDED_FRAME = 3,
+} NCodecCanFrameType;
+
+typedef struct NCodecCanMessage {
+    uint32_t           frame_id;
+    uint8_t*           buffer;
+    size_t             len;
+    NCodecCanFrameType frame_type;
+} NCodecCanMessage;
+
 
 /* Implemented by Codec. */
 DLL_PUBLIC NCodecCreate ncodec_create;

@@ -25,7 +25,8 @@ extern int              can_read(NCODEC* nc, NCodecMessage* msg);
 extern int              can_flush(NCODEC* nc);
 extern int              stream_seek(NCODEC* nc, size_t pos, int op);
 extern size_t           stream_tell(NCODEC* nc);
-extern int stream_read(NCODEC* nc, uint8_t** data, size_t* len, int pos_op);
+extern int              stream_read(NCODEC* nc, uint8_t** data, size_t* len,
+                                    int pos_op);
 
 
 typedef struct Mock {
@@ -39,6 +40,7 @@ extern NCodecStreamVTable mem_stream;
     "application/x-automotive-bus; "                                           \
     "interface=stream;type=frame;bus=can;schema=fbs;"                          \
     "bus_id=1;node_id=2;interface_id=3"
+#define BUF_NODEID_OFFSET 53
 
 
 NCODEC* ncodec_open(const char* mime_type, NCodecStreamVTable* stream)
@@ -87,14 +89,14 @@ void test_can_fbs_no_stream(void** state)
     NCODEC* nc = (void*)ncodec_create(MIMETYPE);
     assert_non_null(nc);
 
-    rc = ncodec_write(nc, &(struct NCodecMessage){ .frame_id = 42,
+    rc = ncodec_write(nc, &(struct NCodecCanMessage){ .frame_id = 42,
                               .buffer = (uint8_t*)greeting,
                               .len = strlen(greeting) });
     assert_int_equal(rc, -ENOSR);
     rc = ncodec_flush(nc);
     assert_int_equal(rc, -ENOSR);
 
-    NCodecMessage msg = {};
+    NCodecCanMessage msg = {};
     rc = ncodec_read(nc, &msg);
     assert_int_equal(rc, -ENOSR);
     assert_null(msg.buffer);
@@ -139,7 +141,7 @@ void test_can_fbs_truncate(void** state)
 
     // Write to the stream.
     stream_seek(nc, 0, NCODEC_SEEK_RESET);
-    rc = ncodec_write(nc, &(struct NCodecMessage){ .frame_id = 42,
+    rc = ncodec_write(nc, &(struct NCodecCanMessage){ .frame_id = 42,
                               .buffer = (uint8_t*)greeting,
                               .len = strlen(greeting) });
     assert_int_equal(rc, strlen(greeting));
@@ -165,8 +167,8 @@ void test_can_fbs_read_nomsg(void** state)
     int     rc;
 
     stream_seek(nc, 0, NCODEC_SEEK_RESET);
-    NCodecMessage msg = {};
-    size_t len = ncodec_read(nc, &msg);
+    NCodecCanMessage msg = {};
+    size_t           len = ncodec_read(nc, &msg);
     assert_int_equal(len, -ENOMSG);
     assert_int_equal(msg.len, 0);
     assert_null(msg.buffer);
@@ -181,7 +183,7 @@ void test_can_fbs_write(void** state)
 
     const char* greeting = "Hello World";
 
-    rc = ncodec_write(nc, &(struct NCodecMessage){ .frame_id = 42,
+    rc = ncodec_write(nc, &(struct NCodecCanMessage){ .frame_id = 42,
                               .buffer = (uint8_t*)greeting,
                               .len = strlen(greeting) });
     assert_int_equal(rc, strlen(greeting));
@@ -208,7 +210,10 @@ void test_can_fbs_readwrite(void** state)
 
     // Write and flush a message.
     stream_seek(nc, 0, NCODEC_SEEK_RESET);
-    rc = ncodec_write(nc, &(struct NCodecMessage){ .frame_id = 42,
+    rc = ncodec_write(nc, &(struct NCodecCanMessage){ .frame_id = 42,
+
+                              .frame_type = 0,
+
                               .buffer = (uint8_t*)greeting,
                               .len = strlen(greeting) });
     assert_int_equal(rc, strlen(greeting));
@@ -221,14 +226,16 @@ void test_can_fbs_readwrite(void** state)
     uint8_t* buffer;
     size_t   buffer_len;
     stream_read(nc, &buffer, &buffer_len, NCODEC_POS_NC);
-    buffer[54] = 8;
-    // for (uint32_t i = 0; i< buffer_len;i+=8) printf("%02x %02x %02x %02x %02x
-    // %02x %02x %02x\n",
-    //     buffer[i+0], buffer[i+1], buffer[i+2], buffer[i+3],
-    //     buffer[i+4], buffer[i+5], buffer[i+6], buffer[i+7]);
+    buffer[BUF_NODEID_OFFSET] = 8;
+    if (0) {
+        for (uint32_t i = 0; i < buffer_len; i += 8)
+            printf("%02x %02x %02x %02x %02x %02x %02x %02x\n", buffer[i + 0],
+                buffer[i + 1], buffer[i + 2], buffer[i + 3], buffer[i + 4],
+                buffer[i + 5], buffer[i + 6], buffer[i + 7]);
+    }
 
     // Read the message back.
-    NCodecMessage msg = {};
+    NCodecCanMessage msg = {};
     len = ncodec_read(nc, &msg);
     assert_int_equal(len, strlen(greeting));
     assert_int_equal(msg.len, strlen(greeting));
@@ -248,11 +255,11 @@ void test_can_fbs_readwrite_frames(void** state)
 
     // Write and flush a message.
     stream_seek(nc, 0, NCODEC_SEEK_RESET);
-    rc = ncodec_write(nc, &(struct NCodecMessage){ .frame_id = 42,
+    rc = ncodec_write(nc, &(struct NCodecCanMessage){ .frame_id = 42,
                               .buffer = (uint8_t*)greeting1,
                               .len = strlen(greeting1) });
     assert_int_equal(rc, strlen(greeting1));
-    rc = ncodec_write(nc, &(struct NCodecMessage){ .frame_id = 42,
+    rc = ncodec_write(nc, &(struct NCodecCanMessage){ .frame_id = 42,
                               .buffer = (uint8_t*)greeting2,
                               .len = strlen(greeting2) });
     assert_int_equal(rc, strlen(greeting2));
@@ -264,15 +271,17 @@ void test_can_fbs_readwrite_frames(void** state)
     uint8_t* buffer;
     size_t   buffer_len;
     stream_read(nc, &buffer, &buffer_len, NCODEC_POS_NC);
-    buffer[58] = 8;
-    buffer[58 + 40] = 8;
-    // for (uint32_t i = 0; i< len;i+=8) printf("%02x %02x %02x %02x %02x %02x
-    // %02x %02x\n",
-    //     buffer[i+0], buffer[i+1], buffer[i+2], buffer[i+3],
-    //     buffer[i+4], buffer[i+5], buffer[i+6], buffer[i+7]);
+    buffer[BUF_NODEID_OFFSET + 4] = 8;
+    buffer[BUF_NODEID_OFFSET + 4 + 40] = 8;
+    if (0) {
+        for (uint32_t i = 0; i < buffer_len; i += 8)
+            printf("%02x %02x %02x %02x %02x %02x %02x %02x\n", buffer[i + 0],
+                buffer[i + 1], buffer[i + 2], buffer[i + 3], buffer[i + 4],
+                buffer[i + 5], buffer[i + 6], buffer[i + 7]);
+    }
 
     // Read the messages back.
-    NCodecMessage msg = {};
+    NCodecCanMessage msg = {};
 
     len = ncodec_read(nc, &msg);
     assert_int_equal(len, strlen(greeting1));
@@ -293,20 +302,21 @@ void test_can_fbs_readwrite_messages(void** state)
     Mock*   mock = *state;
     NCODEC* nc = mock->nc;
     int     rc;
+    size_t  len;
 
     const char* greeting1 = "Hello World";
     const char* greeting2 = "Foo Bar";
 
     // Write and flush a message.
     stream_seek(nc, 0, NCODEC_SEEK_RESET);
-    rc = ncodec_write(nc, &(struct NCodecMessage){ .frame_id = 42,
+    rc = ncodec_write(nc, &(struct NCodecCanMessage){ .frame_id = 42,
                               .buffer = (uint8_t*)greeting1,
                               .len = strlen(greeting1) });
     assert_int_equal(rc, strlen(greeting1));
-    size_t len = ncodec_flush(nc);
+    len = ncodec_flush(nc);
     assert_int_equal(len, 0x66);
 
-    rc = ncodec_write(nc, &(struct NCodecMessage){ .frame_id = 42,
+    rc = ncodec_write(nc, &(struct NCodecCanMessage){ .frame_id = 42,
                               .buffer = (uint8_t*)greeting2,
                               .len = strlen(greeting2) });
     assert_int_equal(rc, strlen(greeting2));
@@ -319,11 +329,11 @@ void test_can_fbs_readwrite_messages(void** state)
     size_t   buffer_len;
     stream_read(nc, &buffer, &buffer_len, NCODEC_POS_NC);
     assert_int_equal(0xc8, buffer_len);
-    buffer[54] = 9;
-    buffer[0x66 + 54] = 7;
+    buffer[BUF_NODEID_OFFSET] = 9;
+    buffer[0x66 + BUF_NODEID_OFFSET] = 7;
 
     // Read the messages back.
-    NCodecMessage msg = {};
+    NCodecCanMessage msg = {};
 
     len = ncodec_read(nc, &msg);
     assert_int_equal(len, strlen(greeting1));
@@ -336,6 +346,59 @@ void test_can_fbs_readwrite_messages(void** state)
     assert_int_equal(msg.len, strlen(greeting2));
     assert_non_null(msg.buffer);
     assert_memory_equal(msg.buffer, greeting2, strlen(greeting2));
+}
+
+
+typedef struct frame_type_testcase {
+    uint8_t enum_value;
+    uint8_t encoded_value;
+} frame_type_testcase;
+
+void test_can_fbs_frame_type(void** state)
+{
+    Mock*   mock = *state;
+    NCODEC* nc = mock->nc;
+    int     rc;
+    size_t  len;
+
+    const char*         greeting = "Hello World";
+    frame_type_testcase tc[] = {
+        { .enum_value = CAN_BASE_FRAME, .encoded_value = 0 },
+        { .enum_value = CAN_EXTENDED_FRAME, .encoded_value = 1 },
+        { .enum_value = CAN_FD_BASE_FRAME, .encoded_value = 2 },
+        { .enum_value = CAN_FD_EXTENDED_FRAME, .encoded_value = 3 },
+    };
+
+    for (uint i = 0; i < ARRAY_SIZE(tc); i++) {
+        // Write message.
+        ncodec_truncate(nc);
+        rc = ncodec_write(nc, &(struct NCodecCanMessage){ .frame_id = 42,
+                                  .frame_type = tc[i].enum_value,
+                                  .buffer = (uint8_t*)greeting,
+                                  .len = strlen(greeting) });
+        assert_int_equal(rc, strlen(greeting));
+        len = ncodec_flush(nc);
+        assert_int_equal(len, tc[i].enum_value ? 0x6a : 0x66);
+        // Seek to the start, keeping the content, modify the node_id.
+        stream_seek(nc, 0, NCODEC_SEEK_SET);
+        uint8_t* buffer;
+        size_t   buffer_len;
+        stream_read(nc, &buffer, &buffer_len, NCODEC_POS_NC);
+        buffer[BUF_NODEID_OFFSET + (tc[i].enum_value ? 4 : 0)] = 8;
+        if (0) {
+            for (uint32_t i = 0; i < buffer_len; i += 8)
+                printf("%02x %02x %02x %02x %02x %02x %02x %02x\n",
+                    buffer[i + 0], buffer[i + 1], buffer[i + 2], buffer[i + 3],
+                    buffer[i + 4], buffer[i + 5], buffer[i + 6], buffer[i + 7]);
+        }
+        // Read message.
+        NCodecCanMessage msg = {};
+        len = ncodec_read(nc, &msg);
+        assert_int_equal(len, strlen(greeting));
+        assert_int_equal(msg.len, strlen(greeting));
+        assert_int_equal(msg.frame_type, tc[i].enum_value);
+        assert_int_equal(tc[i].enum_value, tc[i].encoded_value);
+    }
 }
 
 
@@ -354,6 +417,7 @@ int run_can_fbs_tests(void)
         cmocka_unit_test_setup_teardown(test_can_fbs_readwrite_frames, s, t),
         cmocka_unit_test_setup_teardown(test_can_fbs_readwrite_messages, s, t),
         cmocka_unit_test_setup_teardown(test_can_fbs_truncate, s, t),
+        cmocka_unit_test_setup_teardown(test_can_fbs_frame_type, s, t),
     };
 
     return cmocka_run_group_tests_name("CAN FBS", can_fbs_tests, NULL, NULL);

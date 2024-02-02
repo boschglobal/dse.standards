@@ -32,9 +32,9 @@ title Network Codec
 package "Model Environment" {
     interface "Signal Interface" as Sif
     component "Model" as foo {
-    		component "Model" as Model
-    		interface "CodecVTable" as Cvt
-    		component "Codec" as Codec
+                component "Model" as Model
+                interface "CodecVTable" as Cvt
+                component "Codec" as Codec
         interface "StreamVTable" as Svt
     }
     component "Stream" as Stream
@@ -73,6 +73,17 @@ center footer Dynamic Simulation Environment
 
 ## Typedefs
 
+### NCodecCanMessage
+
+```c
+typedef struct NCodecCanMessage {
+    uint32_t frame_id;
+    uint8_t* buffer;
+    size_t len;
+    NCodecCanFrameType frame_type;
+}
+```
+
 ### NCodecConfigItem
 
 ```c
@@ -89,16 +100,6 @@ typedef struct NCodecInstance {
     const char* mime_type;
     NCodecVTable codec;
     NCodecStreamVTable* stream;
-}
-```
-
-### NCodecMessage
-
-```c
-typedef struct NCodecMessage {
-    uint32_t frame_id;
-    uint8_t* buffer;
-    size_t len;
 }
 ```
 
@@ -273,7 +274,8 @@ nc (NCODEC*)
 
 msg (NCodecMessage*)
 : (out) The message representation to write to the Network Codec. Caller owns
-  the message buffer/memory.
+  the message buffer/memory. Message type is defined by the codec
+implementation.
 
 #### Returns
 
@@ -351,7 +353,7 @@ nc (NCODEC*)
 
 msg (NCodecMessage*)
 : The message representation to write to the Network Codec. Caller owns the
-  message buffer/memory.
+  message buffer/memory. Message type is defined by the codec implementation.
 
 #### Returns
 

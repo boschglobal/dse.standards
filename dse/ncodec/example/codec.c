@@ -47,16 +47,18 @@ int codec_write(NCODEC* nc, NCodecMessage* msg)
 {
     if (nc == NULL) return -ENOSTR;
     if (msg == NULL) return -EINVAL;
+    NCodecCanMessage* _msg = (NCodecCanMessage*)msg;
 
     __codec* _nc = (__codec*)nc;
-    _nc->c.stream->write(nc, msg->buffer, msg->len);
-    return msg->len;
+    _nc->c.stream->write(nc, _msg->buffer, _msg->len);
+    return _msg->len;
 }
 
 int codec_read(NCODEC* nc, NCodecMessage* msg)
 {
     if (nc == NULL) return -ENOSTR;
     if (msg == NULL) return -EINVAL;
+    NCodecCanMessage* _msg = (NCodecCanMessage*)msg;
 
     __codec* _nc = (__codec*)nc;
 
@@ -71,10 +73,10 @@ int codec_read(NCODEC* nc, NCodecMessage* msg)
     /* Construct the response. */
     strncat(data, " says ", buffer_len - strlen(data));
     strncat(data, _nc->name, buffer_len);
-    msg->len = strlen(data);
+    _msg->len = strlen(data);
     /* Return the message (buffer owned by stream, caller must duplicate). */
-    msg->buffer = (uint8_t*)data;
-    return msg->len;
+    _msg->buffer = (uint8_t*)data;
+    return _msg->len;
 }
 
 int codec_flush(NCODEC* nc)
