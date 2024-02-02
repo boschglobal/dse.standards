@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-GCC_BUILDER_IMAGE ?= ghcr.io/boschglobal/dse-gcc-builder:main
+GCC_BUILDER_IMAGE = ghcr.io/boschglobal/dse-gcc-builder:main
 
 
 default: build_docker

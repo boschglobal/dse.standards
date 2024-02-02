@@ -17,6 +17,7 @@
 extern int can_write(NCODEC* nc, NCodecMessage* msg);
 extern int can_read(NCODEC* nc, NCodecMessage* msg);
 extern int can_flush(NCODEC* nc);
+extern int can_truncate(NCODEC* nc);
 
 
 char* trim(char* s)
@@ -179,9 +180,9 @@ NCODEC* ncodec_create(const char* mime_type)
         if (value) *value++ = '\0';
         if (name && value) {
             codec_config((void*)_nc, (struct NCodecConfigItem){
-                .name = (const char*)trim(name),
-                .value = (const char*)trim(value),
-            });
+                                         .name = (const char*)trim(name),
+                                         .value = (const char*)trim(value),
+                                     });
         }
     }
     free(_buf);
@@ -205,6 +206,7 @@ NCODEC* ncodec_create(const char* mime_type)
             .write = can_write,
             .read = can_read,
             .flush = can_flush,
+            .truncate = can_truncate,
             .close = codec_close,
         };
     } else {

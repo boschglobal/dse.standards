@@ -21,6 +21,16 @@ static void initialize_stream(ABCodecInstance* nc)
 }
 
 
+static void reset_stream(ABCodecInstance* nc)
+{
+    if (nc->fbs_stream_initalized == false) return;
+
+    flatcc_builder_t* B = &nc->fbs_builder;
+    flatcc_builder_reset(B);
+    nc->fbs_stream_initalized = false;
+}
+
+
 static void finalize_stream(
     ABCodecInstance* nc, uint8_t** buffer, size_t* length)
 {
@@ -34,8 +44,7 @@ static void finalize_stream(
     ns(Stream_frames_end(B));
     ns(Stream_end_as_root(B));
     *buffer = flatcc_builder_finalize_buffer(B, length);
-    flatcc_builder_reset(B);
-    nc->fbs_stream_initalized = false;
+    reset_stream(nc);
 }
 
 
@@ -148,7 +157,8 @@ int can_read(NCODEC* nc, NCodecMessage* msg)
             if (frame_type != ns(FrameTypes_CanFrame)) continue;
 
             /* Filter: sender==receiver. */
-            ns(CanFrame_table_t) can_frame = (ns(CanFrame_table_t))ns(Frame_f(frame));
+            ns(CanFrame_table_t) can_frame =
+                (ns(CanFrame_table_t))ns(Frame_f(frame));
             if ((_nc->node_id) &&
                 (_nc->node_id == ns(CanFrame_node_id(can_frame))))
                 continue;
@@ -190,4 +200,17 @@ int can_flush(NCODEC* nc)
         free(buffer);
     }
     return length;
+}
+
+
+int can_truncate(NCODEC* nc)
+{
+    ABCodecInstance* _nc = (ABCodecInstance*)nc;
+    if (_nc == NULL) return -ENOSTR;
+    if (_nc->c.stream == NULL) return -ENOSR;
+
+    reset_stream(_nc);
+    _nc->c.stream->seek(nc, 0, NCODEC_SEEK_RESET);
+
+    return 0;
 }

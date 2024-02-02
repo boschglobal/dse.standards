@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-#include "codec.h" // NOLINT
+#include "codec.h"  // NOLINT
 
 
 /**
@@ -25,7 +25,8 @@ Returns
 : The Network Codec library way successfully loaded.
 
 -1
-: The Network Codec library could not be loaded. Inspect `errno` for more details.
+: The Network Codec library could not be loaded. Inspect `errno` for more
+  details.
 */
 extern int ncodec_load(const char* filename, const char* hint);
 
@@ -209,8 +210,8 @@ nc (NCODEC*)
 : Network Codec object.
 
 msg (NCodecMessage*)
-: (out) The message representation to write to the Network Codec. Caller owns the
-  message buffer/memory.
+: (out) The message representation to write to the Network Codec. Caller owns
+  the message buffer/memory.
 
 Returns
 -------
@@ -269,6 +270,37 @@ inline int ncodec_flush(NCODEC* nc)
     NCodecInstance* _nc = (NCodecInstance*)nc;
     if (_nc && _nc->codec.flush) {
         return _nc->codec.flush(nc);
+    } else {
+        return -ENOSTR;
+    }
+}
+
+
+/**
+ncodec_truncate
+===============
+
+Parameters
+----------
+nc (NCODEC*)
+: Network Codec object.
+
+Returns
+-------
+0
+: The Network Codec internal buffers were truncated.
+
+-ENOSTR
+: The object represented by `nc` does not represent a valid stream.
+
+-ENOSR
+: No stream resource has been configured.
+*/
+inline int ncodec_truncate(NCODEC* nc)
+{
+    NCodecInstance* _nc = (NCodecInstance*)nc;
+    if (_nc && _nc->codec.truncate) {
+        return _nc->codec.truncate(nc);
     } else {
         return -ENOSTR;
     }

@@ -21,6 +21,7 @@ extern void             codec_close(NCODEC* nc);
 extern int              can_write(NCODEC* nc, NCodecMessage* msg);
 extern int              can_read(NCODEC* nc, NCodecMessage* msg);
 extern int              can_flush(NCODEC* nc);
+extern int              can_truncate(NCODEC* nc);
 
 
 typedef struct Mock {
@@ -264,6 +265,7 @@ void test_ncodec_create_close(void** state)
     assert_ptr_equal(nc->codec.write, can_write);
     assert_ptr_equal(nc->codec.read, can_read);
     assert_ptr_equal(nc->codec.flush, can_flush);
+    assert_ptr_equal(nc->codec.truncate, can_truncate);
     assert_ptr_equal(nc->codec.close, codec_close);
 
     /* Check the values. */

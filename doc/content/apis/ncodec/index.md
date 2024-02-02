@@ -77,8 +77,8 @@ center footer Dynamic Simulation Environment
 
 ```c
 typedef struct NCodecConfigItem {
-    const char * name;
-    const char * value;
+    const char* name;
+    const char* value;
 }
 ```
 
@@ -86,9 +86,9 @@ typedef struct NCodecConfigItem {
 
 ```c
 typedef struct NCodecInstance {
-    const char * mime_type;
+    const char* mime_type;
     NCodecVTable codec;
-    NCodecStreamVTable * stream;
+    NCodecStreamVTable* stream;
 }
 ```
 
@@ -97,7 +97,7 @@ typedef struct NCodecInstance {
 ```c
 typedef struct NCodecMessage {
     uint32_t frame_id;
-    uint8_t * buffer;
+    uint8_t* buffer;
     size_t len;
 }
 ```
@@ -124,6 +124,7 @@ typedef struct NCodecVTable {
     NCodecWrite write;
     NCodecRead read;
     NCodecFlush flush;
+    NCodecTruncate truncate;
     NCodecClose close;
 }
 ```
@@ -212,7 +213,8 @@ hint (const char*)
 : The Network Codec library way successfully loaded.
 
 -1
-: The Network Codec library could not be loaded. Inspect `errno` for more details.
+: The Network Codec library could not be loaded. Inspect `errno` for more
+  details.
 
 
 
@@ -270,8 +272,8 @@ nc (NCODEC*)
 : Network Codec object.
 
 msg (NCodecMessage*)
-: (out) The message representation to write to the Network Codec. Caller owns the
-  message buffer/memory.
+: (out) The message representation to write to the Network Codec. Caller owns
+  the message buffer/memory.
 
 #### Returns
 
@@ -311,6 +313,26 @@ index (int*)
 
 NetworkConfigItem
 : A config item.
+
+
+
+### ncodec_truncate
+
+#### Parameters
+
+nc (NCODEC*)
+: Network Codec object.
+
+#### Returns
+
+0
+: The Network Codec internal buffers were truncated.
+
+-ENOSTR
+: The object represented by `nc` does not represent a valid stream.
+
+-ENOSR
+: No stream resource has been configured.
 
 
 

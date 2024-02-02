@@ -114,7 +114,8 @@ typedef enum NCodecStreamPosOperation {
     NCODEC_POS_NC,
 } NCodecStreamPosOperation;
 
-typedef size_t (*NCodecStreamRead)(NCODEC* nc, uint8_t** data, size_t* len, int pos_op);
+typedef size_t (*NCodecStreamRead)(
+    NCODEC* nc, uint8_t** data, size_t* len, int pos_op);
 typedef size_t (*NCodecStreamWrite)(NCODEC* nc, uint8_t* data, size_t len);
 typedef int (*NCodecStreamSeek)(NCODEC* nc, size_t pos, int op);
 typedef size_t (*NCodecStreamTell)(NCODEC* nc);
@@ -154,15 +155,17 @@ typedef NCodecConfigItem (*NCodecStat)(NCODEC* nc, int* index);
 typedef int (*NCodecWrite)(NCODEC* nc, NCodecMessage* msg);
 typedef int (*NCodecRead)(NCODEC* nc, NCodecMessage* msg);
 typedef int (*NCodecFlush)(NCODEC* nc);
+typedef int (*NCodecTruncate)(NCODEC* nc);
 typedef void (*NCodecClose)(NCODEC* nc);
 
 typedef struct NCodecVTable {
-    NCodecConfig config;
-    NCodecStat   stat;
-    NCodecWrite  write;
-    NCodecRead   read;
-    NCodecFlush  flush;
-    NCodecClose  close;
+    NCodecConfig   config;
+    NCodecStat     stat;
+    NCodecWrite    write;
+    NCodecRead     read;
+    NCodecFlush    flush;
+    NCodecTruncate truncate;
+    NCodecClose    close;
 } NCodecVTable;
 
 
@@ -189,6 +192,7 @@ DLL_PUBLIC NCodecConfigItem ncodec_stat(NCODEC* nc, int* index);
 DLL_PUBLIC int              ncodec_write(NCODEC* nc, NCodecMessage* msg);
 DLL_PUBLIC int              ncodec_read(NCODEC* nc, NCodecMessage* msg);
 DLL_PUBLIC int              ncodec_flush(NCODEC* nc);
+DLL_PUBLIC int              ncodec_truncate(NCODEC* nc);
 DLL_PUBLIC void             ncodec_close(NCODEC* nc);
 
 

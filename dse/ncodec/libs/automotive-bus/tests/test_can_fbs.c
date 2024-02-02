@@ -24,6 +24,7 @@ extern int              can_write(NCODEC* nc, NCodecMessage* msg);
 extern int              can_read(NCODEC* nc, NCodecMessage* msg);
 extern int              can_flush(NCODEC* nc);
 extern int              stream_seek(NCODEC* nc, size_t pos, int op);
+extern size_t           stream_tell(NCODEC* nc);
 extern int stream_read(NCODEC* nc, uint8_t** data, size_t* len, int pos_op);
 
 
@@ -125,6 +126,35 @@ void test_can_fbs_flush(void** state)
 
     rc = ncodec_flush(nc);
     assert_int_equal(rc, 0);
+}
+
+
+void test_can_fbs_truncate(void** state)
+{
+    Mock*   mock = *state;
+    NCODEC* nc = mock->nc;
+    int     rc;
+
+    const char* greeting = "Hello World";
+
+    // Write to the stream.
+    stream_seek(nc, 0, NCODEC_SEEK_RESET);
+    rc = ncodec_write(nc, &(struct NCodecMessage){ .frame_id = 42,
+                              .buffer = (uint8_t*)greeting,
+                              .len = strlen(greeting) });
+    assert_int_equal(rc, strlen(greeting));
+    assert_int_equal(0x66, ncodec_flush(nc));
+    assert_int_equal(0x66, stream_tell(nc));
+
+    // Truncate the stream.
+    rc = ncodec_truncate(nc);
+    assert_int_equal(rc, 0);
+    assert_int_equal(0, stream_tell(nc));
+
+    // Flush the stream, and check no buffered content was retained.
+    rc = ncodec_flush(nc);
+    assert_int_equal(rc, 0);
+    assert_int_equal(0, stream_tell(nc));
 }
 
 
@@ -323,6 +353,7 @@ int run_can_fbs_tests(void)
         cmocka_unit_test_setup_teardown(test_can_fbs_readwrite, s, t),
         cmocka_unit_test_setup_teardown(test_can_fbs_readwrite_frames, s, t),
         cmocka_unit_test_setup_teardown(test_can_fbs_readwrite_messages, s, t),
+        cmocka_unit_test_setup_teardown(test_can_fbs_truncate, s, t),
     };
 
     return cmocka_run_group_tests_name("CAN FBS", can_fbs_tests, NULL, NULL);
