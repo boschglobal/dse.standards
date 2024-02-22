@@ -186,7 +186,9 @@ inline int ncodec_write(NCODEC* nc, NCodecMessage* msg)
 {
     NCodecInstance* _nc = (NCodecInstance*)nc;
     if (_nc && _nc->codec.write) {
-        return _nc->codec.write(nc, msg);
+        int rc = _nc->codec.write(nc, msg);
+        if (_nc->trace.write && rc) _nc->trace.write(nc, msg);
+        return rc;
     } else {
         return -ENOSTR;
     }
@@ -238,7 +240,9 @@ inline int ncodec_read(NCODEC* nc, NCodecMessage* msg)
 {
     NCodecInstance* _nc = (NCodecInstance*)nc;
     if (_nc && _nc->codec.read) {
-        return _nc->codec.read(nc, msg);
+        int rc = _nc->codec.read(nc, msg);
+        if (_nc->trace.read && rc) _nc->trace.read(nc, msg);
+        return rc;
     } else {
         msg = NULL;
         return -ENOMSG;

@@ -164,11 +164,21 @@ typedef struct NCodecVTable {
     NCodecClose    close;
 } NCodecVTable;
 
+typedef void (*NCodecTraceWrite)(NCODEC* nc, NCodecMessage* msg);
+typedef void (*NCodecTraceRead)(NCODEC* nc, NCodecMessage* msg);
+
+typedef struct NCodecTraceVTable {
+    NCodecTraceWrite write;
+    NCodecTraceRead  read;
+} NCodecTraceVTable;
+
 
 typedef struct NCodecInstance {
     const char*         mime_type;
     NCodecVTable        codec;
     NCodecStreamVTable* stream;
+    /* Trace interface (optional). */
+    NCodecTraceVTable   trace;
 } NCodecInstance;
 
 
