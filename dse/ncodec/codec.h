@@ -179,6 +179,8 @@ typedef struct NCodecInstance {
     NCodecStreamVTable* stream;
     /* Trace interface (optional). */
     NCodecTraceVTable   trace;
+    /* Private reference data from API user (optional). */
+    void*               private;
 } NCodecInstance;
 
 
