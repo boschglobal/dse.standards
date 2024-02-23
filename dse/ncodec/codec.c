@@ -176,10 +176,10 @@ Returns
 : The number of bytes written to the Network Codec. Will be identical to the
   value provided in `msg.len`.
 
--ENOSTR
+-ENOSTR (-60)
 : The object represented by `nc` does not represent a valid stream.
 
--EINVAL
+-EINVAL (-22)
 : Bad `msg` argument.
 */
 inline int ncodec_write(NCODEC* nc, NCodecMessage* msg)
@@ -187,7 +187,7 @@ inline int ncodec_write(NCODEC* nc, NCodecMessage* msg)
     NCodecInstance* _nc = (NCodecInstance*)nc;
     if (_nc && _nc->codec.write) {
         int rc = _nc->codec.write(nc, msg);
-        if (_nc->trace.write && rc) _nc->trace.write(nc, msg);
+        if (_nc->trace.write && (rc > 0)) _nc->trace.write(nc, msg);
         return rc;
     } else {
         return -ENOSTR;
@@ -224,16 +224,16 @@ Returns
   Additional messages may remain on the Network Codec, after processing this
   message, repeat calls to `ncodec_read` until -ENOMSG is returned.
 
--ENOMSG
+-ENOMSG (-42)
 : No message is available from the Network Codec.
 
--ENOSTR
+-ENOSTR (-60)
 : The object represented by `nc` does not represent a valid stream.
 
--ENOSR
+-ENOSR (-63)
 : No stream resource has been configured.
 
--EINVAL
+-EINVAL (-22)
 : Bad `msg` argument.
 */
 inline int ncodec_read(NCODEC* nc, NCodecMessage* msg)
@@ -241,7 +241,7 @@ inline int ncodec_read(NCODEC* nc, NCodecMessage* msg)
     NCodecInstance* _nc = (NCodecInstance*)nc;
     if (_nc && _nc->codec.read) {
         int rc = _nc->codec.read(nc, msg);
-        if (_nc->trace.read && rc) _nc->trace.read(nc, msg);
+        if (_nc->trace.read && (rc > 0)) _nc->trace.read(nc, msg);
         return rc;
     } else {
         msg = NULL;
