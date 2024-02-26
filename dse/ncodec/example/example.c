@@ -9,12 +9,11 @@
 #include <dse/ncodec/codec.h>
 
 
-#define MIMETYPE "application/x-codec-example"
+#define MIMETYPE  "application/x-codec-example"
 #define UNUSED(x) ((void)x)
 
 
 extern NCodecStreamVTable example_stream;
-extern int                stream_seek(NCODEC* nc, size_t pos, int op);
 
 
 static void trace_read(NCODEC* nc, NCodecMessage* m)
@@ -66,7 +65,7 @@ int main(int argc, char* argv[])
     ncodec_flush(nc);
 
     /* Reposition to start of stream. */
-    stream_seek(nc, 0, NCODEC_SEEK_SET);
+    ncodec_seek(nc, 0, NCODEC_SEEK_SET);
 
     /* Read the response from the Network Codec. */
     NCodecCanMessage msg = {};

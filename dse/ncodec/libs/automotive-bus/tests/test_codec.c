@@ -23,6 +23,19 @@ extern int              can_read(NCODEC* nc, NCodecMessage* msg);
 extern int              can_flush(NCODEC* nc);
 extern int              can_truncate(NCODEC* nc);
 
+/* Stream mock. */
+extern NCodecStreamVTable mem_stream;
+extern NCODEC* ncodec_open(const char* mime_type, NCodecStreamVTable* stream);
+
+
+static void _adjust_node_id(NCODEC* nc, const char* node_id)
+{
+    ncodec_config(nc, (struct NCodecConfigItem){
+                          .name = "node_id",
+                          .value = node_id,
+                      });
+}
+
 
 typedef struct Mock {
     ABCodecInstance* nc;
@@ -326,6 +339,68 @@ void test_ncodec_create_failon_mime(void** state)
 }
 
 
+void test_ncodec_call_sequence(void** state)
+{
+    UNUSED(state);
+
+    /* Create the codec instance. */
+    const char* mime_type = "application/x-automotive-bus; "
+                            "interface=stream;type=frame;bus=can;schema=fbs;"
+                            "bus_id=1;node_id=2;interface_id=3";
+    NCODEC*     nc = ncodec_open(mime_type, (void*)&mem_stream);
+    assert_non_null(nc);
+    NCodecInstance* _nc = (NCodecInstance*)nc;
+    assert_non_null(_nc);
+    assert_non_null(_nc->stream);
+    assert_non_null(_nc->stream->seek);
+    assert_string_equal(_nc->mime_type, mime_type);
+
+    /* Initial conditions. */
+    const char* greeting = "Hello World";
+    assert_int_equal(0, ncodec_seek(nc, 0, NCODEC_SEEK_END));
+    assert_int_equal(0, ncodec_tell(nc));
+    _adjust_node_id(nc, "42");
+    size_t len = ncodec_write(nc, &(struct NCodecCanMessage){ .frame_id = 42,
+                                      .buffer = (uint8_t*)greeting,
+                                      .len = strlen(greeting) });
+    assert_int_equal(strlen(greeting), len);
+    ncodec_flush(nc);
+    _adjust_node_id(nc, "2");
+#define EXPECT_POS 0x66
+    assert_int_equal(EXPECT_POS, ncodec_tell(nc));
+
+    /* Read then Write. */
+    for (int i = 0; i < 5; i++) {
+        /* Seek - position to start of stream. */
+        assert_int_equal(EXPECT_POS, ncodec_seek(nc, 0, NCODEC_SEEK_END));
+        ncodec_seek(nc, 0, NCODEC_SEEK_SET);
+        assert_int_equal(0, ncodec_tell(nc));
+        /* Read - consume the stream. */
+        NCodecCanMessage msg = {};
+        size_t           len = ncodec_read(nc, &msg);
+        assert_int_equal(strlen(greeting), len);
+        /* Truncate - reset the stream. */
+        ncodec_truncate(nc);
+        assert_int_equal(0, ncodec_tell(nc));
+        assert_int_equal(0, ncodec_seek(nc, 0, NCODEC_SEEK_END));
+        assert_int_equal(0, ncodec_tell(nc));
+        /* Write and Flush - write to stream (spoof node_id). */
+        _adjust_node_id(nc, "42");
+        len = ncodec_write(nc, &(struct NCodecCanMessage){ .frame_id = 42,
+                                   .buffer = (uint8_t*)greeting,
+                                   .len = strlen(greeting) });
+        assert_int_equal(strlen(greeting), len);
+        ncodec_flush(nc);
+        _adjust_node_id(nc, "2");
+        assert_int_equal(EXPECT_POS, ncodec_tell(nc));
+        assert_int_equal(EXPECT_POS, ncodec_seek(nc, 0, NCODEC_SEEK_END));
+    }
+
+    /* Close the codec. */
+    ncodec_close((void*)nc);
+}
+
+
 int run_codec_tests(void)
 {
     void* s = test_setup;
@@ -337,6 +412,7 @@ int run_codec_tests(void)
         cmocka_unit_test_setup_teardown(test_codec_stat, s, t),
         cmocka_unit_test_setup_teardown(test_ncodec_create_close, s, t),
         cmocka_unit_test_setup_teardown(test_ncodec_create_failon_mime, s, t),
+        cmocka_unit_test_setup_teardown(test_ncodec_call_sequence, s, t),
     };
 
     return cmocka_run_group_tests_name("CODEC", codec_tests, NULL, NULL);

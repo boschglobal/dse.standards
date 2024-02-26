@@ -117,8 +117,8 @@ typedef enum NCodecStreamPosOperation {
 typedef size_t (*NCodecStreamRead)(
     NCODEC* nc, uint8_t** data, size_t* len, int pos_op);
 typedef size_t (*NCodecStreamWrite)(NCODEC* nc, uint8_t* data, size_t len);
-typedef int (*NCodecStreamSeek)(NCODEC* nc, size_t pos, int op);
-typedef size_t (*NCodecStreamTell)(NCODEC* nc);
+typedef long (*NCodecStreamSeek)(NCODEC* nc, size_t pos, int op);
+typedef long (*NCodecStreamTell)(NCODEC* nc);
 typedef int (*NCodecStreamEof)(NCODEC* nc);
 typedef int (*NCodecStreamClose)(NCODEC* nc);
 
@@ -217,6 +217,7 @@ DLL_PUBLIC int              ncodec_read(NCODEC* nc, NCodecMessage* msg);
 DLL_PUBLIC int              ncodec_flush(NCODEC* nc);
 DLL_PUBLIC int              ncodec_truncate(NCODEC* nc);
 DLL_PUBLIC void             ncodec_close(NCODEC* nc);
-
+DLL_PUBLIC long             ncodec_seek(NCODEC* nc, size_t pos, int op);
+DLL_PUBLIC long             ncodec_tell(NCODEC* nc);
 
 #endif  // DSE_NCODEC_CODEC_H_

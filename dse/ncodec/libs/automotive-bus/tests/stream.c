@@ -58,7 +58,7 @@ size_t stream_write(NCODEC* nc, uint8_t* data, size_t len)
     return len;
 }
 
-int stream_seek(NCODEC* nc, size_t pos, int op)
+long stream_seek(NCODEC* nc, size_t pos, int op)
 {
     NCodecInstance* _nc = (NCodecInstance*)nc;
     if (_nc && _nc->stream) {
@@ -88,7 +88,7 @@ int stream_seek(NCODEC* nc, size_t pos, int op)
     return -ENOSTR;
 }
 
-size_t stream_tell(NCODEC* nc)
+long stream_tell(NCODEC* nc)
 {
     NCodecInstance* _nc = (NCodecInstance*)nc;
     if (_nc && _nc->stream) {

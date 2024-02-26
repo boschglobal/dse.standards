@@ -313,6 +313,74 @@ inline int ncodec_truncate(NCODEC* nc)
 
 
 /**
+ncodec_seek
+===========
+
+Parameters
+----------
+nc (NCODEC*)
+: Network Codec object.
+
+pos (size_t)
+: Seek position relative to the seek operation.
+
+op (int)
+: Seek operation (NCodecStreamSeekOperation).
+
+Returns
+-------
++ve
+: The position in the underlying stream object after the seek operation.
+
+-ENOSTR (-60)
+: The object represented by `nc` does not represent a valid stream.
+
+-EINVAL (-22)
+: Bad `msg` argument.
+*/
+inline long ncodec_seek(NCODEC* nc, size_t pos, int op)
+{
+    NCodecInstance* _nc = (NCodecInstance*)nc;
+    if (_nc && _nc->stream && _nc->stream->seek) {
+        return _nc->stream->seek((NCODEC*)nc, pos, op);
+    } else {
+        return -ENOSTR;
+    }
+}
+
+
+/**
+ncodec_tell
+===========
+
+Parameters
+----------
+nc (NCODEC*)
+: Network Codec object.
+
+Returns
+-------
++ve
+: The current position in the underlying stream object.
+
+-ENOSTR (-60)
+: The object represented by `nc` does not represent a valid stream.
+
+-ENOSR (-63)
+: No stream resource has been configured.
+*/
+inline long ncodec_tell(NCODEC* nc)
+{
+    NCodecInstance* _nc = (NCodecInstance*)nc;
+    if (_nc && _nc->stream && _nc->stream->tell) {
+        return _nc->stream->tell((NCODEC*)nc);
+    } else {
+        return -ENOSTR;
+    }
+}
+
+
+/**
 ncodec_close
 ============
 

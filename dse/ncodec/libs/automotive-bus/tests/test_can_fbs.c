@@ -23,8 +23,6 @@ extern void             codec_close(NCODEC* nc);
 extern int              can_write(NCODEC* nc, NCodecMessage* msg);
 extern int              can_read(NCODEC* nc, NCodecMessage* msg);
 extern int              can_flush(NCODEC* nc);
-extern int              stream_seek(NCODEC* nc, size_t pos, int op);
-extern size_t           stream_tell(NCODEC* nc);
 extern int              stream_read(NCODEC* nc, uint8_t** data, size_t* len,
                                     int pos_op);
 
@@ -140,23 +138,23 @@ void test_can_fbs_truncate(void** state)
     const char* greeting = "Hello World";
 
     // Write to the stream.
-    stream_seek(nc, 0, NCODEC_SEEK_RESET);
+    ncodec_seek(nc, 0, NCODEC_SEEK_RESET);
     rc = ncodec_write(nc, &(struct NCodecCanMessage){ .frame_id = 42,
                               .buffer = (uint8_t*)greeting,
                               .len = strlen(greeting) });
     assert_int_equal(rc, strlen(greeting));
     assert_int_equal(0x66, ncodec_flush(nc));
-    assert_int_equal(0x66, stream_tell(nc));
+    assert_int_equal(0x66, ncodec_tell(nc));
 
     // Truncate the stream.
     rc = ncodec_truncate(nc);
     assert_int_equal(rc, 0);
-    assert_int_equal(0, stream_tell(nc));
+    assert_int_equal(0, ncodec_tell(nc));
 
     // Flush the stream, and check no buffered content was retained.
     rc = ncodec_flush(nc);
     assert_int_equal(rc, 0);
-    assert_int_equal(0, stream_tell(nc));
+    assert_int_equal(0, ncodec_tell(nc));
 }
 
 
@@ -166,7 +164,7 @@ void test_can_fbs_read_nomsg(void** state)
     NCODEC* nc = mock->nc;
     int     rc;
 
-    stream_seek(nc, 0, NCODEC_SEEK_RESET);
+    ncodec_seek(nc, 0, NCODEC_SEEK_RESET);
     NCodecCanMessage msg = {};
     size_t           len = ncodec_read(nc, &msg);
     assert_int_equal(len, -ENOMSG);
@@ -191,7 +189,7 @@ void test_can_fbs_write(void** state)
     assert_int_equal(len, 0x66);
 
     // Check the result in the stream.
-    stream_seek(nc, 0, NCODEC_SEEK_SET);
+    ncodec_seek(nc, 0, NCODEC_SEEK_SET);
     uint8_t* buffer;
     size_t   buffer_len;
     stream_read(nc, &buffer, &buffer_len, NCODEC_POS_NC);
@@ -209,7 +207,7 @@ void test_can_fbs_readwrite(void** state)
     const char* greeting = "Hello World";
 
     // Write and flush a message.
-    stream_seek(nc, 0, NCODEC_SEEK_RESET);
+    ncodec_seek(nc, 0, NCODEC_SEEK_RESET);
     rc = ncodec_write(nc, &(struct NCodecCanMessage){ .frame_id = 42,
 
                               .frame_type = 0,
@@ -222,7 +220,7 @@ void test_can_fbs_readwrite(void** state)
 
 
     // Seek to the start, keeping the content, modify the node_id.
-    stream_seek(nc, 0, NCODEC_SEEK_SET);
+    ncodec_seek(nc, 0, NCODEC_SEEK_SET);
     uint8_t* buffer;
     size_t   buffer_len;
     stream_read(nc, &buffer, &buffer_len, NCODEC_POS_NC);
@@ -254,7 +252,7 @@ void test_can_fbs_readwrite_frames(void** state)
     const char* greeting2 = "Foo Bar";
 
     // Write and flush a message.
-    stream_seek(nc, 0, NCODEC_SEEK_RESET);
+    ncodec_seek(nc, 0, NCODEC_SEEK_RESET);
     rc = ncodec_write(nc, &(struct NCodecCanMessage){ .frame_id = 42,
                               .buffer = (uint8_t*)greeting1,
                               .len = strlen(greeting1) });
@@ -267,7 +265,7 @@ void test_can_fbs_readwrite_frames(void** state)
     assert_int_equal(len, 0x92);
 
     // Seek to the start, keeping the content, modify the node_id.
-    stream_seek(nc, 0, NCODEC_SEEK_SET);
+    ncodec_seek(nc, 0, NCODEC_SEEK_SET);
     uint8_t* buffer;
     size_t   buffer_len;
     stream_read(nc, &buffer, &buffer_len, NCODEC_POS_NC);
@@ -308,7 +306,7 @@ void test_can_fbs_readwrite_messages(void** state)
     const char* greeting2 = "Foo Bar";
 
     // Write and flush a message.
-    stream_seek(nc, 0, NCODEC_SEEK_RESET);
+    ncodec_seek(nc, 0, NCODEC_SEEK_RESET);
     rc = ncodec_write(nc, &(struct NCodecCanMessage){ .frame_id = 42,
                               .buffer = (uint8_t*)greeting1,
                               .len = strlen(greeting1) });
@@ -324,7 +322,7 @@ void test_can_fbs_readwrite_messages(void** state)
     assert_int_equal(len, 0x62);
 
     // Seek to the start of Reset the stream, keeping the content.
-    stream_seek(nc, 0, NCODEC_SEEK_SET);
+    ncodec_seek(nc, 0, NCODEC_SEEK_SET);
     uint8_t* buffer;
     size_t   buffer_len;
     stream_read(nc, &buffer, &buffer_len, NCODEC_POS_NC);
@@ -380,7 +378,7 @@ void test_can_fbs_frame_type(void** state)
         len = ncodec_flush(nc);
         assert_int_equal(len, tc[i].enum_value ? 0x6a : 0x66);
         // Seek to the start, keeping the content, modify the node_id.
-        stream_seek(nc, 0, NCODEC_SEEK_SET);
+        ncodec_seek(nc, 0, NCODEC_SEEK_SET);
         uint8_t* buffer;
         size_t   buffer_len;
         stream_read(nc, &buffer, &buffer_len, NCODEC_POS_NC);
