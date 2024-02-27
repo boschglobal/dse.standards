@@ -115,12 +115,12 @@ typedef enum NCodecStreamPosOperation {
 } NCodecStreamPosOperation;
 
 typedef size_t (*NCodecStreamRead)(
-    NCODEC* nc, uint8_t** data, size_t* len, int pos_op);
+    NCODEC* nc, uint8_t** data, size_t* len, int32_t pos_op);
 typedef size_t (*NCodecStreamWrite)(NCODEC* nc, uint8_t* data, size_t len);
-typedef long (*NCodecStreamSeek)(NCODEC* nc, size_t pos, int op);
-typedef long (*NCodecStreamTell)(NCODEC* nc);
-typedef int (*NCodecStreamEof)(NCODEC* nc);
-typedef int (*NCodecStreamClose)(NCODEC* nc);
+typedef int64_t (*NCodecStreamSeek)(NCODEC* nc, size_t pos, int32_t op);
+typedef int64_t (*NCodecStreamTell)(NCODEC* nc);
+typedef int32_t (*NCodecStreamEof)(NCODEC* nc);
+typedef int32_t (*NCodecStreamClose)(NCODEC* nc);
 
 typedef struct NCodecStreamVTable {
     NCodecStreamRead  read;
@@ -142,16 +142,16 @@ typedef struct NCodecConfigItem {
 typedef void NCodecMessage; /* Generic message container. */
 
 
-typedef int     NCodecLoad(const char* filename, const char* hint);
+typedef int32_t NCodecLoad(const char* filename, const char* hint);
 typedef NCODEC* NCodecOpen(const char* mime_type, NCodecStreamVTable* stream);
 typedef NCODEC* NCodecCreate(const char* mime_type);
 
-typedef int (*NCodecConfig)(NCODEC* nc, NCodecConfigItem item);
-typedef NCodecConfigItem (*NCodecStat)(NCODEC* nc, int* index);
-typedef int (*NCodecWrite)(NCODEC* nc, NCodecMessage* msg);
-typedef int (*NCodecRead)(NCODEC* nc, NCodecMessage* msg);
-typedef int (*NCodecFlush)(NCODEC* nc);
-typedef int (*NCodecTruncate)(NCODEC* nc);
+typedef int32_t (*NCodecConfig)(NCODEC* nc, NCodecConfigItem item);
+typedef NCodecConfigItem (*NCodecStat)(NCODEC* nc, int32_t* index);
+typedef int32_t (*NCodecWrite)(NCODEC* nc, NCodecMessage* msg);
+typedef int32_t (*NCodecRead)(NCODEC* nc, NCodecMessage* msg);
+typedef int32_t (*NCodecFlush)(NCODEC* nc);
+typedef int32_t (*NCodecTruncate)(NCODEC* nc);
 typedef void (*NCodecClose)(NCODEC* nc);
 
 typedef struct NCodecVTable {
@@ -180,7 +180,7 @@ typedef struct NCodecInstance {
     /* Trace interface (optional). */
     NCodecTraceVTable   trace;
     /* Private reference data from API user (optional). */
-    void*               private;
+    void* private;
 } NCodecInstance;
 
 
@@ -205,19 +205,19 @@ typedef struct NCodecCanMessage {
 DLL_PUBLIC NCodecCreate ncodec_create;
 
 /* Implemented by integrator. */
-DLL_PUBLIC int     ncodec_load(const char* filename, const char* hint);
+DLL_PUBLIC int32_t ncodec_load(const char* filename, const char* hint);
 DLL_PUBLIC NCODEC* ncodec_open(
     const char* mime_type, NCodecStreamVTable* stream);
 
 /* Provided by codec.c (in this package). */
 DLL_PUBLIC void             ncodec_config(NCODEC* nc, NCodecConfigItem item);
-DLL_PUBLIC NCodecConfigItem ncodec_stat(NCODEC* nc, int* index);
-DLL_PUBLIC int              ncodec_write(NCODEC* nc, NCodecMessage* msg);
-DLL_PUBLIC int              ncodec_read(NCODEC* nc, NCodecMessage* msg);
-DLL_PUBLIC int              ncodec_flush(NCODEC* nc);
-DLL_PUBLIC int              ncodec_truncate(NCODEC* nc);
+DLL_PUBLIC NCodecConfigItem ncodec_stat(NCODEC* nc, int32_t* index);
+DLL_PUBLIC int32_t          ncodec_write(NCODEC* nc, NCodecMessage* msg);
+DLL_PUBLIC int32_t          ncodec_read(NCODEC* nc, NCodecMessage* msg);
+DLL_PUBLIC int32_t          ncodec_flush(NCODEC* nc);
+DLL_PUBLIC int32_t          ncodec_truncate(NCODEC* nc);
 DLL_PUBLIC void             ncodec_close(NCODEC* nc);
-DLL_PUBLIC long             ncodec_seek(NCODEC* nc, size_t pos, int op);
-DLL_PUBLIC long             ncodec_tell(NCODEC* nc);
+DLL_PUBLIC int64_t          ncodec_seek(NCODEC* nc, size_t pos, int32_t op);
+DLL_PUBLIC int64_t          ncodec_tell(NCODEC* nc);
 
 #endif  // DSE_NCODEC_CODEC_H_

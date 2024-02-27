@@ -18,7 +18,7 @@ typedef struct __codec {
 } __codec;
 
 
-int codec_config(NCODEC* nc, NCodecConfigItem item)
+int32_t codec_config(NCODEC* nc, NCodecConfigItem item)
 {
     if (nc == NULL) return -ENOSTR;
 
@@ -29,7 +29,7 @@ int codec_config(NCODEC* nc, NCodecConfigItem item)
     return 0;
 }
 
-NCodecConfigItem codec_stat(NCODEC* nc, int* index)
+NCodecConfigItem codec_stat(NCODEC* nc, int32_t* index)
 {
     if (nc && index && (*index == 0)) {
         __codec* _nc = (__codec*)nc;
@@ -43,7 +43,7 @@ NCodecConfigItem codec_stat(NCODEC* nc, int* index)
     return (struct NCodecConfigItem){};
 }
 
-int codec_write(NCODEC* nc, NCodecMessage* msg)
+int32_t codec_write(NCODEC* nc, NCodecMessage* msg)
 {
     if (nc == NULL) return -ENOSTR;
     if (msg == NULL) return -EINVAL;
@@ -54,7 +54,7 @@ int codec_write(NCODEC* nc, NCodecMessage* msg)
     return _msg->len;
 }
 
-int codec_read(NCODEC* nc, NCodecMessage* msg)
+int32_t codec_read(NCODEC* nc, NCodecMessage* msg)
 {
     if (nc == NULL) return -ENOSTR;
     if (msg == NULL) return -EINVAL;
@@ -79,7 +79,7 @@ int codec_read(NCODEC* nc, NCodecMessage* msg)
     return _msg->len;
 }
 
-int codec_flush(NCODEC* nc)
+int32_t codec_flush(NCODEC* nc)
 {
     if (nc == NULL) return -ENOSTR;
 

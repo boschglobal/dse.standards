@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #include <string.h>
+#include <stdint.h>
 #include <dse/ncodec/codec.h>
 
 
@@ -20,7 +21,7 @@ typedef struct __stream {
 } __stream;
 
 
-size_t stream_read(NCODEC* nc, uint8_t** data, size_t* len, int pos_op)
+size_t stream_read(NCODEC* nc, uint8_t** data, size_t* len, int32_t pos_op)
 {
     NCodecInstance* _nc = (NCodecInstance*)nc;
     if (_nc == NULL || _nc->stream == NULL) return -ENOSTR;
@@ -56,7 +57,7 @@ size_t stream_write(NCODEC* nc, uint8_t* data, size_t len)
     return len;
 }
 
-long stream_seek(NCODEC* nc, size_t pos, int op)
+int64_t stream_seek(NCODEC* nc, size_t pos, int32_t op)
 {
     NCodecInstance* _nc = (NCodecInstance*)nc;
     if (_nc && _nc->stream) {
@@ -88,7 +89,7 @@ long stream_seek(NCODEC* nc, size_t pos, int op)
     return -ENOSTR;
 }
 
-long stream_tell(NCODEC* nc)
+int64_t stream_tell(NCODEC* nc)
 {
     NCodecInstance* _nc = (NCodecInstance*)nc;
     if (_nc && _nc->stream) {
@@ -98,7 +99,7 @@ long stream_tell(NCODEC* nc)
     return -ENOSTR;
 }
 
-int stream_eof(NCODEC* nc)
+int32_t stream_eof(NCODEC* nc)
 {
     NCodecInstance* _nc = (NCodecInstance*)nc;
     if (_nc && _nc->stream) {
@@ -108,7 +109,7 @@ int stream_eof(NCODEC* nc)
     return 1;
 }
 
-int stream_close(NCODEC* nc)
+int32_t stream_close(NCODEC* nc)
 {
     UNUSED(nc);
 

@@ -28,7 +28,7 @@ Returns
 : The Network Codec library could not be loaded. Inspect `errno` for more
   details.
 */
-extern int ncodec_load(const char* filename, const char* hint);
+extern int32_t ncodec_load(const char* filename, const char* hint);
 
 
 /**
@@ -129,7 +129,7 @@ Parameters
 nc (NCODEC*)
 : Network Codec object.
 
-index (int*)
+index (int32_t*)
 : (out) Index of the config item returned by this call. When there are no more
   config items to be returned, this value is set to -1 and an empty
   NetworkConfigItem object is returned.
@@ -139,7 +139,7 @@ Returns
 NetworkConfigItem
 : A config item.
 */
-inline NCodecConfigItem ncodec_stat(NCODEC* nc, int* index)
+inline NCodecConfigItem ncodec_stat(NCODEC* nc, int32_t* index)
 {
     NCodecInstance* _nc = (NCodecInstance*)nc;
     if (_nc && _nc->codec.stat) {
@@ -172,7 +172,7 @@ msg (NCodecMessage*)
 
 Returns
 -------
-+VE (int)
++VE (int32_t)
 : The number of bytes written to the Network Codec. Will be identical to the
   value provided in `msg.len`.
 
@@ -182,11 +182,11 @@ Returns
 -EINVAL (-22)
 : Bad `msg` argument.
 */
-inline int ncodec_write(NCODEC* nc, NCodecMessage* msg)
+inline int32_t ncodec_write(NCODEC* nc, NCodecMessage* msg)
 {
     NCodecInstance* _nc = (NCodecInstance*)nc;
     if (_nc && _nc->codec.write) {
-        int rc = _nc->codec.write(nc, msg);
+        int32_t rc = _nc->codec.write(nc, msg);
         if (_nc->trace.write && (rc > 0)) _nc->trace.write(nc, msg);
         return rc;
     } else {
@@ -218,7 +218,7 @@ implementation.
 
 Returns
 -------
-<int>
+<int32_t>
 : The number of bytes read from the Network Codec. Will be identical to the
   value returned in `msg.len`.
   Additional messages may remain on the Network Codec, after processing this
@@ -236,11 +236,11 @@ Returns
 -EINVAL (-22)
 : Bad `msg` argument.
 */
-inline int ncodec_read(NCODEC* nc, NCodecMessage* msg)
+inline int32_t ncodec_read(NCODEC* nc, NCodecMessage* msg)
 {
     NCodecInstance* _nc = (NCodecInstance*)nc;
     if (_nc && _nc->codec.read) {
-        int rc = _nc->codec.read(nc, msg);
+        int32_t rc = _nc->codec.read(nc, msg);
         if (_nc->trace.read && (rc > 0)) _nc->trace.read(nc, msg);
         return rc;
     } else {
@@ -270,7 +270,7 @@ Returns
 -ENOSR
 : No stream resource has been configured.
 */
-inline int ncodec_flush(NCODEC* nc)
+inline int32_t ncodec_flush(NCODEC* nc)
 {
     NCodecInstance* _nc = (NCodecInstance*)nc;
     if (_nc && _nc->codec.flush) {
@@ -301,7 +301,7 @@ Returns
 -ENOSR
 : No stream resource has been configured.
 */
-inline int ncodec_truncate(NCODEC* nc)
+inline int32_t ncodec_truncate(NCODEC* nc)
 {
     NCodecInstance* _nc = (NCodecInstance*)nc;
     if (_nc && _nc->codec.truncate) {
@@ -324,7 +324,7 @@ nc (NCODEC*)
 pos (size_t)
 : Seek position relative to the seek operation.
 
-op (int)
+op (int32_t)
 : Seek operation (NCodecStreamSeekOperation).
 
 Returns
@@ -338,7 +338,7 @@ Returns
 -EINVAL (-22)
 : Bad `msg` argument.
 */
-inline long ncodec_seek(NCODEC* nc, size_t pos, int op)
+inline int64_t ncodec_seek(NCODEC* nc, size_t pos, int32_t op)
 {
     NCodecInstance* _nc = (NCodecInstance*)nc;
     if (_nc && _nc->stream && _nc->stream->seek) {
@@ -369,7 +369,7 @@ Returns
 -ENOSR (-63)
 : No stream resource has been configured.
 */
-inline long ncodec_tell(NCODEC* nc)
+inline int64_t ncodec_tell(NCODEC* nc)
 {
     NCodecInstance* _nc = (NCodecInstance*)nc;
     if (_nc && _nc->stream && _nc->stream->tell) {

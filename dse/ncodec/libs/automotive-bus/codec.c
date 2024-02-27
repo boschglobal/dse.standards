@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 #include <ctype.h>
 #include <dse/ncodec/codec.h>
@@ -14,19 +15,21 @@
 
 
 /* interface=stream; type=frame; bus=can; schema=fbs */
-extern int can_write(NCODEC* nc, NCodecMessage* msg);
-extern int can_read(NCODEC* nc, NCodecMessage* msg);
-extern int can_flush(NCODEC* nc);
-extern int can_truncate(NCODEC* nc);
+extern int32_t can_write(NCODEC* nc, NCodecMessage* msg);
+extern int32_t can_read(NCODEC* nc, NCodecMessage* msg);
+extern int32_t can_flush(NCODEC* nc);
+extern int32_t can_truncate(NCODEC* nc);
 
 
 char* trim(char* s)
 {
     if (s == NULL) return s;
 
-    while (*s && isspace(*s)) s++;
+    while (*s && isspace(*s))
+        s++;
     char* e = s + strlen(s);
-    while ((s != e) && isspace(*(e - 1))) e--;
+    while ((s != e) && isspace(*(e - 1)))
+        e--;
     *e = '\0';
     return s;
 }
@@ -47,7 +50,7 @@ void free_codec(ABCodecInstance* _nc)
 }
 
 
-int codec_config(NCODEC* nc, NCodecConfigItem item)
+int32_t codec_config(NCODEC* nc, NCodecConfigItem item)
 {
     ABCodecInstance* _nc = (ABCodecInstance*)nc;
     if (_nc == NULL) return -ENOSTR;
@@ -98,7 +101,7 @@ int codec_config(NCODEC* nc, NCodecConfigItem item)
 }
 
 
-NCodecConfigItem codec_stat(NCODEC* nc, int* index)
+NCodecConfigItem codec_stat(NCODEC* nc, int32_t* index)
 {
     ABCodecInstance* _nc = (ABCodecInstance*)nc;
     if ((_nc == NULL) || (index == NULL)) {

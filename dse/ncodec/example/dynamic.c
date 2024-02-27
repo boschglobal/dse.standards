@@ -14,7 +14,7 @@
 static void* __handle = NULL;
 
 
-int ncodec_load(const char* filename, const char* hint)
+int32_t ncodec_load(const char* filename, const char* hint)
 {
     UNUSED(hint);
 

@@ -9,11 +9,26 @@
 #include <dse/ncodec/codec.h>
 
 
-#define MIMETYPE "application/x-codec-example"
+#define MIMETYPE  "application/x-codec-example"
+#define UNUSED(x) ((void)x)
 
 
 extern NCodecStreamVTable example_stream;
-extern int                stream_seek(NCODEC* nc, size_t pos, int op);
+
+
+static void trace_read(NCODEC* nc, NCodecMessage* m)
+{
+    UNUSED(nc);
+    NCodecCanMessage* msg = m;
+    printf("TRACE RX: %02d (length=%lu)\n", msg->frame_id, msg->len);
+}
+
+static void trace_write(NCODEC* nc, NCodecMessage* m)
+{
+    UNUSED(nc);
+    NCodecCanMessage* msg = m;
+    printf("TRACE TX: %02d (length=%lu)\n", msg->frame_id, msg->len);
+}
 
 
 int main(int argc, char* argv[])
@@ -37,6 +52,11 @@ int main(int argc, char* argv[])
     ncodec_config(nc, (struct NCodecConfigItem){
                           .name = "name", .value = "simple network codec" });
 
+    /* Install trace functions. */
+    NCodecInstance* _nc = (NCodecInstance*)nc;
+    _nc->trace.read = trace_read;
+    _nc->trace.write = trace_write;
+
     /* Write a message to the Network Codec. */
     ncodec_write(nc, &(struct NCodecCanMessage){ .frame_id = 42,
                          .frame_type = CAN_EXTENDED_FRAME,
@@ -45,7 +65,7 @@ int main(int argc, char* argv[])
     ncodec_flush(nc);
 
     /* Reposition to start of stream. */
-    stream_seek(nc, 0, NCODEC_SEEK_SET);
+    ncodec_seek(nc, 0, NCODEC_SEEK_SET);
 
     /* Read the response from the Network Codec. */
     NCodecCanMessage msg = {};

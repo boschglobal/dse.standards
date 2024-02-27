@@ -100,6 +100,8 @@ typedef struct NCodecInstance {
     const char* mime_type;
     NCodecVTable codec;
     NCodecStreamVTable* stream;
+    NCodecTraceVTable trace;
+    void* private;
 }
 ```
 
@@ -113,6 +115,15 @@ typedef struct NCodecStreamVTable {
     NCodecStreamTell tell;
     NCodecStreamEof eof;
     NCodecStreamClose close;
+}
+```
+
+### NCodecTraceVTable
+
+```c
+typedef struct NCodecTraceVTable {
+    NCodecTraceWrite write;
+    NCodecTraceRead read;
 }
 ```
 
@@ -279,22 +290,48 @@ implementation.
 
 #### Returns
 
-<int>
+<int32_t>
 : The number of bytes read from the Network Codec. Will be identical to the
   value returned in `msg.len`.
   Additional messages may remain on the Network Codec, after processing this
   message, repeat calls to `ncodec_read` until -ENOMSG is returned.
 
--ENOMSG
+-ENOMSG (-42)
 : No message is available from the Network Codec.
 
--ENOSTR
+-ENOSTR (-60)
 : The object represented by `nc` does not represent a valid stream.
 
--ENOSR
+-ENOSR (-63)
 : No stream resource has been configured.
 
--EINVAL
+-EINVAL (-22)
+: Bad `msg` argument.
+
+
+
+### ncodec_seek
+
+#### Parameters
+
+nc (NCODEC*)
+: Network Codec object.
+
+pos (size_t)
+: Seek position relative to the seek operation.
+
+op (int32_t)
+: Seek operation (NCodecStreamSeekOperation).
+
+#### Returns
+
++ve
+: The position in the underlying stream object after the seek operation.
+
+-ENOSTR (-60)
+: The object represented by `nc` does not represent a valid stream.
+
+-EINVAL (-22)
 : Bad `msg` argument.
 
 
@@ -306,7 +343,7 @@ implementation.
 nc (NCODEC*)
 : Network Codec object.
 
-index (int*)
+index (int32_t*)
 : (out) Index of the config item returned by this call. When there are no more
   config items to be returned, this value is set to -1 and an empty
   NetworkConfigItem object is returned.
@@ -315,6 +352,26 @@ index (int*)
 
 NetworkConfigItem
 : A config item.
+
+
+
+### ncodec_tell
+
+#### Parameters
+
+nc (NCODEC*)
+: Network Codec object.
+
+#### Returns
+
++ve
+: The current position in the underlying stream object.
+
+-ENOSTR (-60)
+: The object represented by `nc` does not represent a valid stream.
+
+-ENOSR (-63)
+: No stream resource has been configured.
 
 
 
@@ -357,14 +414,14 @@ msg (NCodecMessage*)
 
 #### Returns
 
-+VE (int)
++VE (int32_t)
 : The number of bytes written to the Network Codec. Will be identical to the
   value provided in `msg.len`.
 
--ENOSTR
+-ENOSTR (-60)
 : The object represented by `nc` does not represent a valid stream.
 
--EINVAL
+-EINVAL (-22)
 : Bad `msg` argument.
 
 

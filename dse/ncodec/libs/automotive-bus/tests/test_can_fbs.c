@@ -16,15 +16,14 @@
 
 extern void             free_codec(ABCodecInstance* nc);
 extern char*            trim(char* s);
-extern int              codec_config(NCODEC* nc, NCodecConfigItem item);
+extern void             codec_config(NCODEC* nc, NCodecConfigItem item);
 extern NCodecConfigItem codec_stat(NCODEC* nc, int* index);
 extern NCODEC*          ncodec_create(const char* mime_type);
 extern void             codec_close(NCODEC* nc);
-extern int              can_write(NCODEC* nc, NCodecMessage* msg);
-extern int              can_read(NCODEC* nc, NCodecMessage* msg);
-extern int              can_flush(NCODEC* nc);
-extern int              stream_read(NCODEC* nc, uint8_t** data, size_t* len,
-                                    int pos_op);
+extern int32_t          can_write(NCODEC* nc, NCodecMessage* msg);
+extern int32_t          can_read(NCODEC* nc, NCodecMessage* msg);
+extern int32_t          can_flush(NCODEC* nc);
+extern int32_t stream_read(NCODEC* nc, uint8_t** data, size_t* len, int pos_op);
 
 
 typedef struct Mock {
@@ -209,9 +208,7 @@ void test_can_fbs_readwrite(void** state)
     // Write and flush a message.
     ncodec_seek(nc, 0, NCODEC_SEEK_RESET);
     rc = ncodec_write(nc, &(struct NCodecCanMessage){ .frame_id = 42,
-
                               .frame_type = 0,
-
                               .buffer = (uint8_t*)greeting,
                               .len = strlen(greeting) });
     assert_int_equal(rc, strlen(greeting));

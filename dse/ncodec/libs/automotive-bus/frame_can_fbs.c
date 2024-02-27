@@ -48,7 +48,7 @@ static void finalize_stream(
 }
 
 
-int can_write(NCODEC* nc, NCodecMessage* msg)
+int32_t can_write(NCODEC* nc, NCodecMessage* msg)
 {
     ABCodecInstance*  _nc = (ABCodecInstance*)nc;
     NCodecCanMessage* _msg = (NCodecCanMessage*)msg;
@@ -136,7 +136,7 @@ static void get_vector_from_message(NCODEC* nc)
 }
 
 
-int can_read(NCODEC* nc, NCodecMessage* msg)
+int32_t can_read(NCODEC* nc, NCodecMessage* msg)
 {
     ABCodecInstance*  _nc = (ABCodecInstance*)nc;
     NCodecCanMessage* _msg = (NCodecCanMessage*)msg;
@@ -189,7 +189,7 @@ int can_read(NCODEC* nc, NCodecMessage* msg)
 }
 
 
-int can_flush(NCODEC* nc)
+int32_t can_flush(NCODEC* nc)
 {
     ABCodecInstance* _nc = (ABCodecInstance*)nc;
     if (_nc == NULL) return -ENOSTR;
@@ -207,7 +207,7 @@ int can_flush(NCODEC* nc)
 }
 
 
-int can_truncate(NCODEC* nc)
+int32_t can_truncate(NCODEC* nc)
 {
     ABCodecInstance* _nc = (ABCodecInstance*)nc;
     if (_nc == NULL) return -ENOSTR;

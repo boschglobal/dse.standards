@@ -2,13 +2,14 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
+#include <stdint.h>
 #include <dse/ncodec/codec.h>
 
 
 #define UNUSED(x) ((void)x)
 
 
-int ncodec_load(const char* filename, const char* hint)
+int32_t ncodec_load(const char* filename, const char* hint)
 {
     UNUSED(filename);
     UNUSED(hint);
