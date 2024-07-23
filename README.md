@@ -4,7 +4,7 @@ Copyright 2023 Robert Bosch GmbH
 SPDX-License-Identifier: Apache-2.0
 -->
 
-# Dynamic Simulation Environment - Standards
+# Dynamic Simulation Environment - Standards Extensions
 
 
 ## Introduction
