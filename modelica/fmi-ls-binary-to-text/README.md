@@ -165,7 +165,7 @@ __Example Configuration FMI3__
 <?xml version="1.0" encoding="UTF-8"?>
 <fmiModelDescription fmiVersion="3.0" modelName="Example">
   <ModelVariables>
-    <String name="binary-to-text-encoding-text" valueReference="1" causality="parameter" variability="tunable">
+    <String name="binary-to-text-encoding" valueReference="1" causality="parameter" variability="tunable">
         <Start value="ascii85"/>
     </String>
     <String name="network_tx" valueReference="2" causality="output">
