@@ -12,13 +12,15 @@ SPDX-License-Identifier: Apache-2.0
 Standards extensions (adaptations) supporting the Dynamic Simulation Environment (DSE) Core Platform.
 
 ```
-L- doc                    Documentation and image sources.
-L- dse                    DSE related implementations (for reuse).
-  L- ncodec               Network Codec API, implementation of Binary Codec.
-L- licenses               3rd party software licenses.
-L- modelica               Adaptations relating to the Modelica Association Standards.
-  L- fmi-ls-binary-codec  Binary Codec specification for FMI 2/3.
+L- doc                      Documentation and image sources.
+L- dse                      DSE related implementations (for reuse).
+  L- ncodec                 Network Codec API, implementation of Binary Codec.
+L- licenses                 3rd party software licenses.
+L- modelica                 Adaptations relating to the Modelica Association Standards.
+  L- fmi-ls-binary-codec    Binary Codec specification for FMI 2/3.
+  L- fmi-ls-binary-to-text  String encoding for binary data, for FMI 2/3.
 ```
+
 
 
 ## Reference Implementations
@@ -34,8 +36,13 @@ L- modelica               Adaptations relating to the Modelica Association Stand
 
 ### Modelica FMI Layered Standards
 
-* **FMI Layered Standard for Binary Codecs** (**[fmi-ls-binary-codec](modelica/fmi-ls-binary-codec/README.md)**)\
+* **Dynamic Simulation Environment - FMI Layered Standard Binary Codec Selection** (**[dse-standards-fmi-ls-binary-codec](modelica/fmi-ls-binary-codec/README.md)**)\
   Method for the selection of an FMI Binary Variable Codec at runtime using either; the Binary Variable `mimeType` field (immutable), or an associated FMI String Variable which contains the MIME Type specifier of that FMI Binary Variable (mutable).
+
+* **Dynamic Simulation Environment - FMI Layered Standard for Binary to Text Encoding** (**[dse-standards-fmi-ls-binary-to-text](modelica/fmi-ls-binary-to-text/README.md)**)\
+  Method for the exchange of ***Binary Data over FMI String Variables*** by using a binary-to-text encoding.
+
+
 
 ## Contribute
 

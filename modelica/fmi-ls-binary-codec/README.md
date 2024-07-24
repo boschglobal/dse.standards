@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2023 Robert Bosch GmbH
 SPDX-License-Identifier: Apache-2.0
 -->
 
-# Proposal for FMI Layered Standard Binary Codec Selection
+# Dynamic Simulation Environment - FMI Layered Standard Binary Codec Selection
 
 
 __Contents__
@@ -22,7 +22,7 @@ __Contents__
 
 ### 1.1 Intent of this Document
 
-FMUs may contain models (and functions) which exchange data and state as serialized binary objects. Those binary objects may be represented, and communicated, by an FMU using a Binary variable with an associated MIME type. The MIME type will be implemented by a coder/decoder (codec) and encapsulated in to a driver. The driver makes it possible for a model function to interact with its internal representation of a binary object _without_ prior knowledge of the codec (or MIME type) being used to exchange those binary objects with other models in a simulation.
+FMUs may contain models (and functions) which exchange data and state as serialized binary objects (e.g. CAN Bus messages). Those binary objects may be represented, and communicated, by an FMU using a Binary Variable with an associated MIME type, or a String Variable with an appropriate binary-to-text encoding. The MIME type will be implemented by a coder/decoder (codec) and encapsulated in to a driver. The driver makes it possible for a model function to interact with its internal representation of a binary object _without_ prior knowledge of the codec (or MIME type) being used to exchange those binary objects with other models in a simulation.
 
 This layered standard describes how that codec (driver) can be selected at runtime, as well as outlining how an FMU Exporter may enable an FMU Importer (or another third-party) to implement their own codec. The FMU Importer is thus able to affect the MIME type used by an FMU for exchanging binary objects by selecting a particular codec, using the technique of dependency injection.
 
@@ -33,14 +33,14 @@ The general approach is as follows:
 
 1. The FMU Exporter produces an API which allows a third-party to implement a driver containing a particular codec (or several codecs). That API may include a subset of FMI functions (e.g. `fmi3GetBinary()`).
 
-2. An Integrator implements a driver, containing a specific codec (or several codecs), using the API provided by the FMU Exporter. The codec driver is packaged into the FMU at the appropriate location.
+2. An Integrator implements a Stream Driver to facilitate the exchange of binary streams, and which supports a specific FMI Version and Importer capability. The stream (driver) is combined with a specific codec (or several codecs), using the API provided by the FMU Exporter, to produce the final Codec Library. The Codec Library is packaged into the FMU at an appropriate location.
 
-3. The FMU Importer configures the Binary variable representing a binary object, via its associated MIME type, to load a particular codec (from the driver). After the codec is loaded the FMU will use that codec for all exchanges via the FMU Binary variable which represents the binary objects.
+3. The FMU Importer configures the Binary or String variable representing a binary object, via its associated MIME type, to load a particular codec (from the Codec Library). After the codec is loaded the FMU will use that codec for all exchanges of serialized binary objects, the codec itself will facilitate the exchange by using the binary streams (of the codec) and the related Importer variable exchange mechanism.
 
 
 ### 1.3 Remarks regarding this Approach
 
-This layered standard does not define the method or design of the API which the FMU Exporter provides for the implementation of a driver. There is no change to the existing semantics of the FMI Specification.
+This layered standard does not define the method or design of the API which the FMU Exporter provides for the implementation of a Stream Driver. There is no change to the existing semantics of the FMI Specification.
 
 
 
@@ -120,7 +120,7 @@ The FMU should include header files which describe the driver API(s) provided by
 For each codec included or developed for an FMU it is necessary to include (or reference) the schema which the codec implements.
 
 
-### 3.4 Codec Source Code
+### 3.5 Codec Source Code
 
 If an FMU is delivered with source code then it is suggested to also deliver the source code of any included codecs.
 
@@ -231,6 +231,6 @@ __Example Variable Annotations__
 
 This layered standard may be applied to FMUs which implement the FMI 2.0.3 Standard (or later) with the following limitations:
 
-* Binary variables should be represented by a combination of String (i.e. binary data) and Integer (i.e. binary length) variables.
+* Binary data exchanged by a Codec may be represented by an FMI2 String Variable with appropriate binary-to-text encoding (e.g. ascii85).
 * Codec specification via MIME type can only be achieved by using a String variable. The annotation holding a reference to this MIME Type String variable should be located on the String variable representing the binary data.
 * Any files related to the codec libraries should be located in the FMU `resources/dse.standards/binary-codec/<codec>` or `extras/dse.standards/binary-codec/<codec>` folder as appropriate.

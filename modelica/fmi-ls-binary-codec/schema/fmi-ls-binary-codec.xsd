@@ -24,7 +24,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
         </xs:documentation>
 	</xs:annotation>
-	<xs:element name="fmi-ls-binary-codec">
+	<xs:element name="dse-standards-fmi-ls-binary-codec">
 		<xs:complexType>
 			<xs:attribute name="version" type="xs:normalizedString" use="required"/>
 			<xs:attribute name="supportsMimeTypeValueReference" type="xs:boolean" default="true"/>
