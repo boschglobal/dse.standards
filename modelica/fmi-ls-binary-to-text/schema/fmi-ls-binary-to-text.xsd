@@ -27,9 +27,9 @@ limitations under the License.
 	<xs:element name="dse-standards-fmi-ls-binary-to-text">
 		<xs:complexType>
 			<xs:attribute name="version" type="xs:normalizedString" use="required"/>
-			<xs:attribute name="supportsMimeTypeValueReference" type="xs:boolean" default="false"/>
-			<xs:attribute name="supportsMimeTypeNamedReference" type="xs:boolean" default="false"/>
-			<xs:simpleType name="supportedEncodings">
+			<xs:attribute name="supportsEncoderValueReference" type="xs:boolean" default="false"/>
+			<xs:attribute name="supportsEncoderNamedReference" type="xs:boolean" default="false"/>
+			<xs:simpleType name="supportedEncodings" use="required">
     			<xs:list itemType="xs:normalizedString"/>
 			</xs:simpleType>
 		</xs:complexType>

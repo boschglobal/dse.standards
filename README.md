@@ -36,13 +36,15 @@ L- modelica                 Adaptations relating to the Modelica Association Sta
 
 ### Modelica FMI Layered Standards
 
+The following Layered Standards are provided within the scope of the Dynamic Simulation Environment. These Layered Standards may be used to integrate solution components from the Dynamic Simulation Environment; such as the [FMI ModelC FMU](https://github.com/boschglobal/dse.fmi?tab=readme-ov-file#fmi-modelc-fmu) - which uses these Layered Standards to implement an ECU Network that exchanges CAN Bus Messages using only FMI String variables.
+
 * **Dynamic Simulation Environment - FMI Layered Standard Binary Codec Selection**\
   (**[dse-standards-fmi-ls-binary-codec](modelica/fmi-ls-binary-codec/README.md)**)\
   Method for the selection of an FMI Binary Variable Codec at runtime using either; the Binary Variable `mimeType` field (immutable), or an associated FMI String Variable which contains the MIME Type specifier of that FMI Binary Variable (mutable).
-<!--
-* **Dynamic Simulation Environment - FMI Layered Standard for Binary to Text Encoding** (**[dse-standards-fmi-ls-binary-to-text](modelica/fmi-ls-binary-to-text/README.md)**)\
+
+* **Dynamic Simulation Environment - FMI Layered Standard for Binary to Text Encoding**\
+  (**[dse-standards-fmi-ls-binary-to-text](modelica/fmi-ls-binary-to-text/README.md)**)\
   Method for the exchange of ***Binary Data over FMI String Variables*** by using a binary-to-text encoding.
--->
 
 
 ## Contribute
