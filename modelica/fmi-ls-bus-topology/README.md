@@ -91,7 +91,6 @@ __Configuration FMI2__
 | ---------- | ----------- |
 | `bus_id`     | Indicate the Bus Identifier that this FMI String or Binary Variable represents.
 | `node_id`    | Indicate the Node Identifier assigned to this FMU for the Bus represented by this FMI String or Binary Variable.
-| `node_count` | (optional) The number of Nodes which are configured for the Bus represented by this FMI String or Binary Variable.
 
 
 __Configuration FMI3__
@@ -100,7 +99,7 @@ __Configuration FMI3__
 | ---------- | ----------- |
 | `dse.standards.fmi-ls-bus-topology.bus_id`     | Indicate the Bus Identifier that this FMI String or Binary Variable represents.
 | `dse.standards.fmi-ls-bus-topology.node_id`    | Indicate the Node Identifier assigned to this FMU for the Bus represented by this FMI String or Binary Variable.
-| `dse.standards.fmi-ls-bus-topology.node_count` | (optional) The number of Nodes which are configured for the Bus represented by this FMI String or Binary Variable.
+
 
 ### 3.2 Examples
 
