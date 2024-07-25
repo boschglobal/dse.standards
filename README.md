@@ -19,6 +19,7 @@ L- licenses                 3rd party software licenses.
 L- modelica                 Adaptations relating to the Modelica Association Standards.
   L- fmi-ls-binary-codec    Binary Codec specification for FMI 2/3.
   L- fmi-ls-binary-to-text  String encoding for binary data, for FMI 2/3.
+  L- fmi-ls-bus-topology    Bus Topologies and Virtual Bus/Networks, for FMI 2/3.
 ```
 
 
@@ -45,6 +46,11 @@ The following Layered Standards are provided within the scope of the Dynamic Sim
 * **Dynamic Simulation Environment - FMI Layered Standard for Binary to Text Encoding**\
   (**[dse-standards-fmi-ls-binary-to-text](modelica/fmi-ls-binary-to-text/README.md)**)\
   Method for the exchange of ***Binary Data over FMI String Variables*** by using a binary-to-text encoding.
+
+* **Dynamic Simulation Environment - FMI Layered Standard for Bus Topology (Virtual Bus/Network)**\
+  (**[dse-standards-fmi-ls-bus-topology](modelica/fmi-ls-bus-topology/README.md)**)\
+  Method for the realisation of Bus Topology to implement Virtual Bus/Networks and exchange Network Messages (e.g. CAN Frames) ***using only FMI Binary and/or String Variables***.
+
 
 
 ## Contribute

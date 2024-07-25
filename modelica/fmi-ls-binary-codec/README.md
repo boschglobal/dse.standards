@@ -174,8 +174,8 @@ These annotations may be used to indicate that a Binary variable has its MIME ty
 
 | Annotation   | Description |
 | ----------- | ----------- |
-| dse.standards.fmi-ls-binary-codec.codec-mimetype-vref | The MIME type of this Binary variable is specified by the String variable with specified variable reference number. |
-| dse.standards.fmi-ls-binary-codec.codec-mimetype-vname | The MIME type of this Binary variable is specified by the String variable with specified variable name. |
+| dse.standards.fmi-ls-binary-codec.codec-mimetype.vref | The MIME type of this Binary variable is specified by the String variable with specified variable reference number. |
+| dse.standards.fmi-ls-binary-codec.codec-mimetype.vname | The MIME type of this Binary variable is specified by the String variable with specified variable name. |
 
 
 ### 4.2 Codec Loading and Operation
@@ -211,8 +211,8 @@ __Example Variable Annotations__
   <ModelVariables>
     <Binary name="vbus" valueReference="1" causality="input"/>
         <Annotations>
-            <Annotation type="dse.standards.fmi-ls-binary-codec.codec-mimetype-vref">2<Annotation>
-            <Annotation type="dse.standards.fmi-ls-binary-codec.codec-mimetype-vname">vbus_mime_type<Annotation>
+            <Annotation type="dse.standards.fmi-ls-binary-codec.codec-mimetype.vref">2<Annotation>
+            <Annotation type="dse.standards.fmi-ls-binary-codec.codec-mimetype.vname">vbus_mime_type<Annotation>
         <Annotations>
     <String name="vbus_mime_type" valueReference="2" causality="parameter" variability="tunable">
         <Start value="application/octet-stream; schema=fbs; codec=vbus"/>

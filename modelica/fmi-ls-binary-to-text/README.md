@@ -117,11 +117,11 @@ __Configuration FMI3__
 
 | Annotation | Description |
 | ---------- | ----------- |
-| `dse.standards.fmi-ls-binary-to-text-encoding` | Selects the encoding to be applied to binary data represented by this FMI String Variable.
-| `dse.standards.fmi-ls-binary-to-text-vref`     | The encoding is specified by the referenced (by value reference) FMI String Variable.
-| `dse.standards.fmi-ls-binary-to-text-vname`    | The encoding is specified by the referenced (by variable name) FMI String Variable.
+| `dse.standards.fmi-ls-binary-to-text.encoding` | Selects the encoding to be applied to binary data represented by this FMI String Variable.
+| `dse.standards.fmi-ls-binary-to-text.vref`     | The encoding is specified by the referenced (by value reference) FMI String Variable.
+| `dse.standards.fmi-ls-binary-to-text.vname`    | The encoding is specified by the referenced (by variable name) FMI String Variable.
 
-_A valid `dse.standards.fmi-ls-binary-to-text-vref` or `dse.standards.fmi-ls-binary-to-text-vname` annotation, when supported, takes priority over the `dse.standards.fmi-ls-binary-to-text-encoding` annotation._
+_A valid `dse.standards.fmi-ls-binary-to-text.vref` or `dse.standards.fmi-ls-binary-to-text.vname` annotation, when supported, takes priority over the `dse.standards.fmi-ls-binary-to-text.encoding` annotation._
 
 
 #### 3.3 Examples
