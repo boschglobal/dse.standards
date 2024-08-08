@@ -17,12 +17,12 @@
 #define DLL_PUBLIC __declspec(dllexport)
 #else
 #define DLL_PUBLIC __declspec(dllimport)
-#endif
+#endif /* DLL_BUILD */
 #define DLL_PRIVATE
-#else  // Linux
+#else /* Linux */
 #define DLL_PUBLIC  __attribute__((visibility("default")))
 #define DLL_PRIVATE __attribute__((visibility("hidden")))
-#endif  // _WIN32
+#endif /* _WIN32 || defined __CYGWIN__ */
 
 
 /**
