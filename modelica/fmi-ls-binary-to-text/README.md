@@ -86,17 +86,25 @@ __Figure 1: Binary-to-Text String Encoding for Binary Data__
 
 ### 3.1 Encoder API
 
-The binary-to-text encoder API is implementation specific and an FMU may implement any kind of encoding technique/method. As an example, the ascii85 encoder used in the [dse.fmi](https://github.com/boschglobal/dse.fmi/blob/main/dse/fmimodelc/ascii85.c) project has the following API:
+The binary-to-text encoder API is implementation specific and an FMU may implement any kind of encoding technique/method. As an example, the ascii85 encoder has the following API:
 
 ```c
-extern char* ascii85_encode(const char* source, size_t len);
-extern char* ascii85_decode(const char* source, size_t* len);
+extern char* ascii85_encode(const uint8_t* data, size_t len)
+extern uint8_t* ascii85_decode(const char* source, size_t* len);
 ```
 
 __Figure 2: Example encoder API (ascii85)__
 
 
-#### 3.2 Configuration
+#### 3.1.1 Sample Encoders
+
+* [ascii85](code/ascii85.c) encoder (used in [dse.fmi](https://github.com/boschglobal/dse.fmi/blob/main/dse/fmimodelc/ascii85.c) projects)
+
+
+> Sample encoders are included in the [code](code) directory of this repo.
+
+
+### 3.2 Configuration
 
 A binary-to-text encoder is specified by adding the following annotations to an existing FMI String variable.
 
@@ -124,7 +132,7 @@ __Configuration FMI3__
 _A valid `dse.standards.fmi-ls-binary-to-text.vref` or `dse.standards.fmi-ls-binary-to-text.vname` annotation, when supported, takes priority over the `dse.standards.fmi-ls-binary-to-text.encoding` annotation._
 
 
-#### 3.3 Examples
+### 3.3 Examples
 
 The following example shows the configuration of a basic network connection (TX/RX) using FMI String Variables and an ascii85 encoding.
 
