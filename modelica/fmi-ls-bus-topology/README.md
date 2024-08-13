@@ -20,6 +20,78 @@ __Contents__
 
 ## 1. Introduction
 
+A Bus Topology may be used to define connections between FMUs where those
+connections represent a Virtual Network. A Network Codec can then be used
+by a Virtual ECU to connect to that Virtual Network and exchange messages
+with other Virtual ECUs.
+
+The Bus Topology is realised with FMI 2 String Variables, or
+FMI 3 String/Binary Variables, and requires no special FMU Importer capabilities.
+
+When using the DSE Network Codec a Virtual Bus FMU __is not__ required.
+
+![Network Codec based Virtual Network](fmi-ls-bus-topology-ncodec-vbus.png)
+
+__Figure 1: Virtual Network based on Bus Topology & Network Codec__
+
+
+The following code sample demonstrates how a Bus Topology is configured with
+a [Network Codec](https://github.com/boschglobal/dse.standards/tree/main/dse/ncodec),
+and then how that Network Codec is used to send (`ncodec_write()`) and
+receive (`ncodec_read()`) Network Messages
+
+```c
+// Setup:
+fmi2Status fmi2ExitInitializationMode(...)
+{
+    fmu->bus_topology = bus_topology_create(fmu->instance.model_xml_path);
+    fmu->bus_ncodec = ncodec_open(MIMETYPE, stream_create());
+    char* bus_id = __get_ncodec_bus_id(fmu->bus_ncodec);
+        bus_topology_add(fmu->bus_topology, bus_id, fmu->bus_ncodec);
+    free(bus_id);
+ }
+// Bus RX:
+fmi2Status fmi2SetString(...)
+{
+    bus_topology_reset(bt);
+    for (size_t i = 0; i < nvr; i++) {
+        if (value[i] == NULL) continue;
+        bus_topology_rx(bt, vr[i], (uint8_t*)value[i], strlen(value[i]));
+    }
+}
+
+// CAN Message read/write:
+fmi2Status fmi2DoStep(...)
+{
+    /* Read. */
+    NCodecCanMessage msg = {};
+    while (1) {
+        int len = ncodec_read(ncodec, &msg);
+        if (len < 0) break; /* No more messages. */
+    }
+    ncodec_truncate(ncodec);
+
+    /* Write. */
+    ncodec_write(ncodec, &(struct NCodecCanMessage){
+        .frame_id = 42,
+        .buffer = (uint8_t*)GREETING,
+        .len = strlen(GREETING) });
+    ncodec_flush(ncodec);
+}
+
+// Bus TX:
+mi2Status fmi2GetString(...)
+{
+    for (size_t i = 0; i < nvr; i++) {
+        value[i] = NULL;
+        size_t len = 0;
+        bus_topology_tx(bt, vr[i], (uint8_t**)&value[i], &len);
+    }
+}
+```
+__Figure 2: Example integration of Bus Topology & Network Codec APIs__
+
+
 ### 1.1 Intent of this Document
 
 FMUs may be interconnected via FMI String or Binary Variables to create a Bus Topology which represents a Network (e.g. CAN Bus). That Network may be further defined by a MIMEtype where the properties of the Network may be configured. The resultant Virtual Bus, or Virtual Network, is then operated with the exchange of FMI Variables - no additional Importer capability is required.
@@ -72,11 +144,11 @@ A Bus Topology is created by annotating FMI String or Binary Variables. Those an
 
 The Bus topology and resultant Virtual Network is affected with the exchange of FMI Variables by the Importer.
 
-_Figure 1 shows the principle of a Bus Topology which realises a Virtual Network._
+_Figure 3 shows the principle of a Bus Topology which realises a Virtual Network._
 
 ![FMU with Bus Topology to realise Network](fmi-ls-bus-topology.png)
 
-__Figure 1: FMUs with Bus Topology to realise Network__
+__Figure 3: FMUs with Bus Topology to realise Network__
 
 
 ### 3.1 Configuration
@@ -218,20 +290,20 @@ __Example Configuration FMI3__
 
 ### 4.1 CAN Network with Network Codec based Virtual Network
 
-_Figure 2 demonstrates a Bus Topology that represents a Network Codec based Virtual Network._
+_Figure 4 demonstrates a Bus Topology that represents a Network Codec based Virtual Network._
 
 ![Network Codec based Virtual Network](fmi-ls-bus-topology-ncodec-vbus.png)
 
-__Figure 2: Network Codec based Virtual Network__
+__Figure 4: Network Codec based Virtual Network__
 
 
 ### 4.2 CAN Network with FMU based Virtual Network
 
-_Figure 3 demonstrates a Bus Topology that represents an FMU based Virtual Network._
+_Figure 5 demonstrates a Bus Topology that represents an FMU based Virtual Network._
 
 ![FMU based Virtual Network](fmi-ls-bus-topology-fmu-vbus.png)
 
-__Figure 3: FMU based Virtual Network__
+__Figure 5: FMU based Virtual Network__
 
 
 
