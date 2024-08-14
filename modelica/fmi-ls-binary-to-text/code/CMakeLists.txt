@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.21)
 
-project(Example)
+project(binary-to-text)
 
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED TRUE)
