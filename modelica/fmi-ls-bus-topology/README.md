@@ -140,7 +140,7 @@ The manifest schema may be found here: [schema/fmi-ls-bus-topology.xsd](schema/f
 
 ## 3. FMU with Bus Topology to realise Network
 
-A Bus Topology is created by annotating FMI String or Binary Variables. Those annotations represent the Bus (`bus_id`) and the Node (`node_id`) of an FMU, and all FMUs combined represent a Virtual Network. An FMU may be connected to several Virtual Networks.
+A Bus Topology is created by annotating FMI String or Binary Variables. Those annotations represent the Bus (`bus_id`) of an FMU, and all FMUs combined represent a Virtual Network. An FMU may be connected to several Virtual Networks.
 
 The Bus topology and resultant Virtual Network is affected with the exchange of FMI Variables by the Importer.
 
@@ -162,7 +162,6 @@ __Configuration FMI2__
 | Annotation | Description |
 | ---------- | ----------- |
 | `bus_id`     | Indicate the Bus Identifier that this FMI String or Binary Variable represents.
-| `node_id`    | Indicate the Node Identifier assigned to this FMU for the Bus represented by this FMI String or Binary Variable.
 
 
 __Configuration FMI3__
@@ -170,7 +169,6 @@ __Configuration FMI3__
 | Annotation | Description |
 | ---------- | ----------- |
 | `dse.standards.fmi-ls-bus-topology.bus_id`     | Indicate the Bus Identifier that this FMI String or Binary Variable represents.
-| `dse.standards.fmi-ls-bus-topology.node_id`    | Indicate the Node Identifier assigned to this FMU for the Bus represented by this FMI String or Binary Variable.
 
 
 ### 3.2 Examples
@@ -188,7 +186,6 @@ __Example Configuration FMI2__
       <Annotations>
         <Tool name="dse.standards.fmi-ls-bus-topology">
           <Annotation name="bus_id">1<Annotation>
-          <Annotation name="node_id">1<Annotation>
         </Tool>
       <Annotations>
     </String>
@@ -196,7 +193,6 @@ __Example Configuration FMI2__
       <Annotations>
         <Tool name="dse.standards.fmi-ls-bus-topology">
           <Annotation name="bus_id">1<Annotation>
-          <Annotation name="node_id">1<Annotation>
         </Tool>
       <Annotations>
     </String>
@@ -204,7 +200,6 @@ __Example Configuration FMI2__
       <Annotations>
         <Tool name="dse.standards.fmi-ls-bus-topology">
           <Annotation name="bus_id">1<Annotation>
-          <Annotation name="node_id">2<Annotation>
         </Tool>
       <Annotations>
     </String>
@@ -212,7 +207,6 @@ __Example Configuration FMI2__
       <Annotations>
         <Tool name="dse.standards.fmi-ls-bus-topology">
           <Annotation name="bus_id">1<Annotation>
-          <Annotation name="node_id">2<Annotation>
         </Tool>
       <Annotations>
     </String>
@@ -220,7 +214,6 @@ __Example Configuration FMI2__
       <Annotations>
         <Tool name="dse.standards.fmi-ls-bus-topology">
           <Annotation name="bus_id">1<Annotation>
-          <Annotation name="node_id">3<Annotation>
         </Tool>
       <Annotations>
     </String>
@@ -228,7 +221,6 @@ __Example Configuration FMI2__
       <Annotations>
         <Tool name="dse.standards.fmi-ls-bus-topology">
           <Annotation name="bus_id">1<Annotation>
-          <Annotation name="node_id">3<Annotation>
         </Tool>
       <Annotations>
     </String>
@@ -245,37 +237,31 @@ __Example Configuration FMI3__
     <String name="network_1_1_rx" valueReference="1" causality="input">
         <Annotations>
             <Annotation type="dse.standards.fmi-ls-bus-topology.bus_id">1<Annotation>
-            <Annotation type="dse.standards.fmi-ls-bus-topology.node_id">1<Annotation>
         <Annotations>
     </String>
     <String name="network_1_1_tx" valueReference="2" causality="output">
         <Annotations>
             <Annotation type="dse.standards.fmi-ls-bus-topology.bus_id">1<Annotation>
-            <Annotation type="dse.standards.fmi-ls-bus-topology.node_id">1<Annotation>
         <Annotations>
     </String>
     <String name="network_1_1_rx" valueReference="3" causality="input">
         <Annotations>
             <Annotation type="dse.standards.fmi-ls-bus-topology.bus_id">1<Annotation>
-            <Annotation type="dse.standards.fmi-ls-bus-topology.node_id">2<Annotation>
         <Annotations>
     </String>
     <String name="network_1_1_tx" valueReference="4" causality="output">
         <Annotations>
             <Annotation type="dse.standards.fmi-ls-bus-topology.bus_id">1<Annotation>
-            <Annotation type="dse.standards.fmi-ls-bus-topology.node_id">2<Annotation>
         <Annotations>
     </String>
     <String name="network_1_1_rx" valueReference="5" causality="input">
         <Annotations>
             <Annotation type="dse.standards.fmi-ls-bus-topology.bus_id">1<Annotation>
-            <Annotation type="dse.standards.fmi-ls-bus-topology.node_id">3<Annotation>
         <Annotations>
     </String>
     <String name="network_1_1_tx" valueReference="6" causality="output">
         <Annotations>
             <Annotation type="dse.standards.fmi-ls-bus-topology.bus_id">1<Annotation>
-            <Annotation type="dse.standards.fmi-ls-bus-topology.node_id">3<Annotation>
         <Annotations>
     </String>
   </ModelVariables>
