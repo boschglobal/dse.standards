@@ -28,7 +28,7 @@ with other Virtual ECUs.
 The Bus Topology is realised with FMI 2 String Variables, or
 FMI 3 String/Binary Variables, and requires no special FMU Importer capabilities.
 
-When using the DSE Network Codec a Virtual Bus FMU <u>__is not__</u> required.
+When using the DSE Network Codec a Virtual Bus FMU <ins>__is not__</ins> required.
 
 ![Network Codec based Virtual Network](fmi-ls-bus-topology-ncodec-vbus.png)
 
