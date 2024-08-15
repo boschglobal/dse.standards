@@ -297,6 +297,6 @@ __Figure 5: FMU based Virtual Network__
 ---
 <a name="limitations"></a>
 
-## 4. Known Limitations of this Standard
+## 5. Known Limitations of this Standard
 
 There are no limitations with the application of this Layered Standard to either FMI2 and/or FMI3 simulation systems (or Importers).
