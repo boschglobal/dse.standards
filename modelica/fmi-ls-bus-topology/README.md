@@ -46,7 +46,7 @@ fmi2Status fmi2ExitInitializationMode(...)
 {
     fmu->bus_topology = bus_topology_create(fmu->instance.model_xml_path);
     fmu->bus_ncodec = ncodec_open(MIMETYPE, stream_create());
-    char* bus_id = __get_ncodec_bus_id(fmu->bus_ncodec);
+    char* bus_id = _get_ncodec_bus_id(fmu->bus_ncodec);
         bus_topology_add(fmu->bus_topology, bus_id, fmu->bus_ncodec);
     free(bus_id);
  }
@@ -81,7 +81,7 @@ fmi2Status fmi2DoStep(...)
 }
 
 // Bus TX:
-mi2Status fmi2GetString(...)
+fmi2Status fmi2GetString(...)
 {
     for (size_t i = 0; i < nvr; i++) {
         value[i] = NULL;
