@@ -236,6 +236,9 @@ void test_can_fbs_readwrite(void** state)
     assert_int_equal(msg.len, strlen(greeting));
     assert_non_null(msg.buffer);
     assert_memory_equal(msg.buffer, greeting, strlen(greeting));
+    assert_int_equal(msg.sender.bus_id, 1);
+    assert_int_equal(msg.sender.node_id, 8);  // Note this value was modified.
+    assert_int_equal(msg.sender.interface_id, 3);
 }
 
 

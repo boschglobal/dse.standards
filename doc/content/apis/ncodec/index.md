@@ -81,6 +81,9 @@ typedef struct NCodecCanMessage {
     uint8_t* buffer;
     size_t len;
     NCodecCanFrameType frame_type;
+    uint64_t [2] __reserved__;
+    struct (anonymous struct at dse/ncodec/codec.h:206:5) sender;
+    struct (anonymous struct at dse/ncodec/codec.h:214:5) timing;
 }
 ```
 

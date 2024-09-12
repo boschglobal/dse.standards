@@ -174,6 +174,10 @@ int32_t can_read(NCODEC* nc, NCodecMessage* msg)
                 (uint8_t*)payload;  // TODO think about this cast ... caller
                                     // should not modify ... restrict?
             _msg->len = flatbuffers_uint8_vec_len(payload);
+            _msg->sender.bus_id = ns(CanFrame_bus_id(can_frame));
+            _msg->sender.node_id = ns(CanFrame_node_id(can_frame));
+            _msg->sender.interface_id = ns(CanFrame_interface_id(can_frame));
+
             /* ... but don't forget to save the vector index either. */
             _nc->vector_idx = _vi + 1;
             return _msg->len;
