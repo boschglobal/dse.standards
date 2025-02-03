@@ -29,7 +29,7 @@ add_compile_options(${C_CXX_WARNING_FLAGS})
 # External Project - Automotive Bus Schema
 # -------------------------------------------
 FetchContent_Declare(automotive-bus-schema
-    URL https://github.com/boschglobal/automotive-bus-schema/releases/download/v1.0.3/automotive-bus-schema.tar.gz
+    URL https://github.com/boschglobal/automotive-bus-schema/releases/download/v1.0.5/automotive-bus-schema.tar.gz
 )
 FetchContent_MakeAvailable(automotive-bus-schema)
 set(SCHEMAS_SOURCE_DIR ${automotive-bus-schema_SOURCE_DIR}/flatbuffers/c)
@@ -49,6 +49,7 @@ set(DSE_NCODEC_SOURCE_DIR ../../../../../dse/ncodec)
 set(DSE_NCODEC_SOURCE_FILES
     ${DSE_NCODEC_SOURCE_DIR}/libs/automotive-bus/codec.c
     ${DSE_NCODEC_SOURCE_DIR}/libs/automotive-bus/frame_can_fbs.c
+    ${DSE_NCODEC_SOURCE_DIR}/libs/automotive-bus/pdu_fbs.c
     ${DSE_NCODEC_SOURCE_DIR}/codec.c
 )
 set(DSE_NCODEC_INCLUDE_DIR "${DSE_NCODEC_SOURCE_DIR}/../..")
@@ -65,6 +66,7 @@ add_executable(test_codec
     __test__.c
     test_codec.c
     test_can_fbs.c
+    test_pdu_fbs.c
     stream.c
     ${DSE_NCODEC_SOURCE_FILES}
     ${FLATCC_SOURCE_FILES}

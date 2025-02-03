@@ -3,8 +3,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 GCC_BUILDER_IMAGE ?= ghcr.io/boschglobal/dse-gcc-builder:main
-GDB_CMD ?= valgrind -q --leak-check=yes
-# GDB_CMD ?= gdb -q -ex='set confirm on' -ex=run -ex=quit
+# GDB_CMD ?= valgrind -q --leak-check=yes
+GDB_CMD ?= gdb -q -ex='set confirm on' -ex=run -ex=quit
 
 default: build_docker
 

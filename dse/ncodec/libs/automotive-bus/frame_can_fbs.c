@@ -7,6 +7,11 @@
 #include <string.h>
 #include <dse/ncodec/codec.h>
 #include <automotive-bus/codec.h>
+#include <automotive_bus_schema/stream/frame_builder.h>
+
+
+#undef ns
+#define ns(x) FLATBUFFERS_WRAP_NAMESPACE(AutomotiveBus_Stream_Frame, x)
 
 
 static void initialize_stream(ABCodecInstance* nc)

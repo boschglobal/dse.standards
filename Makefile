@@ -16,4 +16,4 @@ super-linter:
 		--env DEFAULT_BRANCH=main \
 		--env IGNORE_GITIGNORED_FILES=true \
 		--env VALIDATE_CPP=true \
-		github/super-linter:slim-v5
+		ghcr.io/super-linter/super-linter:slim-v6

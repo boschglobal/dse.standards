@@ -27,7 +27,7 @@ add_compile_options(${C_CXX_WARNING_FLAGS})
 # External Project - Automotive Bus Schema
 # -------------------------------------------
 FetchContent_Declare(automotive-bus-schema
-    URL https://github.com/boschglobal/automotive-bus-schema/releases/download/v1.0.3/automotive-bus-schema.tar.gz
+    URL https://github.com/boschglobal/automotive-bus-schema/releases/download/v1.0.5/automotive-bus-schema.tar.gz
 )
 FetchContent_MakeAvailable(automotive-bus-schema)
 set(SCHEMAS_SOURCE_DIR ${automotive-bus-schema_SOURCE_DIR}/flatbuffers/c)
@@ -46,6 +46,7 @@ add_library(automotive-bus-codec
     STATIC
         codec.c
         frame_can_fbs.c
+        pdu_fbs.c
         ${FLATCC_SOURCE_FILES}
 )
 target_include_directories(automotive-bus-codec

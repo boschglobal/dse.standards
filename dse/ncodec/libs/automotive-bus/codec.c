@@ -20,6 +20,12 @@ extern int32_t can_read(NCODEC* nc, NCodecMessage* msg);
 extern int32_t can_flush(NCODEC* nc);
 extern int32_t can_truncate(NCODEC* nc);
 
+/* interface=stream; type=pdu; schema=fbs */
+extern int32_t pdu_write(NCODEC* nc, NCodecMessage* msg);
+extern int32_t pdu_read(NCODEC* nc, NCodecMessage* msg);
+extern int32_t pdu_flush(NCODEC* nc);
+extern int32_t pdu_truncate(NCODEC* nc);
+
 
 char* trim(char* s)
 {
@@ -46,6 +52,8 @@ void free_codec(ABCodecInstance* _nc)
     if (_nc->bus_id_str) free(_nc->bus_id_str);
     if (_nc->node_id_str) free(_nc->node_id_str);
     if (_nc->interface_id_str) free(_nc->interface_id_str);
+    if (_nc->swc_id_str) free(_nc->swc_id_str);
+    if (_nc->ecu_id_str) free(_nc->ecu_id_str);
     if (_nc->fbs_builder_initalized) flatcc_builder_clear(&_nc->fbs_builder);
 }
 
@@ -96,6 +104,18 @@ int32_t codec_config(NCODEC* nc, NCodecConfigItem item)
         _nc->interface_id = strtoul(item.value, NULL, 10);
         return 0;
     }
+    if (strcmp(item.name, "swc_id") == 0) {
+        if (_nc->swc_id_str) free(_nc->swc_id_str);
+        _nc->swc_id_str = strdup(item.value);
+        _nc->swc_id = strtoul(item.value, NULL, 10);
+        return 0;
+    }
+    if (strcmp(item.name, "ecu_id") == 0) {
+        if (_nc->ecu_id_str) free(_nc->ecu_id_str);
+        _nc->ecu_id_str = strdup(item.value);
+        _nc->ecu_id = strtoul(item.value, NULL, 10);
+        return 0;
+    }
 
     return -EINVAL;
 }
@@ -138,6 +158,14 @@ NCodecConfigItem codec_stat(NCODEC* nc, int32_t* index)
     case 6:
         name = "interface_id";
         value = _nc->interface_id_str;
+        break;
+    case 7:
+        name = "swc_id";
+        value = _nc->swc_id_str;
+        break;
+    case 8:
+        name = "ecu_id";
+        value = _nc->ecu_id_str;
         break;
     default:
         *index = -1;
@@ -191,18 +219,29 @@ NCODEC* ncodec_create(const char* mime_type)
     free(_buf);
     _buf = NULL;
 
-    /* Guard conditions for this codec.*/
-    if (_nc->interface == NULL || _nc->type == NULL || _nc->schema == NULL ||
-        _nc->bus == NULL) {
+    /* Guard conditions for this codec. */
+    if (_nc->interface == NULL || strcmp(_nc->interface, "stream")) {
         goto create_fail;
     }
-    if (strcmp(_nc->interface, "stream") || strcmp(_nc->type, "frame") ||
-        strcmp(_nc->schema, "fbs")) {
+    if (_nc->type == NULL) {
+        goto create_fail;
+    } else {
+        if (strcmp(_nc->type, "frame") == 0) {
+            if (_nc->bus == NULL || strcmp(_nc->bus, "can")) {
+                goto create_fail;
+            }
+        } else if (strcmp(_nc->type, "pdu") == 0) {
+            // NOP
+        } else {
+            goto create_fail;
+        }
+    }
+    if (_nc->schema == NULL || strcmp(_nc->schema, "fbs")) {
         goto create_fail;
     }
 
     /* Determine which codec implementation to use. */
-    if (strcmp(_nc->bus, "can") == 0) {
+    if (strcmp(_nc->type, "frame") == 0 && strcmp(_nc->bus, "can") == 0) {
         _nc->c.codec = (struct NCodecVTable){
             .config = codec_config,
             .stat = codec_stat,
@@ -210,6 +249,16 @@ NCODEC* ncodec_create(const char* mime_type)
             .read = can_read,
             .flush = can_flush,
             .truncate = can_truncate,
+            .close = codec_close,
+        };
+    } else if (strcmp(_nc->type, "pdu") == 0) {
+        _nc->c.codec = (struct NCodecVTable){
+            .config = codec_config,
+            .stat = codec_stat,
+            .write = pdu_write,
+            .read = pdu_read,
+            .flush = pdu_flush,
+            .truncate = pdu_truncate,
             .close = codec_close,
         };
     } else {

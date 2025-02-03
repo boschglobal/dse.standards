@@ -40,17 +40,6 @@ extern NCodecStreamVTable mem_stream;
 #define BUF_NODEID_OFFSET 53
 
 
-NCODEC* ncodec_open(const char* mime_type, NCodecStreamVTable* stream)
-{
-    NCODEC* nc = ncodec_create(mime_type);
-    if (nc) {
-        NCodecInstance* _nc = (NCodecInstance*)nc;
-        _nc->stream = stream;
-    }
-    return nc;
-}
-
-
 static int test_setup(void** state)
 {
     Mock* mock = calloc(1, sizeof(Mock));
