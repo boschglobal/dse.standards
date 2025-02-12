@@ -82,8 +82,16 @@ typedef struct NCodecCanMessage {
     size_t len;
     NCodecCanFrameType frame_type;
     uint64_t [2] __reserved__;
-    struct (anonymous struct at dse/ncodec/codec.h:206:5) sender;
-    struct (anonymous struct at dse/ncodec/codec.h:214:5) timing;
+    struct {
+        uint8_t bus_id;
+        uint8_t node_id;
+        uint8_t interface_id;
+    } sender;
+    struct {
+        uint64_t send;
+        uint64_t arb;
+        uint64_t recv;
+    } timing;
 }
 ```
 
@@ -105,6 +113,107 @@ typedef struct NCodecInstance {
     NCodecStreamVTable* stream;
     NCodecTraceVTable trace;
     void* private;
+}
+```
+
+### NCodecPdu
+
+```c
+typedef struct NCodecPdu {
+    uint32_t id;
+    const uint8_t* payload;
+    size_t payload_len;
+    uint32_t swc_id;
+    uint32_t ecu_id;
+    NCodecPduTransportType transport_type;
+    struct {
+        struct ;
+        struct (anonymous struct at dse/ncodec/codec.h:356:9) none;
+        NCodecPduCanMessageMetadata can_message;
+        NCodecPduIpMessageMetadata ip_message;
+    } transport;
+}
+```
+
+### NCodecPduCanMessageMetadata
+
+```c
+typedef struct NCodecPduCanMessageMetadata {
+    NCodecPduCanFrameFormat frame_format;
+    NCodecPduCanFrameType frame_type;
+    uint32_t interface_id;
+    uint32_t network_id;
+}
+```
+
+### NCodecPduDoIpAdapter
+
+```c
+typedef struct NCodecPduDoIpAdapter {
+    uint8_t protocol_version;
+    uint16_t payload_type;
+}
+```
+
+### NCodecPduIpAddrV4
+
+```c
+typedef struct NCodecPduIpAddrV4 {
+    uint32_t src_addr;
+    uint32_t dst_addr;
+}
+```
+
+### NCodecPduIpAddrV6
+
+```c
+typedef struct NCodecPduIpAddrV6 {
+    uint16_t [8] src_addr;
+    uint16_t [8] dst_addr;
+}
+```
+
+### NCodecPduIpMessageMetadata
+
+```c
+typedef struct NCodecPduIpMessageMetadata {
+    uint64_t eth_dst_mac;
+    uint64_t eth_src_mac;
+    uint16_t eth_ethertype;
+    uint8_t eth_tci_pcp;
+    uint8_t eth_tci_dei;
+    uint16_t eth_tci_vid;
+    NCodecPduIpProtocol ip_protocol;
+    NCodecPduIpAddr ip_addr_type;
+    struct {
+        struct ;
+        struct (anonymous struct at dse/ncodec/codec.h:319:9) none;
+        NCodecPduIpAddrV4 ip_v4;
+        NCodecPduIpAddrV6 ip_v6;
+    } ip_addr;
+    uint16_t ip_src_port;
+    uint16_t ip_dst_port;
+    NCodecPduSoAd so_ad_type;
+    struct {
+        struct ;
+        struct (anonymous struct at dse/ncodec/codec.h:329:9) none;
+        NCodecPduDoIpAdapter do_ip;
+        NCodecPduSomeIpAdapter some_ip;
+    } so_ad;
+}
+```
+
+### NCodecPduSomeIpAdapter
+
+```c
+typedef struct NCodecPduSomeIpAdapter {
+    uint32_t message_id;
+    uint32_t length;
+    uint32_t request_id;
+    uint8_t protocol_version;
+    uint8_t interface_version;
+    uint8_t message_type;
+    uint8_t return_code;
 }
 ```
 
