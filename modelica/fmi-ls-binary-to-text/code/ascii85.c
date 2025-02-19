@@ -2,49 +2,31 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-#include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 
-/**
-ascii85_encode
-==============
-
-Encode the provided binary data to an ASCII85 encoded string (null terminated).
-
-Parameters
-----------
-data (const char*)
-: A pointer to the binary data to encode.
-
-len (size_t)
-: Length of the binary data.
-
-Returns
--------
-(char*)
-: The ASCII85 encoded string (null terminated). Caller to free.
-*/
-char* ascii85_encode(const uint8_t* data, size_t len)
+char* ascii85_encode(const char* source, size_t source_len)
 {
-    int required = (len + 3) / 4 * 5;
-    int padding = (len % 4) ? 4 - (len % 4) : 0;
+    int required = (source_len + 3) / 4 * 5;
+    int padding = (source_len % 4) ? 4 - (source_len % 4) : 0;
 
-    /* Encode the data. */
+    /* Encode the source. */
     char* en = calloc(required + 1, sizeof(char));
     char* en_save = en;
-    while (len) {
+    while (source_len) {
         uint32_t x = 0;
         for (int chunk = 3; chunk >= 0; chunk--) {
-            x |= *data << (chunk * 8);
-            data++;
+            x |= (uint8_t)*source << (chunk * 8);
+            source++;
             /* Stop chunking if no more characters are available. */
-            if (--len == 0) break;
+            if (--source_len == 0) break;
         }
         /* Special Case zero. */
-        if (x == 0 && len >= 4) {
+        if (x == 0 && source_len >= 4) {
             en[0] = 'z';
             en += 1;
             continue;
@@ -58,60 +40,51 @@ char* ascii85_encode(const uint8_t* data, size_t len)
 
     /* Remove (essentially) the padded characters. */
     for (int i = 1; i <= padding; i++) {
-        en_save[required - i] = '\0';
+        en_save[strlen(en_save) - 1] = '\0';
     }
 
     return en_save;
 }
 
 
-/**
-ascii85_decode
-==============
-
-Decode an ASCII85 string (null terminated) to raw binary data.
-
-Parameters
-----------
-source (const char*)
-: The ASCII85 string (null terminated) to be decoded.
-
-len (size_t*)
-: (out) Length of the decoded binary data.
-
-Returns
--------
-(uint8_t*)
-: Binary (raw) data. Caller to free.
-
-len (via parameter)
-: The length of the returned binary data.
-*/
-uint8_t* ascii85_decode(const char* source, size_t* len)
+char* ascii85_decode(const char* source, size_t* len)
 {
-    int source_len = strlen(source);
-    int required = (source_len + 4) / 5 * 4;
+    /*
+    Decode is 5 -> 4, or 1 -> 4 for 'z' case. Calculate parameters with
+    necessary corrections.
+    */
+    int z_count = 0;
+    for (const char* p = source; *p; p++) {
+        if (*p == 'z') z_count++;
+    }
+    int required = (strlen(source) - z_count + 4) / 5 * 4 + z_count * 4;
+    int source_len = strlen(source) + z_count * 4;
     int padding = (source_len % 5) ? (5 - (source_len % 5)) : 0;
 
-    /* Pad the source string to a multiple of 5. */
-    int   padded_len = source_len + padding;
+    /* Pad the source string. */
+    int   padded_len = strlen(source) + padding;
     char* source_padded = calloc(padded_len + 1, sizeof(char));
     snprintf(source_padded, padded_len + 1, "%s", source);
     for (int i = 0; i < padding; i++) {
-        source_padded[source_len + i] = 'u';
+        source_padded[strlen(source) + i] = 'u';
     }
 
     /* Decode the source. */
-    uint8_t* en = calloc(required + 1, sizeof(uint8_t));
-    uint8_t* en_walker = en;
-    char*    src_walker = source_padded;
-    while (padded_len) {
+    char* en = calloc(required + 1, sizeof(char));
+    char* en_walker = en;
+    char* src_walker = source_padded;
+    while (padded_len > 0) {
         uint32_t x = 0;
-        for (int chunk = 0; chunk <= 4; chunk++) {
-            x = x * 85 + (src_walker[chunk] - 33);
+        if (src_walker[0] == 'z') {
             padded_len--;
+            src_walker += 1;
+        } else {
+            for (int chunk = 0; chunk <= 4; chunk++) {
+                x = x * 85 + (src_walker[chunk] - 33);
+                padded_len--;
+            }
+            src_walker += 5;
         }
-        src_walker += 5;
         for (int byte = 3; byte >= 0; byte--) {
             *en_walker = x >> (byte * 8);
             en_walker++;
@@ -125,6 +98,6 @@ uint8_t* ascii85_decode(const char* source, size_t* len)
     }
 
     /* Return the decoded binary string, and length. */
-    if (len) *len = required - padding;
+    *len = required - padding;
     return en;
 }
