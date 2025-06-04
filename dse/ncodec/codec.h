@@ -334,10 +334,23 @@ typedef struct NCodecPduIpMessageMetadata {
 } NCodecPduIpMessageMetadata;
 
 
+typedef struct NCodecPduStructMetadata {
+    const char* type_name;
+    const char* var_name;
+    const char* encoding;
+    uint16_t    attribute_aligned;
+    bool        attribute_packed;
+    const char* platform_arch;
+    const char* platform_os;
+    const char* platform_abi;
+} NCodecPduStructMetadata;
+
+
 typedef enum {
     NCodecPduTransportTypeNone = 0,
     NCodecPduTransportTypeCan = 1,
     NCodecPduTransportTypeIp = 2,
+    NCodecPduTransportTypeStruct = 3,
 } NCodecPduTransportType;
 
 typedef struct NCodecPdu {
@@ -357,6 +370,7 @@ typedef struct NCodecPdu {
         } none;
         NCodecPduCanMessageMetadata can_message;
         NCodecPduIpMessageMetadata  ip_message;
+        NCodecPduStructMetadata     struct_object;
     } transport;
 } NCodecPdu;
 

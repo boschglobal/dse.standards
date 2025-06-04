@@ -162,6 +162,47 @@ static uint32_t _emit_ip_message_metadata(flatcc_builder_t* B, NCodecPdu* _pdu)
     return ns(IpMessageMetadata_end(B));
 }
 
+static uint32_t _emit_struct_metadata(flatcc_builder_t* B, NCodecPdu* _pdu)
+{
+    NCodecPduStructMetadata* struct_obj = &_pdu->transport.struct_object;
+    ns(StructMetadata_start(B));
+
+    if (struct_obj->type_name) {
+        flatbuffers_string_ref_t _str;
+        _str = flatbuffers_string_create_str(B, struct_obj->type_name);
+        ns(StructMetadata_type_name_add)(B, _str);
+    }
+    if (struct_obj->var_name) {
+        flatbuffers_string_ref_t _str;
+        _str = flatbuffers_string_create_str(B, struct_obj->var_name);
+        ns(StructMetadata_var_name_add)(B, _str);
+    }
+    if (struct_obj->encoding) {
+        flatbuffers_string_ref_t _str;
+        _str = flatbuffers_string_create_str(B, struct_obj->encoding);
+        ns(StructMetadata_encoding_add)(B, _str);
+    }
+    ns(StructMetadata_attribute_aligned_add(B, struct_obj->attribute_aligned));
+    ns(StructMetadata_attribute_packed_add(B, struct_obj->attribute_packed));
+    if (struct_obj->platform_arch) {
+        flatbuffers_string_ref_t _str;
+        _str = flatbuffers_string_create_str(B, struct_obj->platform_arch);
+        ns(StructMetadata_platform_arch_add)(B, _str);
+    }
+    if (struct_obj->platform_os) {
+        flatbuffers_string_ref_t _str;
+        _str = flatbuffers_string_create_str(B, struct_obj->platform_os);
+        ns(StructMetadata_platform_os_add)(B, _str);
+    }
+    if (struct_obj->platform_abi) {
+        flatbuffers_string_ref_t _str;
+        _str = flatbuffers_string_create_str(B, struct_obj->platform_abi);
+        ns(StructMetadata_platform_abi_add)(B, _str);
+    }
+
+    return ns(StructMetadata_end(B));
+}
+
 
 int32_t pdu_write(NCODEC* nc, NCodecPdu* pdu)
 {
@@ -178,6 +219,7 @@ int32_t pdu_write(NCODEC* nc, NCodecPdu* pdu)
     initialize_stream(_nc);
     ns(CanMessageMetadata_ref_t) can_message_metadata = 0;
     ns(IpMessageMetadata_ref_t) ip_message_metadata = 0;
+    ns(StructMetadata_ref_t) struct_metadata = 0;
 
     /* Encode the PDU. */
     // Transport Table
@@ -187,6 +229,9 @@ int32_t pdu_write(NCODEC* nc, NCodecPdu* pdu)
     } break;
     case NCodecPduTransportTypeIp: {
         ip_message_metadata = _emit_ip_message_metadata(B, _pdu);
+    } break;
+    case NCodecPduTransportTypeStruct: {
+        struct_metadata = _emit_struct_metadata(B, _pdu);
     } break;
     default:
         break;
@@ -203,6 +248,8 @@ int32_t pdu_write(NCODEC* nc, NCodecPdu* pdu)
         ns(Pdu_transport_Can_add(B, can_message_metadata));
     } else if (ip_message_metadata) {
         ns(Pdu_transport_Ip_add(B, ip_message_metadata));
+    } else if (struct_metadata) {
+        ns(Pdu_transport_Struct_add(B, struct_metadata));
     }
     ns(Stream_pdus_push_end(B));
 
@@ -321,6 +368,24 @@ static void _decode_ip_message_metadata(ns(Pdu_table_t) pdu, NCodecPdu* _pdu)
     }
 }
 
+static void _decode_struct_metadata(ns(Pdu_table_t) pdu, NCodecPdu* _pdu)
+{
+    NCodecPduStructMetadata* struct_obj = &_pdu->transport.struct_object;
+    _pdu->transport_type = NCodecPduTransportTypeStruct;
+    ns(StructMetadata_table_t) struct_md =
+        (ns(StructMetadata_table_t))ns(Pdu_transport(pdu));
+    struct_obj->type_name = ns(StructMetadata_type_name(struct_md));
+    struct_obj->var_name = ns(StructMetadata_var_name(struct_md));
+    struct_obj->encoding = ns(StructMetadata_encoding(struct_md));
+    struct_obj->attribute_aligned =
+        ns(StructMetadata_attribute_aligned(struct_md));
+    struct_obj->attribute_packed =
+        ns(StructMetadata_attribute_packed(struct_md));
+    struct_obj->platform_arch = ns(StructMetadata_platform_arch(struct_md));
+    struct_obj->platform_os = ns(StructMetadata_platform_os(struct_md));
+    struct_obj->platform_abi = ns(StructMetadata_platform_abi(struct_md));
+}
+
 
 static void get_stream_from_buffer(NCODEC* nc)
 {
@@ -416,6 +481,8 @@ int32_t pdu_read(NCODEC* nc, NCodecPdu* pdu)
                     _decode_can_message_metadata(pdu, _pdu);
                 } else if (transport_type == ns(TransportMetadata_Ip)) {
                     _decode_ip_message_metadata(pdu, _pdu);
+                } else if (transport_type == ns(TransportMetadata_Struct)) {
+                    _decode_struct_metadata(pdu, _pdu);
                 }
             }
 

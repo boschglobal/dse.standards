@@ -128,9 +128,10 @@ typedef struct NCodecPdu {
     NCodecPduTransportType transport_type;
     struct {
         struct ;
-        struct (anonymous struct at dse/ncodec/codec.h:356:9) none;
+        struct (anonymous struct at dse/ncodec/codec.h:369:9) none;
         NCodecPduCanMessageMetadata can_message;
         NCodecPduIpMessageMetadata ip_message;
+        NCodecPduStructMetadata struct_object;
     } transport;
 }
 ```
@@ -214,6 +215,21 @@ typedef struct NCodecPduSomeIpAdapter {
     uint8_t interface_version;
     uint8_t message_type;
     uint8_t return_code;
+}
+```
+
+### NCodecPduStructMetadata
+
+```c
+typedef struct NCodecPduStructMetadata {
+    const char* type_name;
+    const char* var_name;
+    const char* encoding;
+    uint16_t attribute_aligned;
+    bool attribute_packed;
+    const char* platform_arch;
+    const char* platform_os;
+    const char* platform_abi;
 }
 ```
 
