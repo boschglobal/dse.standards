@@ -14,7 +14,7 @@ Standards extensions (adaptations) supporting the Dynamic Simulation Environment
 ```
 L- doc                      Documentation and image sources.
 L- dse                      DSE related implementations (for reuse).
-  L- ncodec                 Network Codec API, implementation of Binary Codec.
+  L- ncodec                 [Depreciated] Network Codec API, implementation of Binary Codec.
 L- licenses                 3rd party software licenses.
 L- modelica                 Adaptations relating to the Modelica Association Standards.
   L- fmi-ls-binary-codec    Binary Codec specification for FMI 2/3.
@@ -23,10 +23,11 @@ L- modelica                 Adaptations relating to the Modelica Association Sta
 ```
 
 
-
 ## Reference Implementations
 
-### Network Codec API
+### [Depreciated] Network Codec API
+
+> __Info:__ The Network Codec is relocated to : https://github.com/boschglobal/dse.ncodec
 
 * **[DSE NCodec](dse/ncodec/README.md)** supporting schemas:
   * [Automotive Bus](dse/ncodec/libs/automotive-bus/README.md) - CAN Bus (w. Flatbuffers based serialisation schema).
@@ -72,3 +73,4 @@ See the [LICENSE](LICENSE) and [NOTICE](./NOTICE) files for details.
 * FMI Layered Standard examples and schemas:
   * https://github.com/modelica/fmi-standard/pull/1854
   * https://github.com/modelica/fmi-ls-xcp
+
