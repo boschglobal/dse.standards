@@ -7,16 +7,14 @@ SPDX-License-Identifier: Apache-2.0
 # Dynamic Simulation Environment - FMI Layered Standard Bus Topology
 
 
-__Contents__
-- [Introduction](#introduction)
-- [Layered Standard Manifest File](#manifest)
-- [FMU with Bus Topology to realise Network](#bus-topology)
-- [Example Bus Topology for CAN](#example-network)
-- [Known Limitations of this Standard](#limitations)
+## Contents
+- [Introduction](#1-introduction)
+- [Layered Standard Manifest File](#2-layered-standard-manifest-file)
+- [FMU with Bus Topology to realise Network](#3-fmu-with-bus-topology-to-realise-network)
+- [Example Bus Topology for CAN](#4-example-bus-topology-for-can)
+- [Known Limitations of this Standard](#5-known-limitations-of-this-standard)
 
 ---
-
-<a name="introduction"></a>
 
 ## 1. Introduction
 
@@ -120,8 +118,6 @@ There are no specific remarks regarding this approach.
 
 
 ---
-<a name="manifest"></a>
-
 ## 2. Layered Standard Manifest File
 
 This layered standard defines additional capability flags:
@@ -137,8 +133,6 @@ The manifest schema may be found here: [schema/fmi-ls-bus-topology.xsd](schema/f
 
 
 ---
-<a name="bus-topology"></a>
-
 ## 3. FMU with Bus Topology to realise Network
 
 A Bus Topology is created by annotating FMI String or Binary Variables. Those annotations represent the Bus (`bus_id`) of an FMU, and all FMUs combined represent a Virtual Network. An FMU may be connected to several Virtual Networks.
@@ -271,8 +265,6 @@ __Example Configuration FMI3__
 
 
 ---
-<a name="example-network"></a>
-
 ## 4. Example Bus Topology for CAN
 
 ### 4.1 CAN Network with Network Codec based Virtual Network
@@ -295,8 +287,6 @@ __Figure 5: FMU based Virtual Network__
 
 
 ---
-<a name="limitations"></a>
-
 ## 5. Known Limitations of this Standard
 
 There are no limitations with the application of this Layered Standard to either FMI2 and/or FMI3 simulation systems (or Importers).

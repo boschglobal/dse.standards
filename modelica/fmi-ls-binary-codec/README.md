@@ -7,16 +7,14 @@ SPDX-License-Identifier: Apache-2.0
 # Dynamic Simulation Environment - FMI Layered Standard Binary Codec Selection
 
 
-__Contents__
-- [Introduction](#introduction)
-- [Layered Standard Manifest File](#manifest)
-- [Common Concepts](#concepts)
-- [FMU with Binary Codec Selection](#codec)
-- [Known Limitations of this Standard](#limitations)
+## Contents
+- [Introduction](#1-introduction)
+- [Layered Standard Manifest File](#2-layered-standard-manifest-file)
+- [Common Concepts](#3-common-concepts)
+- [FMU with Binary Codec Selection](#4-fmu-with-binary-codec-selection)
+- [Known Limitations of this Standard](#5-known-limitations-of-this-standard)
 
 ---
-
-<a name="introduction"></a>
 
 ## 1. Introduction
 
@@ -45,8 +43,6 @@ This layered standard does not define the method or design of the API which the 
 
 
 ---
-<a name="manifest"></a>
-
 ## 2. Layered Standard Manifest File
 
 This layered standard defines additional capability flags:
@@ -65,8 +61,6 @@ The manifest schema may be found here: [schema/fmi-ls-binary-codec.xsd](schema/f
 
 
 ---
-<a name="concepts"></a>
-
 ## 3. Common Concepts
 
 ### 3.1 Structure of the FMU Archive
@@ -126,8 +120,6 @@ If an FMU is delivered with source code then it is suggested to also deliver the
 
 
 ---
-<a name="codec"></a>
-
 ## 4. FMU with Binary Codec Selection
 
 An FMU may use parameters encoded in the MIME type to select and load a particular codec to be used for a binary object variable of that FMU. The codec may be provided by the FMU Importer or some other third-party.
@@ -223,8 +215,6 @@ __Example Variable Annotations__
 
 
 ---
-<a name="limitations"></a>
-
 ## 5. Known Limitations of this Standard
 
 ### 5.1 Compatibility with FMI 2 Standard

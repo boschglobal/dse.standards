@@ -7,15 +7,13 @@ SPDX-License-Identifier: Apache-2.0
 # Dynamic Simulation Environment - FMI Layered Standard Binary-to-Text String Encoding for Binary Data
 
 
-__Contents__
-- [Introduction](#introduction)
-- [Layered Standard Manifest File](#manifest)
-- [FMU with Binary-to-Text String Encoding for Binary Data](#binary-to-text)
-- [Known Limitations of this Standard](#limitations)
+## Contents
+- [Introduction](#1-introduction)
+- [Layered Standard Manifest File](#2-layered-standard-manifest-file)
+- [FMU with Binary-to-Text String Encoding for Binary Data](#3-fmu-with-binary-to-text-string-encoding-for-binary-data)
+- [Known Limitations of this Standard](#4-known-limitations-of-this-standard)
 
 ---
-
-<a name="introduction"></a>
 
 ## 1. Introduction
 
@@ -46,8 +44,6 @@ There are no specific remarks regarding this approach.
 
 
 ---
-<a name="manifest"></a>
-
 ## 2. Layered Standard Manifest File
 
 This layered standard defines additional capability flags:
@@ -66,8 +62,6 @@ The manifest schema may be found here: [schema/fmi-ls-binary-to-text.xsd](schema
 
 
 ---
-<a name="binary-to-text"></a>
-
 ## 3. FMU with Binary-to-Text String Encoding for Binary Data
 
 
@@ -195,8 +189,6 @@ __Example Configuration FMI3__
 
 
 ---
-<a name="limitations"></a>
-
 ## 4. Known Limitations of this Standard
 
 There are no limitations with the application of this Layered Standard to either FMI2 and/or FMI3 simulation systems (or Importers).
