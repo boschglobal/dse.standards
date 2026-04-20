@@ -60,7 +60,7 @@
             <y:ShapeNode>
               <y:Geometry height="36.87499999999977" width="86.0" x="665.8076041769211" y="1188.3508229040256"/>
               <y:Fill hasColor="false" transparent="false"/>
-              <y:BorderStyle color="#99CCFF" raised="false" type="dashed" width="3.0"/>
+              <y:BorderStyle color="#99CCFF" raised="false" type="line" width="4.0"/>
               <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="23.6015625" horizontalTextPosition="right" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="center" visible="true" width="68.0078125" x="8.99609375" xml:space="preserve" y="6.636718749999773">PDU Net<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
               <y:Shape type="roundrectangle"/>
             </y:ShapeNode>
@@ -74,14 +74,14 @@
         <y:ProxyAutoBoundsNode>
           <y:Realizers active="0">
             <y:GroupNode>
-              <y:Geometry height="423.8170664879351" width="309.8239700374529" x="998.3865224721826" y="816.4087564160902"/>
+              <y:Geometry height="342.0077191803696" width="309.8239700374529" x="998.3865224721826" y="898.2181037236558"/>
               <y:Fill hasColor="false" transparent="false"/>
               <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
               <y:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="22.37646484375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="309.8239700374529" x="0.0" xml:space="preserve" y="0.0">&lt;&lt; FMU w. Embedded Simulation &gt;&gt;</y:NodeLabel>
               <y:Shape type="roundrectangle"/>
               <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
               <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
-              <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="4" rightF="3.8239700374529093" top="0" topF="0.0"/>
+              <y:BorderInsets bottom="0" bottomF="2.2737367544323206E-13" left="6" leftF="5.5" right="5" rightF="5.200762715285464" top="0" topF="0.0"/>
             </y:GroupNode>
             <y:GroupNode>
               <y:Geometry height="50.0" width="50.0" x="120.0" y="60.0"/>
@@ -101,54 +101,21 @@
         <node id="n1::n0">
           <data key="d6">
             <y:ShapeNode>
-              <y:Geometry height="36.87499999999977" width="86.0" x="1013.3865224721826" y="1188.3508229040256"/>
-              <y:Fill hasColor="false" transparent="false"/>
-              <y:BorderStyle color="#99CCFF" raised="false" type="line" width="3.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="23.6015625" horizontalTextPosition="right" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="center" visible="true" width="68.0078125" x="8.99609375" xml:space="preserve" y="6.636718749999773">PDU Net<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
-              <y:Shape type="roundrectangle"/>
-            </y:ShapeNode>
-          </data>
-        </node>
-        <node id="n1::n1">
-          <data key="d6">
-            <y:ShapeNode>
-              <y:Geometry height="36.87499999999977" width="86.0" x="1108.3865224721826" y="1188.3508229040256"/>
-              <y:Fill hasColor="false" transparent="false"/>
-              <y:BorderStyle color="#99CCFF" raised="false" type="line" width="3.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="23.6015625" horizontalTextPosition="right" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="center" visible="true" width="68.0078125" x="8.99609375" xml:space="preserve" y="6.636718749999773">PDU Net<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
-              <y:Shape type="roundrectangle"/>
-            </y:ShapeNode>
-          </data>
-        </node>
-        <node id="n1::n2">
-          <data key="d6">
-            <y:ShapeNode>
-              <y:Geometry height="36.87499999999977" width="86.0" x="1203.3865224721826" y="1188.3508229040256"/>
-              <y:Fill hasColor="false" transparent="false"/>
-              <y:BorderStyle color="#99CCFF" raised="false" type="dashed" width="3.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="23.6015625" horizontalTextPosition="right" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="center" visible="true" width="68.0078125" x="8.99609375" xml:space="preserve" y="6.636718749999773">PDU Net<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
-              <y:Shape type="roundrectangle"/>
-            </y:ShapeNode>
-          </data>
-        </node>
-        <node id="n1::n3">
-          <data key="d6">
-            <y:ShapeNode>
-              <y:Geometry height="36.87499999999977" width="213.0" x="1045.3865224721826" y="1106.5414755964598"/>
+              <y:Geometry height="36.87499999999977" width="213.0" x="1045.3865224721826" y="1188.3508229040253"/>
               <y:Fill hasColor="false" transparent="false"/>
               <y:BorderStyle color="#000000" raised="false" type="line" width="2.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="23.6015625" horizontalTextPosition="right" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="center" visible="true" width="120.453125" x="46.2734375" xml:space="preserve" y="6.636718749999773">Simulation Bus<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="23.6015625" horizontalTextPosition="right" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="center" visible="true" width="101.796875" x="55.6015625" xml:space="preserve" y="6.63671875">Network Bus<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
               <y:Shape type="roundrectangle"/>
             </y:ShapeNode>
           </data>
         </node>
-        <node id="n1::n4" yfiles.foldertype="group">
+        <node id="n1::n1" yfiles.foldertype="group">
           <data key="d4" xml:space="preserve"/>
           <data key="d6">
             <y:ProxyAutoBoundsNode>
               <y:Realizers active="0">
                 <y:GroupNode>
-                  <y:Geometry height="222.75625433661958" width="269.12320732216745" x="1018.8865224721826" y="853.7852212598402"/>
+                  <y:Geometry height="222.75625433661958" width="269.12320732216745" x="1018.8865224721826" y="935.5945685674058"/>
                   <y:Fill hasColor="false" transparent="false"/>
                   <y:BorderStyle color="#DDAAFF" type="dashed" width="2.0"/>
                   <y:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#DDAAFF" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="22.37646484375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="269.12320732216745" x="0.0" xml:space="preserve" y="0.0">&lt;&lt; Simulation &gt;&gt;</y:NodeLabel>
@@ -171,11 +138,11 @@
               </y:Realizers>
             </y:ProxyAutoBoundsNode>
           </data>
-          <graph edgedefault="directed" id="n1::n4:">
-            <node id="n1::n4::n0">
+          <graph edgedefault="directed" id="n1::n1:">
+            <node id="n1::n1::n0">
               <data key="d6">
                 <y:ShapeNode>
-                  <y:Geometry height="36.87499999999977" width="211.3692387639087" x="1047.0172837082741" y="1024.66647559646"/>
+                  <y:Geometry height="36.87499999999977" width="211.3692387639087" x="1047.0172837082741" y="1106.4758229040256"/>
                   <y:Fill hasColor="false" transparent="false"/>
                   <y:BorderStyle color="#000000" raised="false" type="line" width="2.0"/>
                   <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="23.6015625" horizontalTextPosition="right" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="center" visible="true" width="120.453125" x="45.458056881954235" xml:space="preserve" y="6.636718749999773">Simulation Bus<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -183,10 +150,10 @@
                 </y:ShapeNode>
               </data>
             </node>
-            <node id="n1::n4::n1">
+            <node id="n1::n1::n1">
               <data key="d6">
                 <y:ShapeNode>
-                  <y:Geometry height="44.87499999999977" width="114.05261219684098" x="1033.8865224721826" y="891.1616861035902"/>
+                  <y:Geometry height="44.87499999999977" width="114.05261219684098" x="1033.8865224721826" y="972.9710334111558"/>
                   <y:Fill hasColor="false" transparent="false"/>
                   <y:BorderStyle color="#99CCFF" raised="false" type="line" width="3.0"/>
                   <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="23.6015625" horizontalTextPosition="right" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="center" visible="true" width="46.6796875" x="33.68646234842049" xml:space="preserve" y="10.636718749999886">vECU<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -194,10 +161,10 @@
                 </y:ShapeNode>
               </data>
             </node>
-            <node id="n1::n4::n2">
+            <node id="n1::n1::n2">
               <data key="d6">
                 <y:ShapeNode>
-                  <y:Geometry height="30.710205992509145" width="86.0" x="1047.017283708274" y="924.7345637565238"/>
+                  <y:Geometry height="30.710205992509145" width="86.0" x="1047.017283708274" y="1006.5439110640893"/>
                   <y:Fill color="#FFFFFF" transparent="false"/>
                   <y:BorderStyle color="#99CCFF" raised="false" type="line" width="3.0"/>
                   <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="23.6015625" horizontalTextPosition="right" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="center" visible="true" width="68.0078125" x="8.99609375" xml:space="preserve" y="3.5543217462545726">PDU Net<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -205,10 +172,10 @@
                 </y:ShapeNode>
               </data>
             </node>
-            <node id="n1::n4::n3">
+            <node id="n1::n1::n3">
               <data key="d6">
                 <y:ShapeNode>
-                  <y:Geometry height="44.87499999999977" width="111.44685096074977" x="1161.5628788336003" y="891.1616861035902"/>
+                  <y:Geometry height="44.87499999999977" width="111.44685096074977" x="1161.5628788336003" y="972.9710334111558"/>
                   <y:Fill hasColor="false" transparent="false"/>
                   <y:BorderStyle color="#99CCFF" raised="false" type="line" width="3.0"/>
                   <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="23.6015625" horizontalTextPosition="right" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="center" visible="true" width="46.6796875" x="32.38358173037477" xml:space="preserve" y="10.636718749999886">vECU<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -216,10 +183,10 @@
                 </y:ShapeNode>
               </data>
             </node>
-            <node id="n1::n4::n4">
+            <node id="n1::n1::n4">
               <data key="d6">
                 <y:ShapeNode>
-                  <y:Geometry height="30.710205992509145" width="86.0" x="1173.48472979435" y="924.7345637565238"/>
+                  <y:Geometry height="30.710205992509145" width="86.0" x="1173.48472979435" y="1006.5439110640893"/>
                   <y:Fill color="#FFFFFF" transparent="false"/>
                   <y:BorderStyle color="#99CCFF" raised="false" type="line" width="3.0"/>
                   <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="23.6015625" horizontalTextPosition="right" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="center" visible="true" width="68.0078125" x="8.99609375" xml:space="preserve" y="3.5543217462545726">PDU Net<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -237,10 +204,10 @@
         <y:ProxyAutoBoundsNode>
           <y:Realizers active="0">
             <y:GroupNode>
-              <y:Geometry height="146.07466983750777" width="890.8000000000002" x="610.9865224721825" y="1175.3142204071464"/>
+              <y:Geometry height="85.07466983750777" width="890.8000000000002" x="613.9865224721825" y="1231.2258229040253"/>
               <y:Fill hasColor="false" transparent="false"/>
               <y:BorderStyle color="#CCFFCC" type="dashed" width="3.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#CCFFCC" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="22.37646484375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="b" textColor="#000000" verticalTextPosition="bottom" visible="true" width="890.8000000000002" x="0.0" xml:space="preserve" y="123.69820499375783">&lt;&lt; Importer FMI Variable Data Exchange &gt;&gt;</y:NodeLabel>
+              <y:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#CCFFCC" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="22.37646484375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="b" textColor="#000000" verticalTextPosition="bottom" visible="true" width="890.8000000000002" x="0.0" xml:space="preserve" y="62.69820499375783">&lt;&lt; Importer FMI Variable Data Exchange (String/Binary) &gt;&gt;</y:NodeLabel>
               <y:Shape type="roundrectangle"/>
               <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
               <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
@@ -308,7 +275,7 @@
             <y:ShapeNode>
               <y:Geometry height="36.87499999999977" width="86.0" x="848.8602163737621" y="1188.3508229040256"/>
               <y:Fill hasColor="false" transparent="false"/>
-              <y:BorderStyle color="#99CCFF" raised="false" type="dashed" width="3.0"/>
+              <y:BorderStyle color="#99CCFF" raised="false" type="line" width="4.0"/>
               <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="23.6015625" horizontalTextPosition="right" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="center" visible="true" width="68.0078125" x="8.99609375" xml:space="preserve" y="6.636718749999773">PDU Net<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
               <y:Shape type="roundrectangle"/>
             </y:ShapeNode>
@@ -362,7 +329,7 @@
             <y:ShapeNode>
               <y:Geometry height="36.87499999999977" width="86.0" x="1368.5579888049267" y="1188.3508229040256"/>
               <y:Fill hasColor="false" transparent="false"/>
-              <y:BorderStyle color="#99CCFF" raised="false" type="line" width="3.0"/>
+              <y:BorderStyle color="#99CCFF" raised="false" type="line" width="4.0"/>
               <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="23.6015625" horizontalTextPosition="right" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="center" visible="true" width="68.0078125" x="8.99609375" xml:space="preserve" y="6.636718749999773">PDU Net<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
               <y:Shape type="roundrectangle"/>
             </y:ShapeNode>
@@ -373,10 +340,10 @@
     <node id="n5">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="27.874999999999773" width="65.02630609842049" x="632.2812980785006" y="1357.9772877477753"/>
+          <y:Geometry height="27.874999999999773" width="65.02630609842049" x="632.2812980785006" y="1326.8004927415334"/>
           <y:Fill hasColor="false" transparent="false"/>
-          <y:BorderStyle color="#99CCFF" raised="false" type="dashed" width="3.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="right" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="center" visible="true" width="52.005859375" x="6.510223361710246" xml:space="preserve" y="4.5869140625">PDU Net<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:BorderStyle color="#000000" raised="false" type="line" width="2.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="right" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="center" visible="true" width="36.009765625" x="14.508270236710246" xml:space="preserve" y="4.5869140625">vECU<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="roundrectangle"/>
         </y:ShapeNode>
       </data>
@@ -384,7 +351,7 @@
     <node id="n6">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="27.874999999999773" width="65.02630609842049" x="632.2812980785006" y="1399.9772877477753"/>
+          <y:Geometry height="27.874999999999773" width="65.02630609842049" x="632.2812980785006" y="1368.8004927415334"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle color="#99CCFF" raised="false" type="line" width="3.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="right" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="center" visible="true" width="52.005859375" x="6.510223361710246" xml:space="preserve" y="4.5869140625">PDU Net<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -395,10 +362,10 @@
     <node id="n7">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="36.87499999999977" width="236.0" x="718.3076041769211" y="1353.4772877477753"/>
+          <y:Geometry height="36.87499999999977" width="236.0" x="718.3076041769211" y="1322.3004927415334"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="right" iconTextGap="4" modelName="internal" modelPosition="l" textColor="#000000" verticalTextPosition="center" visible="true" width="441.40234375" x="4.0" xml:space="preserve" y="9.0869140625">Direct passthrough to NCodec, i.e. exchange of PDUs from vECU to NCodec.</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="right" iconTextGap="4" modelName="internal" modelPosition="l" textColor="#000000" verticalTextPosition="center" visible="true" width="128.69921875" x="4.0" xml:space="preserve" y="9.0869140625">Virtual ECU Type 0 - 4</y:NodeLabel>
           <y:Shape type="roundrectangle"/>
         </y:ShapeNode>
       </data>
@@ -406,10 +373,10 @@
     <node id="n8">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="36.87499999999977" width="236.0" x="718.3076041769211" y="1395.4772877477753"/>
+          <y:Geometry height="36.87499999999977" width="236.0" x="718.3076041769211" y="1364.3004927415334"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="right" iconTextGap="4" modelName="internal" modelPosition="l" textColor="#000000" verticalTextPosition="center" visible="true" width="484.767578125" x="4.0" xml:space="preserve" y="9.0869140625">NCodec instance, maintains stateful information and operates Bus Model interfaces.</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="right" iconTextGap="4" modelName="internal" modelPosition="l" textColor="#000000" verticalTextPosition="center" visible="true" width="249.349609375" x="4.0" xml:space="preserve" y="9.0869140625">NCodec instance, with optional Bus Model.</y:NodeLabel>
           <y:Shape type="roundrectangle"/>
         </y:ShapeNode>
       </data>
@@ -420,7 +387,7 @@
         <y:ProxyAutoBoundsNode>
           <y:Realizers active="0">
             <y:GroupNode>
-              <y:Geometry height="176.56859283376247" width="338.8000000000002" x="984.0481261332661" y="977.782230070263"/>
+              <y:Geometry height="191.56859283376247" width="338.8000000000002" x="981.231682706506" y="1060.815794065269"/>
               <y:Fill hasColor="false" transparent="false"/>
               <y:BorderStyle color="#99CCFF" type="dashed" width="2.0"/>
               <y:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#99CCFF" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="22.37646484375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="338.8000000000002" x="0.0" xml:space="preserve" y="0.0">&lt;&lt; Network Data Exchange &gt;&gt;</y:NodeLabel>
@@ -465,36 +432,6 @@
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="n1::e0" source="n1::n3" target="n1::n1">
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
-          <y:LineStyle color="#999999" type="line" width="5.0"/>
-          <y:Arrows source="delta" target="delta"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="n1::e1" source="n1::n3" target="n1::n0">
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="-95.5" sy="18.473753267849588" tx="0.0" ty="0.0"/>
-          <y:LineStyle color="#999999" type="line" width="5.0"/>
-          <y:Arrows source="delta" target="delta"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="n1::e2" source="n1::n3" target="n1::n2">
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="94.5" sy="18.442503267849588" tx="0.0" ty="0.0"/>
-          <y:LineStyle color="#999999" type="line" width="5.0"/>
-          <y:Arrows source="delta" target="delta"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
     <edge id="n4::e0" source="n4::n1" target="n4::n0">
       <data key="d10">
         <y:PolyLineEdge>
@@ -505,10 +442,10 @@
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e0" source="n0::n1" target="n1::n1">
+    <edge id="e0" source="n0::n1" target="n1::n0">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="18.41217041015625">
             <y:Point x="708.8076041769211" y="1282.8872161750937"/>
             <y:Point x="1151.3865224721826" y="1282.8872161750937"/>
           </y:Path>
@@ -518,10 +455,10 @@
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e1" source="n1::n2" target="n4::n1">
+    <edge id="e1" source="n1::n0" target="n4::n1">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
+          <y:Path sx="94.5" sy="18.435086903540196" tx="0.0" ty="0.0">
             <y:Point x="1246.3865224721826" y="1276.6028840901997"/>
             <y:Point x="1411.5579888049267" y="1276.6028840901997"/>
           </y:Path>
@@ -534,7 +471,7 @@
     <edge id="e2" source="n3::n1" target="n1::n0">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
+          <y:Path sx="0.0" sy="0.0" tx="-95.5" ty="18.403836903540196">
             <y:Point x="891.8602163737621" y="1266.28515625"/>
             <y:Point x="1056.3865224721826" y="1266.28515625"/>
           </y:Path>
@@ -544,27 +481,27 @@
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="n1::n4::e0" source="n1::n4::n2" target="n1::n4::n0">
+    <edge id="n1::n1::e0" source="n1::n1::n2" target="n1::n1::n0">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="-62.68461938195446" ty="-18.44306578889382"/>
-          <y:LineStyle color="#999999" type="line" width="5.0"/>
+          <y:LineStyle color="#99CCFF" type="line" width="5.0"/>
           <y:Arrows source="delta" target="delta"/>
           <y:BendStyle smoothed="false"/>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="n1::n4::e1" source="n1::n4::n4" target="n1::n4::n0">
+    <edge id="n1::n1::e1" source="n1::n1::n4" target="n1::n1::n0">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="63.78282670412159" ty="-18.45869078889382"/>
-          <y:LineStyle color="#999999" type="line" width="5.0"/>
+          <y:LineStyle color="#99CCFF" type="line" width="5.0"/>
           <y:Arrows source="delta" target="delta"/>
           <y:BendStyle smoothed="false"/>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="n1::e3" source="n1::n4::n0" target="n1::n3">
+    <edge id="n1::e0" source="n1::n1::n0" target="n1::n0">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>

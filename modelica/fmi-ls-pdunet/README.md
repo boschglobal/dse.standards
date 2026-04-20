@@ -105,7 +105,7 @@ There are no limitations with the application of this Layered Standard to either
 <!-- links -->
 [pdunet-embedded-simulation]: fmi-ls-pdunet-embedded-simulation.png
 [pdunet-bus-topo]: fmi-ls-pdunet-bus-topology.png
-[pdunet-embedded-simbus]: fmi-ls-pdunet-embedded-simbus.png
+[pdunet-embedded-simbus]: fmi-ls-pdunet-embedded-netbus.png
 [dse-modelc]: https://github.com/boschglobal/dse.modelc/blob/main/dse/modelc/pdunet.h
 [dse-ncodec]: https://github.com/boschglobal/dse.ncodec
 [automotive-bus-schmea-pdu-stream]: https://github.com/boschglobal/automotive-bus-schema/blob/main/schemas/stream/pdu.fbs
