@@ -231,7 +231,7 @@ There are no limitations with the application of this Layered Standard to either
 [pdunet-embedded-simbus]: fmi-ls-pdunet-embedded-netbus.png
 [dse-modelc]: https://github.com/boschglobal/dse.modelc/blob/main/dse/modelc/pdunet.h
 [dse-ncodec]: https://github.com/boschglobal/dse.ncodec
-[automotive-bus-schmea-pdu-stream]: https://github.com/boschglobal/automotive-bus-schema/blob/main/schemas/stream/pdu.fbs
+[automotive-bus-schema-pdu-stream]: https://github.com/boschglobal/automotive-bus-schema/blob/main/schemas/stream/pdu.fbs
 [dse-fmi]: https://github.com/boschglobal/dse.fmi
 [ls-bus-topology]: ../../modelica/fmi-ls-bus-topology/README.md
 [ab-codec]: https://github.com/boschglobal/dse.ncodec#ab-codec
