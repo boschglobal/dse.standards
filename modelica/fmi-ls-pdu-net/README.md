@@ -81,7 +81,7 @@ The general approach is as follows:
 The PDU Net Software Stack has the following elements:
 
 * __Virtual ECU__ - Level 0-4 vECUs may be interfaced with the PDU Net. Physical ECUs may also be connected to a PDU Net.
-* __PDU Network__ - Omplements I-PDU interface (signals), L-PDU (network), PDU Pack/Unpack (including M-PDU and Containers) and scheduling.
+* __PDU Network__ - Implements I-PDU interface (signals), L-PDU (network), PDU Pack/Unpack (including M-PDU and Containers) and scheduling.
 * __Lua Runtime__ - Supports network simulation including: fault injection, payload modification, security (e.g. checksums) and message generation.
 * __Network Codec__ - PDU messaging interface with simple file-like API.
 * __Bus Model__ - Supports hi-fidelity bus simulations (e.g. FlexRay) where bus-effects (e.g. bus arbitration) can be effectively simulated.
