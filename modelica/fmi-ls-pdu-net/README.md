@@ -36,7 +36,7 @@ Several related technologies are integrated by this layered standard:
 * FMI related integrations are provided by [DSE FMI][dse-fmi]
 * PDU Net is provided by the [DSE ModelC][dse-modelc]
 * NCodec is provided by the [DSE NCodec][dse-ncodec]
-* The schemas used by PDU Net are available in the [Automotive Bus Schema][automotive-bus-schmea-pdu-stream]
+* The schemas used by PDU Net are available in the [Automotive Bus Schema][automotive-bus-schema-pdu-stream]
 
 
 ### Intent of this Document
