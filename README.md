@@ -78,8 +78,8 @@ See the [LICENSE](LICENSE) and [NOTICE](./NOTICE) files for details.
 <!--- Repo Links --->
 [ab_schema]: https://github.com/boschglobal/automotive-bus-schema
 [dse_ncodec]: https://github.com/boschglobal/dse.ncodec
-[dse_modelc_pdunet]: https://github.com/boschglobal/dse.modelc/dse/modelc/pdunet.h
-[dse_fmi_fmu]: https://github.com/boschglobal/dse.fmi/dse/fmu
+[dse_modelc_pdunet]: https://github.com/boschglobal/dse.modelc/blob/main/dse/modelc/pdunet.h
+[dse_fmi_fmu]: https://github.com/boschglobal/dse.fmi/tree/main/dse/fmu
 
 
 <!--- Reference Links --->
