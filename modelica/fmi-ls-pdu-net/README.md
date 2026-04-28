@@ -207,13 +207,13 @@ __Example FMI3__
   <ModelVariables>
     <Binary name="network_tx" valueReference="1" causality="output">
         <Annotations>
-            <Annotation type="dse.standards.fmi-ls-pdu-net.mimetype">application/x-automotive-bus; interface=stream; type=pdu; model=flexray; schema=fbs; vcn=2, poca=5, ecu_id=5; swc_id=0<Annotation>
-        <Annotations>
+            <Annotation type="dse.standards.fmi-ls-pdu-net.mimetype">application/x-automotive-bus; interface=stream; type=pdu; model=flexray; schema=fbs; vcn=2, poca=5, ecu_id=5; swc_id=0</Annotation>
+        </Annotations>
     </Binary>
     <Binary name="network_rx" valueReference="2" causality="input">
         <Annotations>
-            <Annotation type="dse.standards.fmi-ls-pdu-net.mimetype">application/x-automotive-bus; interface=stream; type=pdu; model=flexray; schema=fbs; vcn=2, poca=5, ecu_id=5; swc_id=0<Annotation>
-        <Annotations>
+            <Annotation type="dse.standards.fmi-ls-pdu-net.mimetype">application/x-automotive-bus; interface=stream; type=pdu; model=flexray; schema=fbs; vcn=2, poca=5, ecu_id=5; swc_id=0</Annotation>
+        </Annotations>
     </Binary>
   </ModelVariables>
 ```
