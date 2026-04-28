@@ -13,12 +13,12 @@ Standards extensions (adaptations) supporting the Dynamic Simulation Environment
 
 ```
 dse.standards
-└── doc                         Documentation and image sources.
-└── licenses                    3rd party software licenses.
+├── doc                         Documentation and image sources.
+├── licenses                    3rd party software licenses.
 └── modelica                    Adaptations relating to the Modelica Association Standards.
-    └── fmi-ls-binary-codec     Binary Codec specification for FMI 2/3.
-    └── fmi-ls-binary-to-text   String encoding for binary data, for FMI 2/3.
-    └── fmi-ls-bus-topology     Bus Topologies and Virtual Bus/Networks, for FMI 2/3.
+    ├── fmi-ls-binary-codec     Binary Codec specification for FMI 2/3.
+    ├── fmi-ls-binary-to-text   String encoding for binary data, for FMI 2/3.
+    ├── fmi-ls-bus-topology     Bus Topologies and Virtual Bus/Networks, for FMI 2/3.
     └── fmi-ls-pdu-net          PDU Network providing Virtual Networks and Bus Models, for FMI 2/3.
 ```
 
