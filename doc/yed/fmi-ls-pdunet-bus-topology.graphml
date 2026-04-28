@@ -22,7 +22,7 @@
             <y:GroupNode>
               <y:Geometry height="182.25146484374977" width="153.05261219684098" x="731.6562980785006" y="953.1892018102756"/>
               <y:Fill hasColor="false" transparent="false"/>
-              <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+              <y:BorderStyle color="#333333" type="line" width="2.0"/>
               <y:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="22.37646484375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="153.05261219684098" x="0.0" xml:space="preserve" y="0.0">&lt;&lt; FMU &gt;&gt;</y:NodeLabel>
               <y:Shape type="roundrectangle"/>
               <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
@@ -74,10 +74,10 @@
         <y:ProxyAutoBoundsNode>
           <y:Realizers active="0">
             <y:GroupNode>
-              <y:Geometry height="132.3850478649735" width="561.0496878901376" x="710.7103724286933" y="1065.4406666540253"/>
+              <y:Geometry height="132.3850478649735" width="576.0496878901376" x="700.7103724286933" y="1065.4406666540253"/>
               <y:Fill hasColor="false" transparent="false"/>
-              <y:BorderStyle color="#CCFFCC" type="dashed" width="3.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#CCFFCC" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="22.37646484375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="b" textColor="#000000" verticalTextPosition="bottom" visible="true" width="561.0496878901376" x="0.0" xml:space="preserve" y="110.00858302122356">&lt;&lt; Importer FMI Variable Data Exchange (eff. Network Bus) &gt;&gt;</y:NodeLabel>
+              <y:BorderStyle color="#00CC66" type="dashed" width="3.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#41D68C" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="22.37646484375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="b" textColor="#333333" verticalTextPosition="bottom" visible="true" width="576.0496878901376" x="0.0" xml:space="preserve" y="110.00858302122356">&lt;&lt; Importer FMI Variable Data Exchange (eff. Network Bus) &gt;&gt;</y:NodeLabel>
               <y:Shape type="roundrectangle"/>
               <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
               <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
@@ -107,7 +107,7 @@
             <y:GroupNode>
               <y:Geometry height="182.25146484374977" width="153.05261219684098" x="914.7089102753416" y="953.1892018102756"/>
               <y:Fill hasColor="false" transparent="false"/>
-              <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+              <y:BorderStyle color="#333333" type="line" width="2.0"/>
               <y:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="22.37646484375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="153.05261219684098" x="0.0" xml:space="preserve" y="0.0">&lt;&lt; FMU &gt;&gt;</y:NodeLabel>
               <y:Shape type="roundrectangle"/>
               <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
@@ -161,7 +161,7 @@
             <y:GroupNode>
               <y:Geometry height="182.25146484374977" width="153.05261219684098" x="1097.7615224721826" y="953.1892018102756"/>
               <y:Fill hasColor="false" transparent="false"/>
-              <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+              <y:BorderStyle color="#333333" type="line" width="2.0"/>
               <y:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="22.37646484375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="153.05261219684098" x="0.0" xml:space="preserve" y="0.0">&lt;&lt; FMU &gt;&gt;</y:NodeLabel>
               <y:Shape type="roundrectangle"/>
               <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
@@ -210,7 +210,7 @@
     <node id="n4">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="27.874999999999773" width="65.02630609842049" x="710.7103724286933" y="1211.4772877477753"/>
+          <y:Geometry height="27.874999999999773" width="65.02630609842049" x="745.7103724286933" y="1211.4772877477753"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="right" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="center" visible="true" width="36.009765625" x="14.508270236710246" xml:space="preserve" y="4.5869140625">vECU<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -221,7 +221,7 @@
     <node id="n5">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="27.874999999999773" width="65.02630609842049" x="710.7103724286933" y="1253.4772877477753"/>
+          <y:Geometry height="27.874999999999773" width="65.02630609842049" x="745.7103724286933" y="1253.4772877477753"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle color="#99CCFF" raised="false" type="line" width="3.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="right" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="center" visible="true" width="52.005859375" x="6.510223361710246" xml:space="preserve" y="4.5869140625">PDU Net<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -232,10 +232,10 @@
     <node id="n6">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="36.87499999999977" width="236.0" x="796.7366785271138" y="1206.9772877477753"/>
+          <y:Geometry height="36.87499999999977" width="236.0" x="831.7366785271138" y="1206.9772877477753"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="right" iconTextGap="4" modelName="internal" modelPosition="l" textColor="#000000" verticalTextPosition="center" visible="true" width="128.69921875" x="4.0" xml:space="preserve" y="9.0869140625">Virtual ECU Type 0 - 4</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="right" iconTextGap="4" modelName="internal" modelPosition="l" textColor="#000000" verticalTextPosition="center" visible="true" width="198.056640625" x="4.0" xml:space="preserve" y="9.0869140625">Virtual ECU Level 0 - 4 (Type 1 - 4)</y:NodeLabel>
           <y:Shape type="roundrectangle"/>
         </y:ShapeNode>
       </data>
@@ -243,7 +243,7 @@
     <node id="n7">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="36.87499999999977" width="236.0" x="796.7366785271138" y="1248.9772877477753"/>
+          <y:Geometry height="36.87499999999977" width="236.0" x="831.7366785271138" y="1248.9772877477753"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="right" iconTextGap="4" modelName="internal" modelPosition="l" textColor="#000000" verticalTextPosition="center" visible="true" width="249.349609375" x="4.0" xml:space="preserve" y="9.0869140625">NCodec instance, with optional Bus Model.</y:NodeLabel>
