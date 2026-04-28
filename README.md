@@ -12,26 +12,23 @@ SPDX-License-Identifier: Apache-2.0
 Standards extensions (adaptations) supporting the Dynamic Simulation Environment (DSE) Core Platform.
 
 ```
-L- doc                      Documentation and image sources.
-L- dse                      DSE related implementations (for reuse).
-  L- ncodec                 [Depreciated] Network Codec API, implementation of Binary Codec.
-L- licenses                 3rd party software licenses.
-L- modelica                 Adaptations relating to the Modelica Association Standards.
-  L- fmi-ls-binary-codec    Binary Codec specification for FMI 2/3.
-  L- fmi-ls-binary-to-text  String encoding for binary data, for FMI 2/3.
-  L- fmi-ls-bus-topology    Bus Topologies and Virtual Bus/Networks, for FMI 2/3.
+dse.standards
+├── doc                         Documentation and image sources.
+├── licenses                    3rd party software licenses.
+└── modelica                    Adaptations relating to the Modelica Association Standards.
+    ├── fmi-ls-binary-codec     Binary Codec specification for FMI 2/3.
+    ├── fmi-ls-binary-to-text   String encoding for binary data, for FMI 2/3.
+    ├── fmi-ls-bus-topology     Bus Topologies and Virtual Bus/Networks, for FMI 2/3.
+    └── fmi-ls-pdu-net          PDU Network providing Virtual Networks and Bus Models, for FMI 2/3.
 ```
 
 
 ## Reference Implementations
 
-### [Depreciated] Network Codec API
-
-> __Info:__ The Network Codec is relocated to : https://github.com/boschglobal/dse.ncodec
-
-* **[DSE NCodec](dse/ncodec/README.md)** supporting schemas:
-  * [Automotive Bus](dse/ncodec/libs/automotive-bus/README.md) - CAN Bus (w. Flatbuffers based serialisation schema).
-
+* **[Automotive Bus][ab_schema]** - Supporting schemas (w/ Flatbuffers).
+* **[DSE NCodec][dse_ncodec]** - NCodec implementation
+* **[DSE ModelC - PDU Net][dse_modelc_pdunet]** - PDU Net headers and associated code.
+* **[DSE FMI - FMU][dse_fmi_fmu]** - Reference FMU implementation (and Importer).
 
 
 ## Standards Extensions
@@ -52,6 +49,10 @@ The following Layered Standards are provided within the scope of the Dynamic Sim
   (**[dse-standards-fmi-ls-bus-topology](modelica/fmi-ls-bus-topology/README.md)**)\
   Method for the realisation of Bus Topology to implement Virtual Bus/Networks and exchange Network Messages (e.g. CAN Frames) ***using only FMI Binary and/or String Variables***.
 
+* **Dynamic Simulation Environment - FMI Layered Standard for PDU Network (Virtual Networks and Bus Models)**\
+  (**[dse-standards-fmi-ls-pdu-net][fmi-ls-pdu-net]**)\
+  Method for the realisation of PDU based Virtual Networks and Bus Models, supporting all vECU Levels in composite simulations. Supports Automotive Networks (CAN, FlexRay, LIN, Ethernet) and ECU Networks (Signal, Struct, Symbol, XCP).
+
 
 
 ## Contribute
@@ -67,10 +68,20 @@ See the [LICENSE](LICENSE) and [NOTICE](./NOTICE) files for details.
 
 
 
-## References
+<!--- DSE Standards Links --->
+[fmi-ls-binary-codec]: modelica/fmi-ls-binary-codec/README.md
+[fmi-ls-binary-to-text]: modelica/fmi-ls-binary-to-text/README.md
+[fmi-ls-bus-topology]: modelica/fmi-ls-bus-topology/README.md
+[fmi-ls-pdu-net]: modelica/fmi-ls-pdu-net/README.md
 
-* [Automotive Bus Schema](https://github.com/boschglobal/automotive-bus-schema)
-* FMI Layered Standard examples and schemas:
-  * https://github.com/modelica/fmi-standard/pull/1854
-  * https://github.com/modelica/fmi-ls-xcp
 
+<!--- Repo Links --->
+[ab_schema]: https://github.com/boschglobal/automotive-bus-schema
+[dse_ncodec]: https://github.com/boschglobal/dse.ncodec
+[dse_modelc_pdunet]: https://github.com/boschglobal/dse.modelc/blob/main/dse/modelc/pdunet.h
+[dse_fmi_fmu]: https://github.com/boschglobal/dse.fmi/tree/main/dse/fmu
+
+
+<!--- Reference Links --->
+[ls-example-pull-1854]: https://github.com/modelica/fmi-standard/pull/1854
+[ls-example-xcp]: https://github.com/modelica/fmi-ls-xcp
