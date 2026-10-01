@@ -19,7 +19,8 @@ dse.standards
     ├── fmi-ls-binary-codec     Binary Codec specification for FMI 2/3.
     ├── fmi-ls-binary-to-text   String encoding for binary data, for FMI 2/3.
     ├── fmi-ls-bus-topology     Bus Topologies and Virtual Bus/Networks, for FMI 2/3.
-    └── fmi-ls-pdu-net          PDU Network providing Virtual Networks and Bus Models, for FMI 2/3.
+    ├── fmi-ls-pdu-net          PDU Network providing Virtual Networks and Bus Models, for FMI 2/3.
+    └── fmi-ls-sequential-vr    Variable Get/Set Speed Boost, for FMI 2/3.
 ```
 
 
@@ -53,6 +54,10 @@ The following Layered Standards are provided within the scope of the Dynamic Sim
   (**[dse-standards-fmi-ls-pdu-net][fmi-ls-pdu-net]**)\
   Method for the realisation of PDU based Virtual Networks and Bus Models, supporting all vECU Levels in composite simulations. Supports Automotive Networks (CAN, FlexRay, LIN, Ethernet) and ECU Networks (Signal, Struct, Symbol, XCP).
 
+* **Dynamic Simulation Environment - FMI Layered Standard Sequential VR for Get/Set Speed Boost**\
+  (**[dse-standards-fmi-ls-sequential-vr][fmi-ls-sequential-vr]**)\
+  Method for speed up of variable Get/Set FMU operations.
+
 
 
 ## Contribute
@@ -73,6 +78,7 @@ See the [LICENSE](LICENSE) and [NOTICE](./NOTICE) files for details.
 [fmi-ls-binary-to-text]: modelica/fmi-ls-binary-to-text/README.md
 [fmi-ls-bus-topology]: modelica/fmi-ls-bus-topology/README.md
 [fmi-ls-pdu-net]: modelica/fmi-ls-pdu-net/README.md
+[fmi-ls-sequential-vr]: modelica/fmi-ls-sequential-vr/README.md
 
 
 <!--- Repo Links --->

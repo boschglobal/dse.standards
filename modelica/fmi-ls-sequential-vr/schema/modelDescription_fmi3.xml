@@ -1,0 +1,9 @@
+<!-- Place inside <ModelVariables> -->
+<StructuralParameter
+    name="enableSequentialVR"
+    valueReference="100500001"
+    description="Activation switch for com.github.boschglobal.dse.fmi-ls-sequential-vr (0: Disabled, 1: Enabled)"
+    variability="fixed">
+
+    <Int32 start="0"/>
+</StructuralParameter>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fmiLayeredStandardManifest
+    xmlns:fmi-ls="http://fmi-standard.org/fmi-ls-manifest"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    fmi-ls:fmi-ls-name="com.github.boschglobal.dse.fmi-ls-sequential-vr"
+    fmi-ls:fmi-ls-version="1.0.0"
+    fmi-ls:fmi-ls-description="Bosch DSE Sequential VR feature activation configuration"
+    xsi:noNamespaceSchemaLocation="https://github.com/boschglobal/dse.standards/modelica/fmi-ls-sequential-vr/schema/fmiLayeredStandardSequentialVrManifest.xsd">
+
+    <SequentialVr>
+        <ActivationParameter name="enableSequentialVR" type="Integer" value="1"/>
+    </SequentialVr>
+
+</fmiLayeredStandardManifest>
