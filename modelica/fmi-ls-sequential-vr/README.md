@@ -105,7 +105,7 @@ fmi3Status fmi3SetInt32(fmi3Instance instance,
     const fmi3ValueReference valueReferences[], size_t nValueReferences,
     const fmi3Int32 values[], size_t nValues)
 {
-    if (!m || nValueReferences == 0 || nValues == 0) return fmi3Error;
+    if (nValueReferences == 0 || nValues == 0) return fmi3Error;
 
     for (size_t i = 0; i < nValueReferences; i++) {
         if (valueReferences[i] == LS_SEQ_VR_ACTIVATE) {
