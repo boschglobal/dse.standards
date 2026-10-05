@@ -1,0 +1,10 @@
+<!-- Place inside <ModelVariables> -->
+<ScalarVariable
+    name="enableSequentialVR"
+    valueReference="100500001"
+    description="Activation switch for com.github.boschglobal.dse.ls-sequential-vr (0: Disabled, 1: Enabled)"
+    causality="parameter"
+    variability="fixed">
+
+    <Integer start="0"/>
+</ScalarVariable>

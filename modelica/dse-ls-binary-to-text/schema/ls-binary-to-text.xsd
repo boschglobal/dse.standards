@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns:fmi-ls="http://fmi-standard.org/fmi-ls-manifest"
+            elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:import  namespace="http://fmi-standard.org/fmi-ls-manifest"
+                schemaLocation="https://raw.githubusercontent.com/modelica/fmi-standard/v3.0.1/schema/fmi3LayeredStandardManifest.xsd"/>
+
+    <xs:annotation>
+		<xs:documentation source="https://github.com/boschglobal/dse.standards/blob/main/LICENSE">
+            SPDX-FileCopyrightText: 2024 Robert Bosch GmbH
+            SPDX-License-Identifier: Apache-2.0
+            SPDX-PackageName: com.github.boschglobal.dse.ls-binary-to-text
+            SPDX-PackageSupplier: Robert Bosch GmbH
+        </xs:documentation>
+	</xs:annotation>
+
+	<xs:element name="fmiLayeredStandardManifest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="BinaryToText" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:attribute name="supportsEncoderValueReference" type="xs:boolean" default="false"/>
+						<xs:attribute name="supportsEncoderNamedReference" type="xs:boolean" default="false"/>
+						<xs:attribute name="supportedEncodings" use="required">
+							<xs:simpleType>
+								<xs:list itemType="xs:normalizedString"/>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+
+			<xs:attribute ref="fmi-ls:fmi-ls-name" use="required" fixed="com.github.boschglobal.dse.ls-binary-to-text"/>
+			<xs:attribute ref="fmi-ls:fmi-ls-version" use="required"/>
+			<xs:attribute ref="fmi-ls:fmi-ls-description" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
