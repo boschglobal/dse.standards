@@ -33,7 +33,7 @@ can result in a significant speed boost.
 | Variables as array of pointers | `*(scalar[vr[i]]) = values[i]` | 0.3x |
 | Variables as array of scalars | `scalar[vr[i]] = values[i]` | 1.0x |
 | Variables as array, Sorted & Continuous | <pre>if (vr[0] == 0 &amp;&amp; vr[nvr - 1] == nvr - 1) {<br>&nbsp;&nbsp;&nbsp;&nbsp;#pragma gcc ivdep<br>&nbsp;&nbsp;&nbsp;&nbsp;for (size_t i = 0; i &lt; nvr; i++) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scalar[i] = values[i];<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>}</pre> | 8.0x |
-| Direct Copy via `memcpy`. | `memcpy(&scalar[vr[0]-offset], values, nvr*sizeof(scalar));` | 16.0x |
+| Direct Copy via `memcpy` | `memcpy(&scalar[vr[0]-offset], values, nvr*sizeof(scalar));` | 16.0x |
 
 
 ### Repository File Layout
