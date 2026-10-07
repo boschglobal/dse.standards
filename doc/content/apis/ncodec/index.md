@@ -1,6 +1,6 @@
 ---
-title: Network Codec API Reference
 linkTitle: NCodec
+title: Network Codec API Reference
 ---
 ## Network Codec
 
@@ -81,7 +81,7 @@ typedef struct NCodecCanMessage {
     uint8_t* buffer;
     size_t len;
     NCodecCanFrameType frame_type;
-    uint64_t [2] __reserved__;
+    uint64_t[2] __reserved__;
     struct {
         uint8_t bus_id;
         uint8_t node_id;
@@ -128,7 +128,7 @@ typedef struct NCodecPdu {
     NCodecPduTransportType transport_type;
     struct {
         struct ;
-        struct (anonymous struct at dse/ncodec/codec.h:369:9) none;
+        struct (unnamed struct at dse/ncodec/codec.h:369:9) none;
         NCodecPduCanMessageMetadata can_message;
         NCodecPduIpMessageMetadata ip_message;
         NCodecPduStructMetadata struct_object;
@@ -169,8 +169,8 @@ typedef struct NCodecPduIpAddrV4 {
 
 ```c
 typedef struct NCodecPduIpAddrV6 {
-    uint16_t [8] src_addr;
-    uint16_t [8] dst_addr;
+    uint16_t[8] src_addr;
+    uint16_t[8] dst_addr;
 }
 ```
 
@@ -188,7 +188,7 @@ typedef struct NCodecPduIpMessageMetadata {
     NCodecPduIpAddr ip_addr_type;
     struct {
         struct ;
-        struct (anonymous struct at dse/ncodec/codec.h:319:9) none;
+        struct (unnamed struct at dse/ncodec/codec.h:319:9) none;
         NCodecPduIpAddrV4 ip_v4;
         NCodecPduIpAddrV6 ip_v6;
     } ip_addr;
@@ -197,7 +197,7 @@ typedef struct NCodecPduIpMessageMetadata {
     NCodecPduSoAd so_ad_type;
     struct {
         struct ;
-        struct (anonymous struct at dse/ncodec/codec.h:329:9) none;
+        struct (unnamed struct at dse/ncodec/codec.h:329:9) none;
         NCodecPduDoIpAdapter do_ip;
         NCodecPduSomeIpAdapter some_ip;
     } so_ad;
